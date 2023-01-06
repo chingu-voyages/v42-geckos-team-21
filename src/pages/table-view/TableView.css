@@ -51,6 +51,38 @@ table th:last-child {
   width: 5em;
 }
 
+input[type="checkbox"] {
+  position: absolute;
+  visibility: hidden;
+}
+
+.td-flex-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.check {
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+  
+}
+
+.check svg {
+  display: block;
+  box-sizing: border-box;
+  height: 1em;
+  width: 1em;
+  fill: none;
+  border: 1px solid black;
+}
+
+input[type="checkbox"]:checked + label svg{
+  background-color: #EDAE49;
+  fill: rgb(0, 0, 0);
+}
+
 table tr:last-child button {
     padding: 0;
     border: none;

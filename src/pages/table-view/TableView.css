@@ -1,4 +1,4 @@
-html, body{
+.TableView {
   background-color: #E0E1DD;
   display: flex;
   flex-direction: column;

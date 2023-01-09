@@ -64,7 +64,6 @@ input[type="checkbox"] {
   display: inline-block;
   height: 1em;
   width: 1em;
-  
 }
 
 .check svg {
@@ -82,9 +81,21 @@ input[type="checkbox"]:checked + label svg{
 }
 
 table tr:last-child button {
-    padding: 0;
     border: none;
+    border-radius: 5px;
+    padding: 0;
     background-color: inherit;
+}
+
+table tr:last-child button:hover {
+  padding: 0;
+  border: none;
+  background-color: rgb(208, 208, 208);
+  
+
+}
+table tr:last-child button:active {
+  background-color: rgb(177, 177, 177);
 }
 
 table tr:last-child button svg {
@@ -94,6 +105,6 @@ table tr:last-child button svg {
   vertical-align: middle;
 }
 
-table tr:last-child button svg:hover {
-  fill: green;
+table tr:last-child button:hover svg {
+ fill: green;
 }

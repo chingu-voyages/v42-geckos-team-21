@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './index.css';
 import Landing from './pages/landing/Landing';
 import TableView from './pages/table-view/TableView';
-import NavigationBar from './components/Footer/NavigationBar/NavigationBar'
+import NavigationBar from './components/NavigationBar/NavigationBar'
+import Footer from './components/Footer/Footer'
 // import reportWebVitals from './reportWebVitals';
 
 
@@ -20,6 +21,7 @@ root.render(
         <Route path='/table-view' element={<TableView />} />
       </Routes>
     </Router>
+    <Footer />
   </React.StrictMode>
 );
 

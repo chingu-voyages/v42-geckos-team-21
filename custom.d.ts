@@ -1,7 +1,6 @@
 declare module '*.svg' {
   const content: string;
-  export defaul
-  t content;
+  export default content;
 }
 declare module '*.png' {
   const content: string;

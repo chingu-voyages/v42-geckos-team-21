@@ -13,6 +13,7 @@
 }
 .landing-image {
   top: 60%;
+  max-width: 100%;
 }
 .login-btn {
   text-decoration: none;

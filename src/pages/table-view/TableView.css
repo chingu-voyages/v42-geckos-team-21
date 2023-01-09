@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: center;
   padding: 5px;
+  overflow: auto;
 }
 
 table {
@@ -15,6 +16,7 @@ table {
   - "https://www.w3.org/TR/CSS21/tables.html#borders" 
   */
   border-collapse: collapse;
+  margin: auto;
 }
 
 table tr {

@@ -1,5 +1,5 @@
 import './Landing.css';
-import LandingImg from "../../assets/landing.png"
+import LandingImg from "./landing.png"
 import { Link } from 'react-router-dom';
 function Landing() {
   return (

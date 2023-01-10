@@ -2,7 +2,18 @@
   width: 100%;
   background-color: #30638E;
   display: flex;
+<<<<<<< HEAD
   justify-content: space-between;
+=======
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: 20vh;
+}
+.nav * {
+  -webkit-transition: 150ms ease-in-out;
+  transition: 150ms ease-in-out;
+>>>>>>> 0f37abbd (added nav dropdown for small screens, added footer)
 }
 .nav-logo {
   color: white;
@@ -26,12 +37,26 @@
   list-style: none;
   padding: 1em;
   margin: 0;
+<<<<<<< HEAD
   display: flex;
   flex-direction: row;
   align-items: flex-end;
   justify-content: center;
+=======
+  display: none;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+>>>>>>> 0f37abbd (added nav dropdown for small screens, added footer)
 }
-.nav-menu li {
+.nav-menu a {
   border: 1px solid white;
   padding: 0.25em 0.5em;
   color: white;
@@ -39,8 +64,76 @@
   transition: 150ms ease-in-out;
   margin: 0 0.5em;
   cursor: pointer;
+  text-decoration: none;
 }
-.nav-menu li:hover {
+.nav-menu a:hover {
   background-color: white;
   color: #30638E;
+<<<<<<< HEAD
 }/*# sourceMappingURL=NavigationBar.css.map */
+=======
+}
+.nav-dropdown {
+  position: absolute;
+  left: 0;
+  top: 20vh;
+  background-color: #30638E;
+  margin: 0;
+  padding: 1em;
+  list-style: none;
+  width: 100%;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.nav-dropdown a {
+  padding: 1em 0;
+  width: 100%;
+  text-decoration: none;
+  color: white;
+  font-size: 1.08em;
+  text-transform: uppercase;
+}
+.nav-dropdown a:hover {
+  background-color: white;
+  color: #30638E;
+}
+
+.toggle-dropdown {
+  height: 44px;
+  width: 44px;
+  margin: auto 10%;
+  color: white;
+  -webkit-transition: 50ms ease-in-out;
+  transition: 50ms ease-in-out;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.toggle-dropdown:hover {
+  outline: 1px solid white;
+  -webkit-transform: scale(1.08);
+          transform: scale(1.08);
+}
+.toggle-dropdown:active {
+  background-color: white;
+  color: #30638E;
+  outline: #30638E;
+}
+
+@media screen and (min-width: 768px) {
+  .nav-dropdown,
+.toggle-dropdown {
+    display: none;
+  }
+  .nav-menu {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+>>>>>>> 0f37abbd (added nav dropdown for small screens, added footer)

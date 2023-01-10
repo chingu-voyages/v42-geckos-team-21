@@ -1,0 +1,20 @@
+footer {
+  box-sizing: border-box;
+  background-color: #EDAE49;
+  margin: 0;
+  padding: 1em;
+
+  a {
+    color: black;
+  }
+
+  hr {
+    border: 0.5px solid black;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  footer {
+    text-align: center;
+  }
+}

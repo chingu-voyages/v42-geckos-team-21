@@ -1,5 +1,9 @@
 import './Landing.css';
+<<<<<<< HEAD:client/src/pages/landing/Landing.tsx
 import LandingImg from "./landing.png"
+=======
+import LandingImg from "../../../src/assets/landing.png"
+>>>>>>> e426c2f8 (restructuring files):src/pages/landing/Landing.tsx
 import { Link } from 'react-router-dom';
 function Landing() {
   return (

@@ -67,6 +67,17 @@
       background-color: white;
 
 
+
+      input[type="text"] {
+        box-sizing: border-box;
+        height: 100%;
+        text-align: center;
+        font-size: inherit;
+        font-family: inherit;
+        width: 100%;
+        overflow: auto;
+      }
+
       &.edit-button-cell {
         background-color: transparent;
         padding: 0;

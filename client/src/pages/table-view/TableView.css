@@ -49,6 +49,15 @@
   height: 45px;
   background-color: white;
 }
+.TableView table td input[type=text] {
+  box-sizing: border-box;
+  height: 100%;
+  text-align: center;
+  font-size: inherit;
+  font-family: inherit;
+  width: 100%;
+  overflow: auto;
+}
 .TableView table td.edit-button-cell {
   background-color: transparent;
   padding: 0;

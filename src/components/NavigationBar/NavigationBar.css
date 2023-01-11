@@ -29,6 +29,13 @@
 }
 .nav-logo-small {
   letter-spacing: 0.25rem;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .nav-logo:hover {
   color: rgb(227, 225, 225);
@@ -107,6 +114,7 @@
 .toggle-dropdown {
   height: 44px;
   width: 44px;
+  padding: 0.25em;
   margin: auto 10%;
   color: white;
   -webkit-transition: 50ms ease-in-out;
@@ -118,11 +126,6 @@
   outline: 1px solid white;
   -webkit-transform: scale(1.08);
           transform: scale(1.08);
-}
-.toggle-dropdown:active {
-  background-color: white;
-  color: #30638E;
-  outline: #30638E;
 }
 
 @media screen and (min-width: 768px) {

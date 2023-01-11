@@ -24,6 +24,9 @@
 
     &-small {
       letter-spacing: 0.25rem;
+      text-align: center;
+      display: flex;
+      align-items: center;
     }
 
     &:hover {
@@ -90,6 +93,7 @@
 .toggle-dropdown {
   height: 44px;
   width: 44px;
+  padding: 0.25em;
   margin: auto 10%;
   color: white;
   transition: 50ms ease-in-out;
@@ -101,11 +105,6 @@
     transform: scale(1.08);
   }
 
-  &:active {
-    background-color: white;
-    color: #30638E;
-    outline: #30638E;
-  }
 }
 
 

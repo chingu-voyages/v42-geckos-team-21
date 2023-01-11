@@ -35,7 +35,7 @@
             height: 45px;
             width: 100%;
             padding: 0;
-            
+
           }
         }
 
@@ -51,12 +51,12 @@
         }
 
         button:hover {
-        padding: 0;
-        border: none;
-        background-color: rgb(208, 208, 208);
-      }
+          padding: 0;
+          border: none;
+          background-color: rgb(208, 208, 208);
+        }
 
-    }
+      }
 
 
     }
@@ -68,21 +68,36 @@
 
 
 
-      input[type="text"] {
+      div.input-container {
+        position: relative;
         box-sizing: border-box;
+        border: 1px solid black;
         height: 100%;
-        text-align: center;
-        font-size: inherit;
-        font-family: inherit;
-        width: 100%;
-        overflow: auto;
+        input[type="text"] {
+          padding: 0;
+          border: none;
+          height: 100%;
+          text-align: center;
+          font-size: inherit;
+          font-family: inherit;
+          width: 100%;
+          overflow: auto;
+        }
+
+        span.input-width-indicator {
+          visibility: hidden;
+          color: rgb(88, 146, 0);
+          left: 0;
+          position: absolute;
+          white-space: pre;
+        }
       }
 
       &.edit-button-cell {
         background-color: transparent;
         padding: 0;
 
-        
+
 
         button {
           display: block;
@@ -93,7 +108,7 @@
           height: 45px;
           width: 100%;
           padding: 0;
-          
+
         }
       }
     }
@@ -184,4 +199,3 @@ input[type="checkbox"]:checked+label svg {
   background-color: #EDAE49;
   fill: rgb(0, 0, 0);
 }
-

@@ -21,7 +21,7 @@ function Row(props: props) {
         let width: number;
         width = document.getElementById('company-input-width-indicator')?.clientWidth!;
         if (width > companyInputDefaultWidth!) {
-            setCompanyInputWidth(width + 'px');
+            setCompanyInputWidth(width + 3 + 'px');
         }
 
     })
@@ -32,13 +32,15 @@ function Row(props: props) {
             return (
                 <tr>
                     <td>
-                        <input id="company-input" type="text" style={{width: companyInputWidth}} onChange={(e) => setCompanyText(e.target.value)} placeholder="Company" />
-                        <span id="company-input-width-indicator" style={{ position: "absolute", whiteSpace: 'pre' }}>
-                            {companyText}
-                        </span>
+                        <div className="input-container">
+                            <input id="company-input" type="text" style={{width: companyInputWidth}} onChange={(e) => setCompanyText(e.target.value)} placeholder="Company" />
+                            <span id="company-input-width-indicator" className='input-width-indicator'>
+                                {companyText}
+                            </span>
+                        </div>
                     </td>
-                    <td><input id="position-input" type="text" placeholder="Position" /></td>
-                    <td><input id="date-input" type="text" placeholder="Date" /></td>
+                    <td><div className="input-container"><input id="position-input" type="text" placeholder="Position" /></div></td>
+                    <td><div className="input-container"><input id="date-input" type="text" placeholder="Date" /></div></td>
                     <td>
                         <div className='td-flex-wrapper'>
                             <input id="cover-letter-check-row-2" type="checkbox" name="cover-letter-check-row-2" />
@@ -59,7 +61,7 @@ function Row(props: props) {
                             </label>
                         </div>
                     </td>
-                    <td><input type="text" /></td>
+                    <td><div className="input-container"><input type="text" /></div></td>
                     <td className="edit-button-cell"><button>⋮</button></td>
                 </tr>
             )

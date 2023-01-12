@@ -3,14 +3,14 @@ import RowCellTextInput from './RowCellTextInput'
 
 interface props {
     identifier: number,
-    new: boolean
+    isNew: boolean
 }
 
 function Row(props: props) {
    let [isEditing, setIsEditing] = useState(true);
 
 
-    switch (props.new && isEditing) {
+    switch (props.isNew && isEditing) {
         case true:
             return (
                 <tr>

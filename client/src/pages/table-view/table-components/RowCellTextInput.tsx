@@ -51,7 +51,8 @@ function RowCellTextInput(props: props) {
             <div className="input-container">
                 <input id={`${props.identifier}-input`} type="text" style={{ width: inputWidth }} onChange={(e) => props.setCellTextObj((oldCellTextObj: IfcCellTextObj) => {
                     let newCellTextObj = Object.assign({}, oldCellTextObj);
-                    return newCellTextObj[props.identifier] = e.target.value;
+                    newCellTextObj[props.identifier] = e.target.value;
+                    return newCellTextObj;
                 })} placeholder={props.identifier} />
                 <span id={`${props.identifier}-input-width-indicator`} className='input-width-indicator'>
                     {props.cellTextObj[props.identifier]}

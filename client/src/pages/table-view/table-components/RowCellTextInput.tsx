@@ -1,15 +1,22 @@
 import { useState, useEffect } from 'react';
 
 interface props {
-    identifier: string
+    identifier: string,
+    setCellTextObj?: React.SetStateAction<Function>
 }
 
+interface IfcCellTextObj {
+    [key: string]: string
+}
+
+
 function RowCellTextInput(props: props) {
-    console.log(props);
+
 
     let [inputText, setInputText] = useState('');
     let [inputWidth, setInputWidth] = useState('100%');
     let [inputDefaultWidth, setInputDefaultWidth] = useState<null | number>(null);
+
 
     let defaultWidth: number | undefined | null;
     useEffect(() => {
@@ -25,8 +32,27 @@ function RowCellTextInput(props: props) {
             setInputWidth(width + 3 + 'px');
         }
 
-    })
 
+
+        if (props.setCellTextObj) {
+        
+            props.setCellTextObj((oldCellTextObj: IfcCellTextObj) => {
+    
+                if (oldCellTextObj[props.identifier] === inputText) {
+                    return oldCellTextObj;
+                }
+                else {
+                    oldCellTextObj[props.identifier] = inputText;
+                    let newCellTextObj = Object.assign({}, oldCellTextObj);
+                
+                    
+                    return newCellTextObj;
+                }
+            })
+        }
+
+
+    })
 
 
 

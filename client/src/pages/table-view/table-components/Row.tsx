@@ -56,7 +56,9 @@ function Row(props: props) {
                         </div>
                     </td>
                     <RowCellTextInput identifier='notes' />
-                    <td className="edit-button-cell"><button>⋮</button></td>
+                    <td className="edit-button-cell"><button>✔</button></td>
+                    <td className="edit-button-cell"><button>✖</button></td>
+                    {/* <td className="edit-button-cell"><button>⋮</button></td> */}
                 </tr>
             )
         // break;

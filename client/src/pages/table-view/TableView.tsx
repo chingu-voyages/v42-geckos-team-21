@@ -4,7 +4,7 @@ import './TableView.css';
 import Row from './table-components/Row'
 
 function TableView() {
-  const [jobRowState, setJobRowState] = useState([<Row isNew={true} identifier={0} />]);
+  const [jobRowState, setJobRowState] = useState([<Row isNew={true} identifier={0} key={0} />]);
 
 
   return (
@@ -27,7 +27,7 @@ function TableView() {
 
           <tr id="add-job-button-row">
             <td colSpan={6}><button onClick={() => setJobRowState(
-              oldJobRowState => oldJobRowState.concat(<Row isNew={false} identifier={oldJobRowState.length} />)
+              oldJobRowState => oldJobRowState.concat(<Row isNew={false} identifier={oldJobRowState.length} key={oldJobRowState.length} />)
             )}>
               Enter new job&nbsp;
               <svg width="1200pt" height="1200pt" version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">

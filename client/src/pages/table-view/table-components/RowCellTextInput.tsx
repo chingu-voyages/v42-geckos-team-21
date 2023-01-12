@@ -7,7 +7,8 @@ interface IfcCellTextObj {
 interface props {
     identifier: string,
     setCellTextObj: React.SetStateAction<Function>,
-    cellTextObj: IfcCellTextObj
+    cellTextObj: IfcCellTextObj,
+    index: number
 }
 
 
@@ -24,7 +25,7 @@ function RowCellTextInput(props: props) {
     useEffect(() => {
 
         if (inputDefaultWidth === null) {
-            setInputDefaultWidth(document.getElementById('company-input')!.getBoundingClientRect().width)
+            setInputDefaultWidth(document.getElementById(`${props.identifier}-${props.index}-input`)!.getBoundingClientRect().width)
         }
 
 
@@ -49,12 +50,12 @@ function RowCellTextInput(props: props) {
     return (
         <td>
             <div className="input-container">
-                <input id={`${props.identifier}-input`} type="text" style={{ width: inputWidth }} onChange={(e) => props.setCellTextObj((oldCellTextObj: IfcCellTextObj) => {
+                <input id={`${props.identifier}-${props.index}-input`} type="text" style={{ width: inputWidth }} onChange={(e) => props.setCellTextObj((oldCellTextObj: IfcCellTextObj) => {
                     let newCellTextObj = Object.assign({}, oldCellTextObj);
                     newCellTextObj[props.identifier] = e.target.value;
                     return newCellTextObj;
                 })} placeholder={props.identifier} />
-                <span id={`${props.identifier}-input-width-indicator`} className='input-width-indicator'>
+                <span id={`${props.identifier}-${props.index}-input-width-indicator`} className='input-width-indicator'>
                     {props.cellTextObj[props.identifier]}
                 </span>
             </div>

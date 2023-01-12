@@ -25,9 +25,9 @@ function Row(props: props) {
         case true:
             return (
                 <tr>
-                    <RowCellTextInput identifier='company' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj} />
-                    <RowCellTextInput identifier='position' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}/>
-                    <RowCellTextInput identifier='date' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}/>
+                    <RowCellTextInput identifier='company' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj} index={props.identifier} />
+                    <RowCellTextInput identifier='position' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj} index={props.identifier}/>
+                    <RowCellTextInput identifier='date' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj} index={props.identifier}/>
                     <td>
                         <div className='td-flex-wrapper'>
                             <input id={`${props.identifier}-cover-letter-check-row`} type="checkbox" name={`${props.identifier}-cover-letter-check-row`} />
@@ -48,10 +48,9 @@ function Row(props: props) {
                             </label>
                         </div>
                     </td>
-                    <RowCellTextInput identifier='notes' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}/>
+                    <RowCellTextInput identifier='notes' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj} index={props.identifier}/>
                     <td className="button-cell"><button onClick={handleButtonClick}>✔</button></td>
                     <td className="button-cell"><button>✖</button></td>
-                    {/* <td className="edit-button-cell"><button>⋮</button></td> */}
                 </tr>
             )
         // break;

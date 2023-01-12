@@ -7,14 +7,21 @@ interface props {
 }
 
 function Row(props: props) {
-   let [isEditing, setIsEditing] = useState(true);
+    let [isEditing, setIsEditing] = useState(true);
 
+    interface IfcCellTextObj {
+        [key: string]: string
+    }
+
+    let [cellTextObj, setCellTextObj] = useState({});
+    console.log({cellTextObj});
+    
 
     switch (props.isNew && isEditing) {
         case true:
             return (
                 <tr>
-                    <RowCellTextInput identifier='company' />
+                    <RowCellTextInput identifier='company' setCellTextObj={setCellTextObj} />
                     <RowCellTextInput identifier='position' />
                     <RowCellTextInput identifier='date' />
                     <td>
@@ -75,16 +82,17 @@ function Row(props: props) {
                     <td className="button-cell"><button>⋮</button></td>
                 </tr>
             )
-        // break;
+            // break;
 
-      
+            
     }
 
+    function handleButtonClick(event: React.MouseEvent) {
+        setIsEditing(false)
+    }
 
 }
 
-function handleButtonClick(event: React.MouseEvent) {
-    console.log('click');
-}
+
 
 export default Row;

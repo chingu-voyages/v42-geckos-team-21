@@ -25,6 +25,8 @@ const NavigationBar = () => {
       {loggedIn ? <p onClick={() => setLoggedIn(!loggedIn)}>Logout</p> : <Link  onClick={() => setLoggedIn(!loggedIn)} to="/login">Login</Link>}
         </ul>
         <AiOutlineMenu aria-hidden className='toggle-dropdown' onClick={() => setDropdownOpen(!dropdownOpen)}/>
+
+        
         {dropdownOpen && 
         <ul className="nav-dropdown">
     <Link onClick={() => setDropdownOpen(false)} to="/table-view">Table</Link>

@@ -84,9 +84,7 @@ function Row(props: props) {
                         </div>
                     </td>
                     <td>{cellTextObj['notes']}</td>
-                    <td className="button-cell"><button onClick={handleButtonClick}>✔</button></td>
-                    <td className="button-cell"><button>✖</button></td>
-                    {/* <td className="edit-button-cell"><button>⋮</button></td> */}
+                    <td className="button-cell"><button>⋮</button></td>
                 </tr>
             )
             // break;

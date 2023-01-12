@@ -1,46 +1,40 @@
 import { useState, useEffect } from 'react';
+import RowCellTextInput from './RowCellTextInput'
 
 interface props {
     new: boolean
 }
 
 function Row(props: props) {
-    console.log(props);
-    let [companyText, setCompanyText] = useState('');
-    let [companyInputWidth, setCompanyInputWidth] = useState('100%');
-    let [companyInputDefaultWidth, setCompanyInputDefaultWidth] = useState<null | number>(null);
-    console.log(companyText);
-    let defaultWidth: number | undefined | null;
-    useEffect(() => {
+    // console.log(props);
+    // let [companyText, setCompanyText] = useState('');
+    // let [companyInputWidth, setCompanyInputWidth] = useState('100%');
+    // let [companyInputDefaultWidth, setCompanyInputDefaultWidth] = useState<null | number>(null);
+    // console.log(companyText);
+    // let defaultWidth: number | undefined | null;
+    // useEffect(() => {
         
-        if (companyInputDefaultWidth === null) {
-            setCompanyInputDefaultWidth(document.getElementById('company-input')!.getBoundingClientRect().width)
-        }
+    //     if (companyInputDefaultWidth === null) {
+    //         setCompanyInputDefaultWidth(document.getElementById('company-input')!.getBoundingClientRect().width)
+    //     }
   
-        console.log({ defaultWidth, companyInputWidth });
-        let width: number;
-        width = document.getElementById('company-input-width-indicator')?.clientWidth!;
-        if (width > companyInputDefaultWidth!) {
-            setCompanyInputWidth(width + 3 + 'px');
-        }
+    //     console.log({ defaultWidth, companyInputWidth });
+    //     let width: number;
+    //     width = document.getElementById('company-input-width-indicator')?.clientWidth!;
+    //     if (width > companyInputDefaultWidth!) {
+    //         setCompanyInputWidth(width + 3 + 'px');
+    //     }
 
-    })
+    // })
 
 
     switch (props.new) {
         case true:
             return (
                 <tr>
-                    <td>
-                        <div className="input-container">
-                            <input id="company-input" type="text" style={{width: companyInputWidth}} onChange={(e) => setCompanyText(e.target.value)} placeholder="Company" />
-                            <span id="company-input-width-indicator" className='input-width-indicator'>
-                                {companyText}
-                            </span>
-                        </div>
-                    </td>
-                    <td><div className="input-container"><input id="position-input" type="text" placeholder="Position" /></div></td>
-                    <td><div className="input-container"><input id="date-input" type="text" placeholder="Date" /></div></td>
+                    <RowCellTextInput identifier='company' />
+                    <RowCellTextInput identifier='position' />
+                    <RowCellTextInput identifier='date' />
                     <td>
                         <div className='td-flex-wrapper'>
                             <input id="cover-letter-check-row-2" type="checkbox" name="cover-letter-check-row-2" />
@@ -61,7 +55,7 @@ function Row(props: props) {
                             </label>
                         </div>
                     </td>
-                    <td><div className="input-container"><input type="text" /></div></td>
+                    <RowCellTextInput identifier='notes' />
                     <td className="edit-button-cell"><button>⋮</button></td>
                 </tr>
             )

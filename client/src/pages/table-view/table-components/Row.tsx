@@ -1,6 +1,8 @@
 import { useState, useEffect, MouseEventHandler } from 'react';
 import RowCellTextInput from './RowCellTextInput'
 
+let timesRendered = 0;
+
 interface props {
     identifier: number,
     isNew: boolean
@@ -15,6 +17,8 @@ function Row(props: props) {
 
     let [cellTextObj, setCellTextObj] = useState({});
     console.log({cellTextObj});
+  
+    console.count('Times Rendered');
     
 
     switch (props.isNew && isEditing) {
@@ -22,8 +26,8 @@ function Row(props: props) {
             return (
                 <tr>
                     <RowCellTextInput identifier='company' setCellTextObj={setCellTextObj} />
-                    <RowCellTextInput identifier='position' />
-                    <RowCellTextInput identifier='date' />
+                    <RowCellTextInput identifier='position' setCellTextObj={setCellTextObj}/>
+                    <RowCellTextInput identifier='date' setCellTextObj={setCellTextObj}/>
                     <td>
                         <div className='td-flex-wrapper'>
                             <input id={`${props.identifier}-cover-letter-check-row`} type="checkbox" name={`${props.identifier}-cover-letter-check-row`} />
@@ -44,7 +48,7 @@ function Row(props: props) {
                             </label>
                         </div>
                     </td>
-                    <RowCellTextInput identifier='notes' />
+                    <RowCellTextInput identifier='notes' setCellTextObj={setCellTextObj}/>
                     <td className="button-cell"><button onClick={handleButtonClick}>✔</button></td>
                     <td className="button-cell"><button>✖</button></td>
                     {/* <td className="edit-button-cell"><button>⋮</button></td> */}

@@ -18,16 +18,16 @@ function Row(props: props) {
     let [cellTextObj, setCellTextObj] = useState({});
     console.log({cellTextObj});
   
-    console.count('Times Rendered');
+    console.count('Times Invoked (not necessarily rendered)');
     
 
     switch (props.isNew && isEditing) {
         case true:
             return (
                 <tr>
-                    <RowCellTextInput identifier='company' setCellTextObj={setCellTextObj} />
-                    <RowCellTextInput identifier='position' setCellTextObj={setCellTextObj}/>
-                    <RowCellTextInput identifier='date' setCellTextObj={setCellTextObj}/>
+                    <RowCellTextInput identifier='company' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj} />
+                    <RowCellTextInput identifier='position' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}/>
+                    <RowCellTextInput identifier='date' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}/>
                     <td>
                         <div className='td-flex-wrapper'>
                             <input id={`${props.identifier}-cover-letter-check-row`} type="checkbox" name={`${props.identifier}-cover-letter-check-row`} />
@@ -48,7 +48,7 @@ function Row(props: props) {
                             </label>
                         </div>
                     </td>
-                    <RowCellTextInput identifier='notes' setCellTextObj={setCellTextObj}/>
+                    <RowCellTextInput identifier='notes' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}/>
                     <td className="button-cell"><button onClick={handleButtonClick}>✔</button></td>
                     <td className="button-cell"><button>✖</button></td>
                     {/* <td className="edit-button-cell"><button>⋮</button></td> */}

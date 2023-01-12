@@ -20,7 +20,6 @@
 .TableView table tr {
   height: 45px;
   text-align: center;
-  border-bottom: 1px solid black;
 }
 .TableView table tr:first-child td.edit-button-cell button {
   display: block;
@@ -48,6 +47,7 @@
   box-sizing: border-box;
   height: 45px;
   background-color: white;
+  border-bottom: 1px solid black;
 }
 .TableView table td div.input-container {
   position: relative;

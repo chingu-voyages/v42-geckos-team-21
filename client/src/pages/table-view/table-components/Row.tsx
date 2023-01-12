@@ -15,8 +15,8 @@ function Row(props: props) {
         [key: string]: string
     }
 
-    let [cellTextObj, setCellTextObj] = useState({});
-    console.log({cellTextObj});
+    let [cellTextObj, setCellTextObj] = useState<IfcCellTextObj>({});
+   
   
     console.count('Times Invoked (not necessarily rendered)');
     
@@ -57,11 +57,12 @@ function Row(props: props) {
         // break;
 
         case false:
+            console.log(cellTextObj);
             return (
                 <tr>
-                    <td>ESPN</td>
-                    <td>React Developer</td>
-                    <td>08/09/22</td>
+                    <td>{cellTextObj['company']}</td>
+                    <td>{cellTextObj['position']}</td>
+                    <td>{cellTextObj['date']}</td>
                     <td>
                         <div className='td-flex-wrapper'>
                             <input id={`${props.identifier}-cover-letter-check-row`} type="checkbox" name={`${props.identifier}-cover-letter-check-row`} />
@@ -82,8 +83,10 @@ function Row(props: props) {
                             </label>
                         </div>
                     </td>
-                    <td><input type="text" /></td>
-                    <td className="button-cell"><button>⋮</button></td>
+                    <td>{cellTextObj['notes']}</td>
+                    <td className="button-cell"><button onClick={handleButtonClick}>✔</button></td>
+                    <td className="button-cell"><button>✖</button></td>
+                    {/* <td className="edit-button-cell"><button>⋮</button></td> */}
                 </tr>
             )
             // break;

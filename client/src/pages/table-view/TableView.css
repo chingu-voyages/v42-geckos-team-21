@@ -21,7 +21,7 @@
   height: 45px;
   text-align: center;
 }
-.TableView table tr:first-child td.edit-button-cell button {
+.TableView table tr:first-child td.button-cell button {
   display: block;
   box-sizing: border-box;
   border: none;
@@ -72,11 +72,11 @@
   position: absolute;
   white-space: pre;
 }
-.TableView table td.edit-button-cell {
+.TableView table td.button-cell {
   background-color: transparent;
   padding: 0;
 }
-.TableView table td.edit-button-cell button {
+.TableView table td.button-cell button {
   display: block;
   box-sizing: border-box;
   border: none;

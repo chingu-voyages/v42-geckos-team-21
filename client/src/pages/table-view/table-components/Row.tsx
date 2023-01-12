@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, MouseEventHandler } from 'react';
 import RowCellTextInput from './RowCellTextInput'
 
 interface props {
-    new: boolean
+    new: boolean,
+    identifier: number
 }
 
 function Row(props: props) {
@@ -56,8 +57,8 @@ function Row(props: props) {
                         </div>
                     </td>
                     <RowCellTextInput identifier='notes' />
-                    <td className="edit-button-cell"><button>✔</button></td>
-                    <td className="edit-button-cell"><button>✖</button></td>
+                    <td className="button-cell"><button onClick={handleButtonClick}>✔</button></td>
+                    <td className="button-cell"><button>✖</button></td>
                     {/* <td className="edit-button-cell"><button>⋮</button></td> */}
                 </tr>
             )
@@ -93,9 +94,13 @@ function Row(props: props) {
                 </div>
             </td>
             <td><input type="text" /></td>
-            <td className="edit-button-cell"><button>⋮</button></td>
+            <td className="button-cell"><button>⋮</button></td>
         </tr>
     )
+}
+
+function handleButtonClick(event : React.MouseEvent) {
+ console.log('click');
 }
 
 export default Row;

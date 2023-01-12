@@ -23,7 +23,7 @@
 
       &:first-child {
 
-        td.edit-button-cell {
+        td.button-cell {
           button {
             display: block;
             box-sizing: border-box;
@@ -93,7 +93,7 @@
         }
       }
 
-      &.edit-button-cell {
+      &.button-cell {
         background-color: transparent;
         padding: 0;
 

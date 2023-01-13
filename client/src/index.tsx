@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './index.css';
 import Landing from './pages/landing/Landing';
+import Login from './pages/login/Login';
 import TableView from './pages/table-view/TableView';
 import NavigationBar from './components/NavigationBar/NavigationBar'
 import Footer from './components/Footer/Footer'
@@ -19,6 +20,7 @@ root.render(
       <Routes>
         <Route path='/' element={<Landing />} />
         <Route path='/table-view' element={<TableView />} />
+        <Route path='/login' element={<Login />} />
       </Routes>
     </Router>
     <Footer />

@@ -21,7 +21,11 @@ class UserController {
                 })
                 .json(user);
             })
-            .catch((err) => res.status(400).json(err));
+            .catch((err) => {
+              res.status(400).json(err.message)
+              console.error(err)
+            });
+            
         } else {
           res.status(400).json({
             errors: {

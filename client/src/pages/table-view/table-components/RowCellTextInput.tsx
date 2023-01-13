@@ -30,7 +30,7 @@ function RowCellTextInput(props: props) {
 
 
         let width: number;
-        width = document.getElementById(`${props.identifier}-input-width-indicator`)?.clientWidth!;
+        width = document.getElementById(`${props.identifier}-${props.index}-input-width-indicator`)?.clientWidth!;
         if (width > inputDefaultWidth!) {
             setInputWidth(width + 3 + 'px');
         }

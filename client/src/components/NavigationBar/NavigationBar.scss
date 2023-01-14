@@ -3,6 +3,9 @@
   background-color: #30638E;
   display: flex;
   justify-content: space-between;
+  height: 10em;
+  margin: 0 !important;
+  align-items: center;
 
   &-logo {
     color: white;
@@ -19,6 +22,8 @@
 
     &-small {
       letter-spacing: 0.25rem;
+      display: flex;
+      align-items: center;
     }
 
     &:hover {
@@ -35,7 +40,7 @@
     align-items: flex-end;
     justify-content: center;
 
-    li {
+    a {
       border: 1px solid white;
       padding: 0.25em 0.5em;
       color: white;
@@ -43,11 +48,67 @@
       transition: 150ms ease-in-out;
       margin: 0 0.5em;
       cursor: pointer;
+      text-decoration: none;
 
       &:hover {
         background-color: white;
         color: #30638E;
       }
     }
+  }
+
+  &-dropdown {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: calc(10em - 16px);
+    width: 100%;
+    background-color: #30638E;
+    margin: none !important;
+    padding: 1em;
+
+    a {
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+      padding: 0.5em;
+      color: white;
+      transition: 150ms ease-in-out;
+      text-transform: uppercase;
+      font-size: 15px;
+      font-weight: bold;
+
+      &:hover {
+        background-color: white;
+        color: #30638E;
+      }
+    }
+  }
+}
+
+.toggle-dropdown {
+  font-size: 3em;
+  margin-right: 1em;
+  color: white;
+  padding: 0.08em;
+  border-radius: 8px;
+  transition: 50ms ease-in-out;
+
+  &:hover {
+    outline: 1px solid white;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .nav-menu {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 769px) {
+
+  .nav-dropdown,
+  .toggle-dropdown {
+    display: none;
   }
 }

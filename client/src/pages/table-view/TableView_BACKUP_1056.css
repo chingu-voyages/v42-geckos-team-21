@@ -1,0 +1,181 @@
+.TableView {
+  background-color: #E0E1DD;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 5px;
+  overflow: auto;
+}
+.TableView table {
+  /* 
+  "In the collapsing border model, it is possible to specify borders that 
+  surround all or part of a cell, row..." 
+  - "https://www.w3.org/TR/CSS21/tables.html#borders" 
+  */
+  border-collapse: collapse;
+  margin: auto;
+}
+.TableView table tr {
+  height: 45px;
+  text-align: center;
+}
+.TableView table tr:first-child td.button-cell button {
+  display: block;
+  box-sizing: border-box;
+  border: none;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  height: 45px;
+  width: 1em;
+  padding: 0;
+}
+.TableView table tr:last-child {
+  border: none;
+}
+.TableView table tr:last-child td {
+  border-bottom: 1px solid black;
+}
+.TableView table tr:last-child button:hover {
+  padding: 0;
+  border: none;
+  background-color: rgb(208, 208, 208);
+}
+.TableView table td {
+  box-sizing: border-box;
+  height: 45px;
+  background-color: white;
+  border-bottom: 1px solid black;
+}
+.TableView table td div.input-container {
+  position: relative;
+  box-sizing: border-box;
+  border: 1px solid black;
+  height: 100%;
+}
+.TableView table td div.input-container input[type=text] {
+  padding: 0;
+  border: none;
+  height: 100%;
+  text-align: center;
+  font-size: inherit;
+  font-family: inherit;
+  width: 100%;
+  overflow: auto;
+}
+.TableView table td div.input-container span.input-width-indicator {
+  visibility: hidden;
+  color: rgb(88, 146, 0);
+  left: 0;
+  position: absolute;
+  white-space: pre;
+}
+.TableView table td.button-cell {
+  background-color: transparent;
+  padding: 0;
+}
+.TableView table td.button-cell button {
+  display: block;
+  box-sizing: border-box;
+  border: none;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  height: 45px;
+  width: 100%;
+  padding: 0;
+}
+.TableView table thead tr:first-child {
+  background-color: transparent;
+}
+.TableView table th {
+  background-color: #D1495B;
+  width: 5em;
+  color: white;
+}
+.TableView table th:first-child {
+  border-top-left-radius: 10px;
+  width: 5em;
+}
+.TableView table th:last-child {
+  border-top-right-radius: 10px;
+  width: 5em;
+}
+.TableView table tr:last-child button {
+  border: none;
+  border-radius: 5px;
+  padding: 0;
+  background-color: transparent;
+}
+.TableView table tr:last-child button svg {
+  fill: #32D89C;
+  height: 1.25em;
+  width: 1.25em;
+  vertical-align: middle;
+}
+.TableView table tr:last-child button:active:active {
+  background-color: rgb(177, 177, 177);
+}
+.TableView table tr:last-child button:active:hover svg {
+  fill: green;
+}
+
+input[type=checkbox] {
+  position: absolute;
+  visibility: hidden;
+}
+
+.td-flex-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.check {
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+}
+.check svg {
+  display: block;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  height: 1em;
+  width: 1em;
+  fill: none;
+  border: 1px solid black;
+}
+
+input[type=checkbox]:checked + label svg {
+  background-color: #EDAE49;
+  fill: rgb(0, 0, 0);
+<<<<<<< HEAD
+}/*# sourceMappingURL=TableView.css.map */
+=======
+}
+
+table table tr:last-child button:hover {
+  padding: 0;
+  border: none;
+  background-color: rgb(208, 208, 208);
+}
+>>>>>>> login-page

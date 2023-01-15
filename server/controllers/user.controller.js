@@ -120,7 +120,6 @@ class UserController {
   getLoggedInUser = (req, res) => {
     // use info stored in cookie to get id of logged in user and query db to find user with that id, return that users info
     const decodedJwt = jwt.decode(req.cookies.usertoken, { complete: true });
-    console.log(decodedJwt);
     User.find({ _id: decodedJwt.payload.id })
       .then((foundUser) => res.json(foundUser))
       .catch((err) => res.json(err));

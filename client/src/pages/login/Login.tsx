@@ -29,11 +29,11 @@ const Login = () => {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     
-    axios.post('http://localhost:3001/api/login', {email: inputEmail, password: inputPassword})
+    axios.post('http://localhost:3001/api/login', {email: inputEmail, password: inputPassword}, {withCredentials: true})
       .then(res => {
-        console.log(res.data);
         if (res.data.msg === 'success!' ) {
           console.log(res.headers);
+          console.log(document.cookie);
           // document.cookie = ;
           return axios.get('http://localhost:3001/api/user/getloggedinuser', {withCredentials: true})
         }

@@ -32,6 +32,14 @@ const Login = () => {
     axios.post('http://localhost:3001/api/login', {email: inputEmail, password: inputPassword})
       .then(res => {
         console.log(res.data);
+        if (res.data.msg === 'success!' ) {
+          console.log(res.headers);
+          // document.cookie = ;
+          return axios.get('http://localhost:3001/api/user/getloggedinuser', {withCredentials: true})
+        }
+      })
+      .then(res => {
+        console.log(res!.data);
       })
       .catch(err => console.error(err.message))
 

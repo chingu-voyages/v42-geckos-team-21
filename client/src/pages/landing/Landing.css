@@ -26,6 +26,7 @@
   outline: 1px solid #00798c;
   background-color: white;
   transition: 150ms ease-in-out;
+  cursor: pointer;
 }
 .login-btn:hover{
   background-color: #00798c;

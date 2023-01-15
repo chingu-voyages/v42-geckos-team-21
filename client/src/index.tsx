@@ -7,6 +7,7 @@ import Login from './pages/login/Login';
 import TableView from './pages/table-view/TableView';
 import NavigationBar from './components/NavigationBar/NavigationBar'
 import Footer from './components/Footer/Footer'
+import KanbanView from './pages/kanban-view/KanbanView';
 // import reportWebVitals from './reportWebVitals';
 
 
@@ -20,6 +21,7 @@ root.render(
       <Routes>
         <Route path='/' element={<Landing />} />
         <Route path='/table-view' element={<TableView />} />
+        <Route path='/kanban-view' element={<KanbanView />} />
         <Route path='/login' element={<Login />} />
       </Routes>
     </Router>

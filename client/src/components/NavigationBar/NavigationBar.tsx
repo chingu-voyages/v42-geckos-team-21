@@ -21,7 +21,7 @@ const NavigationBar = () => {
 
         <ul className='nav-menu'>
         <Link to="/table-view">Table</Link>
-      <Link  to="/table-view">Kanban</Link>
+      <Link  to="/kanban-view">Kanban</Link>
       {loggedIn ? <Link to='/' onClick={() => setLoggedIn(!loggedIn)}>Logout</Link> : <Link  onClick={() => setLoggedIn(!loggedIn)} to="/login">Login</Link>}
         </ul>
         <AiOutlineMenu aria-hidden className='toggle-dropdown' onClick={() => setDropdownOpen(!dropdownOpen)}/>
@@ -30,7 +30,7 @@ const NavigationBar = () => {
         {dropdownOpen && 
         <ul className="nav-dropdown">
     <Link onClick={() => setDropdownOpen(false)} to="/table-view">Table</Link>
-      <Link  onClick={() => setDropdownOpen(false)} to="/table-view">Kanban</Link>
+      <Link  onClick={() => setDropdownOpen(false)} to="/kanban-view">Kanban</Link>
       {loggedIn ? <Link to='/' onClick={() => loginPage()}>Logout</Link> : <Link  onClick={() => loginPage()} to="/login">Login</Link>}
         </ul>}
         </nav></header>

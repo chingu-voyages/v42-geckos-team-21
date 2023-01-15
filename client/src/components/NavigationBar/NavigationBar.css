@@ -111,6 +111,7 @@
   border-radius: 8px;
   -webkit-transition: 50ms ease-in-out;
   transition: 50ms ease-in-out;
+  cursor: pointer;
 }
 .toggle-dropdown:hover {
   outline: 1px solid white;

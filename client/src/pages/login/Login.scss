@@ -13,6 +13,11 @@
     background-color: white;
     border-radius: 20px;
 
+    .error {
+      color: red;
+      margin: 0;
+    }
+
     h3 {
       text-transform: uppercase;
       margin-bottom: 2em;
@@ -34,7 +39,11 @@
     label {
       text-align: left;
       width: 50%;
-      margin: 0.5em 0 3em;
+      margin: 1em 0 0.5em;
+    }
+
+    a {
+      color: blue;
     }
   }
 
@@ -47,6 +56,9 @@
     border-radius: 10px;
     border: none;
     transition: 150ms ease-in-out;
+    cursor: pointer;
+    margin-top: 3em;
+
 
     &:hover {
       background-color: #1f405b;

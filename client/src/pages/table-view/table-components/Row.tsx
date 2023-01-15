@@ -25,6 +25,7 @@ function Row() {
                 </div>
             </td>
             <td><input type="text" /></td>
+            <td className="edit-button-cell"><button>⋮</button></td>
         </tr>
     )
 }

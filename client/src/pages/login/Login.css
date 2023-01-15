@@ -22,6 +22,10 @@
   background-color: white;
   border-radius: 20px;
 }
+.login-container .login-content .error {
+  color: red;
+  margin: 0;
+}
 .login-container .login-content h3 {
   text-transform: uppercase;
   margin-bottom: 2em;
@@ -39,7 +43,10 @@
 .login-container .login-content label {
   text-align: left;
   width: 50%;
-  margin: 0.5em 0 3em;
+  margin: 1em 0 0.5em;
+}
+.login-container .login-content a {
+  color: blue;
 }
 .login-container button {
   width: 50%;
@@ -51,6 +58,8 @@
   border: none;
   -webkit-transition: 150ms ease-in-out;
   transition: 150ms ease-in-out;
+  cursor: pointer;
+  margin-top: 3em;
 }
 .login-container button:hover {
   background-color: #1f405b;

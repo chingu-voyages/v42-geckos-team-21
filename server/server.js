@@ -14,7 +14,7 @@ require("./config/mongoose.config");
 require("./config/jwt.config");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ credentials: true, origin: `http://localhost:${PORT}` }));
+app.use(cors({ credentials: true, origin: `http://localhost:3000` }));
 app.use(cookieParser());
 app.set("port", PORT);
 

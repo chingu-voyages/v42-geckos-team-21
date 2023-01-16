@@ -41,7 +41,7 @@ const Login = () => {
       .then(res => {
         console.log(res!.data);
       })
-      .catch(err => console.error(err.message))
+      .catch((err) => console.error(err.message))
 
   }
 }

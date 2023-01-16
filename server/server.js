@@ -6,15 +6,17 @@ module.exports = DATABASE = "jobTracker_db";
 const app = express();
 
 require("dotenv").config();
+const PORT = process.env.PORT || 3000;
+
 
 // configs
 require("./config/mongoose.config");
 require("./config/jwt.config");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(cors({ credentials: true, origin: `http://localhost:3000` }));
 app.use(cookieParser());
-app.set("port", process.env.PORT || 3000);
+app.set("port", PORT);
 
 // routes
 require("./routes/user.routes")(app);

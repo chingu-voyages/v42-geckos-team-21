@@ -114,7 +114,7 @@ class UserController {
   /* use this method to retrieve logged in USER data from the backend via jwt cookies
     example:
       axios
-        .get(`http://localhost:8000/api/users/getloggedinuser`, {withCredentials: true})
+        .get(`http://localhost:8000/api/user/getloggedinuser`, {withCredentials: true})
         .then(res => console.log(res.data[0]))
   */
   getLoggedInUser = (req, res) => {

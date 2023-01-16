@@ -168,10 +168,4 @@ input[type=checkbox] {
 input[type=checkbox]:checked + label svg {
   background-color: #EDAE49;
   fill: rgb(0, 0, 0);
-}
-
-table tr:last-child button:hover {
-  padding: 0;
-  border: none;
-  background-color: rgb(208, 208, 208);
-}
+}/*# sourceMappingURL=TableView.css.map */

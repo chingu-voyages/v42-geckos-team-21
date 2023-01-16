@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios';
 import './Login.css'
 const Login = () => {
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
+  const navigate = useNavigate();
 
  
   return (
@@ -40,6 +41,7 @@ const Login = () => {
       })
       .then(res => {
         console.log(res!.data);
+        navigate('/table-view')
       })
       .catch((err) => console.error(err.message))
 

@@ -8,6 +8,7 @@ import TableView from './pages/table-view/TableView';
 import NavigationBar from './components/NavigationBar/NavigationBar'
 import Footer from './components/Footer/Footer'
 import KanbanView from './pages/kanban-view/KanbanView';
+import SignUp from './pages/sign-up/SignUp';
 // import reportWebVitals from './reportWebVitals';
 
 
@@ -23,6 +24,7 @@ root.render(
         <Route path='/table-view' element={<TableView />} />
         <Route path='/kanban-view' element={<KanbanView />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/sign-up' element={<SignUp />} />
       </Routes>
     </Router>
     <Footer />

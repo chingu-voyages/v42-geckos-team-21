@@ -1,5 +1,6 @@
 import { useState, useEffect, MouseEventHandler } from 'react';
-import RowCellTextInput from './RowCellTextInput'
+import RowCellTextInput from './RowCellTextInput';
+import axios from 'axios';
 
 let timesRendered = 0;
 
@@ -93,8 +94,16 @@ function Row(props: props) {
 
     function handleButtonClick(event: React.MouseEvent) {
         setIsEditing(false)
+        sendRowToDB();
     }
 
+    function sendRowToDB() {
+        axios.post('http://localhost:3001/api/applications/new', cellTextObj, {withCredentials: true})
+          .then(res => {
+            console.log(res);
+          })
+          .catch((err) => console.error(err.message, err.response.data.message))
+    }
 }
 
 

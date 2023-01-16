@@ -30,10 +30,10 @@ const Login = () => {
     e.preventDefault();
     
     axios.post('http://localhost:3001/api/login', {email: inputEmail, password: inputPassword})
-      .then(res => {
+      .then((res) => {
         console.log(res.data);
       })
-      .catch(err => console.error(err.message))
+      .catch((err) => console.error(err.message))
 
   }
 }

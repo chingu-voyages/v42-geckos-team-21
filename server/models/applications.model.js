@@ -1,19 +1,45 @@
 const mongoose = require("mongoose");
 
+const fieldNameObj = {
+  company: "company",
+  position: "position",
+  date: "date",
+  sentCoverLetter: "sentCoverLetter",
+  reachedOut: "reachedOut",
+  notes: "notes"
+}
+
+
 const ApplicationSchema = new mongoose.Schema(
   {
     userId: String,
-    title: {
-      type: String,
-      required: [true, "Title is required"],
-      minLength: [5, "Title must be at least 5 characters"],
-    },
     company: {
       type: String,
-      required: [true, "Company is required"],
-      minLength: [5, "Company must be at least 5 characters"],
+      required: [true, fieldNameObj.company + " is required"],
+      minLength: [5, fieldNameObj.company + " must be at least 5 characters"],
     },
-    status: String,
+    position: {
+      type: String,
+      required: [true, fieldNameObj.position + " is required"],
+      minLength: [5, fieldNameObj.position + " must be at least 5 characters"],
+    },
+    date: {
+      type: Date,
+      required: [true, fieldNameObj.date + " is required"]
+    },
+    sentCoverLetter: {
+      type: Boolean,
+      required: [true]
+    },
+    reachedOut: {
+      type: Boolean,
+      required: [true]
+    },
+    notes: {
+      type: String,
+      required: [true],
+      minLength: [5, fieldNameObj.notes + " must be at least 5 characters"],
+    }
   },
   { timestamps: true }
 );

@@ -2,11 +2,17 @@ import React, {useState} from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios';
 import './Login.css'
-const Login = () => {
+import { IfcUser } from '../..';
+
+interface IfcProps {
+  user: IfcUser | null,
+  setUser: React.SetStateAction<Function>
+}
+
+const Login = (props: IfcProps) => {
+  const navigate = useNavigate();
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
-  const navigate = useNavigate();
-
  
   return (
     <main className='login-container'>
@@ -35,12 +41,12 @@ const Login = () => {
         if (res.data.msg === 'success!' ) {
           console.log(res.headers);
           console.log(document.cookie);
-          // document.cookie = ;
           return axios.get('http://localhost:3001/api/user/getloggedinuser', {withCredentials: true})
         }
       })
       .then(res => {
-        console.log(res!.data);
+        console.log('setting user: ', res!.data[0]);
+        props.setUser(res!.data);
         navigate('/table-view')
       })
       .catch((err) => console.error(err.message))

@@ -3,8 +3,13 @@ import axios from 'axios';
 
 import './TableView.css';
 import Row from './table-components/Row'
+import { IfcUser } from '../..';
 
-function TableView() {
+interface IfcProps {
+  user: IfcUser
+}
+
+function TableView(props: IfcProps) {
   const [jobRowState, setJobRowState] = useState([<Row isNew={true} identifier={0} key={0} />]);
 
 

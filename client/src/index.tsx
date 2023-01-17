@@ -8,6 +8,7 @@ import TableView from './pages/table-view/TableView';
 import NavigationBar from './components/NavigationBar/NavigationBar'
 import Footer from './components/Footer/Footer'
 import KanbanView from './pages/kanban-view/KanbanView';
+import NotFound from './pages/404/not-found';
 // import reportWebVitals from './reportWebVitals';
 
 export interface IfcUser {
@@ -46,6 +47,7 @@ function App() {
             <Routes>
               <Route path='/' element={<Landing />} />
               <Route path='/login' element={<Login user={user} setUser={setUser} />} />
+              <Route path='*' element={<NotFound />} />
             </Routes>
           </Router>
           <Footer />
@@ -63,6 +65,7 @@ function App() {
               <Route path='/table-view' element={<TableView user={user} />} />
               <Route path='/kanban-view' element={<KanbanView />} />
               <Route path='/login' element={<Login user={user} setUser={setUser} />} />
+              <Route path='*' element={<NotFound />} />
             </Routes>
           </Router>
           <Footer />

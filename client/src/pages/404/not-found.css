@@ -3,5 +3,6 @@
   text-align: center;
 }
 .not-found-container img {
+  box-sizing: border-box;
   margin: 5px;
 }/*# sourceMappingURL=not-found.css.map */

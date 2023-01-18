@@ -13,8 +13,8 @@ function TableView(props: IfcProps) {
   const [jobRowState, setJobRowState] = useState([<Row isNew={true} identifier={0} key={0} user={props.user} />]);
   let didRequestDb = false;
   useEffect(() => {
-    
-    
+
+
     if (!didRequestDb) {
       props.user.applications.forEach((element, index) => {
 
@@ -62,13 +62,9 @@ function TableView(props: IfcProps) {
           </tr>
         </thead>
         <tbody>
-
-          {jobRowState}
-
-
           <tr id="add-job-button-row">
             <td colSpan={6}><button onClick={() => setJobRowState(
-              oldJobRowState => oldJobRowState.concat(<Row isNew={true} identifier={oldJobRowState.length} key={oldJobRowState.length} user={props.user} />)
+              oldJobRowState => [<Row isNew={true} identifier={oldJobRowState.length} key={oldJobRowState.length} user={props.user} />].concat(oldJobRowState)
             )}>
               Enter new job&nbsp;
               <svg width="1200pt" height="1200pt" version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
@@ -76,6 +72,10 @@ function TableView(props: IfcProps) {
               </svg>
             </button></td>
           </tr>
+          {jobRowState}
+
+
+
         </tbody>
       </table>
 

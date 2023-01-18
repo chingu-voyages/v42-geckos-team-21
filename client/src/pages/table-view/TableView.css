@@ -103,22 +103,22 @@
   border-top-right-radius: 10px;
   width: 5em;
 }
-.TableView table tr:last-child button {
+.TableView table #add-job-button-row button {
   border: none;
   border-radius: 5px;
   padding: 0;
   background-color: transparent;
 }
-.TableView table tr:last-child button svg {
+.TableView table #add-job-button-row button svg {
   fill: #32D89C;
   height: 1.25em;
   width: 1.25em;
   vertical-align: middle;
 }
-.TableView table tr:last-child button:active:active {
+.TableView table #add-job-button-row button:active:active {
   background-color: rgb(177, 177, 177);
 }
-.TableView table tr:last-child button:active:hover svg {
+.TableView table #add-job-button-row button:active:hover svg {
   fill: green;
 }
 

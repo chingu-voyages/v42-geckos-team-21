@@ -10,34 +10,41 @@ interface IfcProps {
 }
 
 function TableView(props: IfcProps) {
-  const [jobRowState, setJobRowState] = useState([<Row isNew={true} identifier={0} key={0} user={props.user}/>]);
+  const [jobRowState, setJobRowState] = useState([<Row isNew={true} identifier={0} key={0} user={props.user} />]);
+  let didRequestDb = false;
   useEffect(() => {
-    console.count('useEffectRuns')
-    props.user.applications.forEach((element, index) => {
-      console.log({index});
-      console.log({element});
-      console.count('wtf?')
-      // https://stackoverflow.com/questions/17781472/how-to-get-a-subset-of-a-javascript-objects-properties
-      let applicationFromDb = (({ 
-        company,
-        date,
-        notes,
-        position,
-        reachedOut,
-        sentCoverLetter
-       }) => ({
-        company,
-        date,
-        notes,
-        position,
-        reachedOut,
-        sentCoverLetter
-      }))(element)
-      setJobRowState(oldJobRowState => {
-        
-        let newJobRowState = [...oldJobRowState];
-        return newJobRowState.concat(<Row isNew={false} identifier={0} key={oldJobRowState.length} applicationFromDb={applicationFromDb}/>)
+    
+    
+    if (!didRequestDb) {
+      props.user.applications.forEach((element, index) => {
+
+        // https://stackoverflow.com/questions/17781472/how-to-get-a-subset-of-a-javascript-objects-properties
+        let applicationFromDb = (({
+          company,
+          date,
+          notes,
+          position,
+          reachedOut,
+          sentCoverLetter
+        }) => ({
+          company,
+          date,
+          notes,
+          position,
+          reachedOut,
+          sentCoverLetter
+        }))(element)
+        setJobRowState(oldJobRowState => {
+
+          let newJobRowState = [...oldJobRowState];
+          return newJobRowState.concat(<Row isNew={false} identifier={0} key={oldJobRowState.length} applicationFromDb={applicationFromDb} />)
+        })
       })
+    }
+
+    return (() => {
+      didRequestDb = true;
+      console.log('cleanup');
     })
   }, [])
 
@@ -61,7 +68,7 @@ function TableView(props: IfcProps) {
 
           <tr id="add-job-button-row">
             <td colSpan={6}><button onClick={() => setJobRowState(
-              oldJobRowState => oldJobRowState.concat(<Row isNew={true} identifier={oldJobRowState.length} key={oldJobRowState.length} user={props.user}/>)
+              oldJobRowState => oldJobRowState.concat(<Row isNew={true} identifier={oldJobRowState.length} key={oldJobRowState.length} user={props.user} />)
             )}>
               Enter new job&nbsp;
               <svg width="1200pt" height="1200pt" version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">

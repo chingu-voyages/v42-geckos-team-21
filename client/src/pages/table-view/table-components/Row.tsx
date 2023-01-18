@@ -92,7 +92,7 @@ function Row(props: props) {
                 ({ company, position, date, notes }))(props.applicationFromDb)
                 let checkboxInputs = (({ sentCoverLetter, reachedOut }) => 
                 ({ sentCoverLetter, reachedOut }))(props.applicationFromDb)
-                console.log({textInputs});
+
                 setCellTextObj(textInputs);
                 setCellCheckboxObj(checkboxInputs)
             }
@@ -156,14 +156,14 @@ function Row(props: props) {
 
         let reqObj = Object.assign({}, cellTextObj);
         reqObj = Object.assign(reqObj, cellCheckboxObj);
-        console.log('user in row', props.user);
+
         let userId = props.user._id;
         reqObj = Object.assign(reqObj, { userId })
-        console.log('reqObj', reqObj);
+
 
         axios.post('http://localhost:3001/api/applications/new', reqObj, { withCredentials: true })
             .then(res => {
-                console.log(res);
+
             })
             .catch((err) => console.error(err.message, err.response.data.message))
     }

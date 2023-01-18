@@ -14,13 +14,13 @@ interface IfcProps {
 function TableView(props: IfcProps) {
   console.log('tableview render');
   const [jobRowState, setJobRowState] = useState([<Row isNew={true} identifier={0} key={0} user={props.user} />]);
-  let didAddDbRow = false;
-  let [stateDidAddDbRow, setStateDidAddDbRow] = useState(false);
-  // console.log({stateDidAddDbRow});
-  useEffect(() => {
+
+  let [areRowsFromDBParsedState, setAreRowsFromDBParsedState] = useState(false);
+  // console.log({areRowsFromDBParsedState});
+  
     console.log('useEffect')
     
-    if (!stateDidAddDbRow) {
+    if (!areRowsFromDBParsedState) {
       props.user.applications.forEach((element, index) => {
 
         // https://stackoverflow.com/questions/17781472/how-to-get-a-subset-of-a-javascript-objects-properties
@@ -45,15 +45,11 @@ function TableView(props: IfcProps) {
           return newJobRowState.concat(<Row isNew={false} identifier={0} key={oldJobRowState.length} applicationFromDb={applicationFromDb} />)
         })
       })
+      setAreRowsFromDBParsedState(true);
     }
-    return (() => {
-      console.log('cleanup');
-      setStateDidAddDbRow(true);
-      // didAddDbRow = true;
-      // console.log({stateDidAddDbRow});
-      
-    })
-  }, [])
+  
+  
+  
 
   return (
     <div className="TableView">
@@ -63,7 +59,7 @@ function TableView(props: IfcProps) {
             <th scope="col">Company</th>
             <th scope="col">Position</th>
             <th scope="col">Date Applied</th>
-            <th scope="col">Cov er Letter</th>
+            <th scope="col">Cover Letter</th>
             <th scope="col">Reached Out</th>
             <th scope="col">Notes</th>
           </tr>

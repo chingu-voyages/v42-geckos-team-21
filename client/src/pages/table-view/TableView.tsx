@@ -42,7 +42,7 @@ function TableView(props: IfcProps) {
         setJobRowState(oldJobRowState => {
 
           let newJobRowState = [...oldJobRowState];
-          return newJobRowState.concat(<Row isNew={false} identifier={0} key={oldJobRowState.length} applicationFromDb={applicationFromDb} />)
+          return newJobRowState.concat(<Row isNew={false} identifier={oldJobRowState.length} key={oldJobRowState.length} applicationFromDb={applicationFromDb} />)
         })
       })
       setAreRowsFromDBParsedState(true);

@@ -21,6 +21,7 @@
   max-width: 700px;
   background-color: white;
   border-radius: 20px;
+  padding: 2em 0;
 }
 .login-container .login-content .error {
   color: red;
@@ -45,8 +46,11 @@
   width: 50%;
   margin: 1em 0 0.5em;
 }
+.login-container .login-content p {
+  margin-top: 2em;
+}
 .login-container .login-content a {
-  color: blue;
+  color: #1f405b;
 }
 .login-container button {
   width: 50%;

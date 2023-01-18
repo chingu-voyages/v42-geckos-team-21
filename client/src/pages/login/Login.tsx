@@ -21,7 +21,7 @@ const Login = () => {
         }}/>
         <label htmlFor='password'>Password</label>
         <button type='submit' className='login-submit'>Log In</button>
-        <p>Not a member? <Link to='/signup'>Sign up now</Link></p>
+        <p>Not a member? <Link to='/sign-up'>Sign up now</Link></p>
         </form>
     </main>
   )

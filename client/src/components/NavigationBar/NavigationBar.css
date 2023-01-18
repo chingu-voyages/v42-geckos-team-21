@@ -12,6 +12,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  z-index: 100;
 }
 .nav-logo {
   color: white;
@@ -85,6 +86,10 @@
   background-color: #30638E;
   margin: none !important;
   padding: 1em;
+  z-index: 1000;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 .nav-dropdown a {
   width: 100%;

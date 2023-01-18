@@ -12,6 +12,7 @@
     max-width: 700px;
     background-color: white;
     border-radius: 20px;
+    padding: 2em 0;
 
     .error {
       color: red;
@@ -42,8 +43,12 @@
       margin: 1em 0 0.5em;
     }
 
+    p {
+      margin-top: 2em;
+    }
+
     a {
-      color: blue;
+      color: #1f405b;
     }
   }
 

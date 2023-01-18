@@ -43,8 +43,8 @@ const SignUp = () => {
 
   }
   return (
-    <main className='sign-in'>
-        <form className='sign-in-content' onSubmit={handleSubmit}>
+    <main className='sign-up row'>
+        <form className='sign-up-content' onSubmit={handleSubmit}>
         <h3>Sign Up</h3>        
         <label htmlFor='username'>Username</label>
         <input required type='text' name='username' onChange={(e) => {

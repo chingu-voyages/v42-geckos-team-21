@@ -1,12 +1,12 @@
-.sign-in {
+.sign-up {
   background-color: rgb(187, 186, 185);
 }
-.sign-in .error {
+.sign-up .error {
   color: red;
   height: 15px;
   font-size: 15px;
 }
-.sign-in-content {
+.sign-up-content {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -25,31 +25,31 @@
   background-color: white;
   border-radius: 20px;
 }
-.sign-in-content h3 {
+.sign-up-content h3 {
   text-transform: uppercase;
   margin-bottom: 2em;
   font-size: 2em;
 }
-.sign-in-content input {
+.sign-up-content input {
   border-radius: 8px;
   border: 0.5px solid black;
   width: 50%;
   min-width: 250px;
   padding: 1em;
 }
-.sign-in-content input:focus {
+.sign-up-content input:focus {
   outline: 1px solid #00798C;
 }
-.sign-in-content label {
+.sign-up-content label {
   text-align: left;
   width: 50%;
   min-width: 250px;
   margin: 1em 0 0.5em;
 }
-.sign-in-content a {
+.sign-up-content a {
   color: blue;
 }
-.sign-in button {
+.sign-up button {
   width: 50%;
   height: 3em;
   font-size: 15px;
@@ -62,6 +62,6 @@
   cursor: pointer;
   margin-top: 3em;
 }
-.sign-in button:hover {
+.sign-up button:hover {
   background-color: #1f405b;
 }

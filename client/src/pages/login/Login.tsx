@@ -9,7 +9,7 @@ const Login = () => {
 
  
   return (
-    <main className='login-container'>
+    <main className='login-container row'>
       <form className='login-content' onSubmit={handleSubmit}>
         <h3>Login</h3>
         <input type='text' name='email' onChange={(e) => {

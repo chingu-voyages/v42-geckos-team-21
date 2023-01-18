@@ -2,13 +2,24 @@ import { useState, useEffect, MouseEventHandler } from 'react';
 import RowCellTextInput from './RowCellTextInput';
 import axios from 'axios';
 import { IfcUser } from '../../..';
+import { text } from 'stream/consumers';
 
 let timesRendered = 0;
+
+
 
 interface props {
     identifier: number,
     isNew: boolean,
-    user: IfcUser
+    user?: IfcUser
+    applicationFromDb?: {
+        company: string,
+        date: string,
+        notes: string,
+        position: string,
+        reachedOut: boolean,
+        sentCoverLetter: boolean
+    }
 }
 
 function Row(props: props) {
@@ -75,7 +86,17 @@ function Row(props: props) {
         // break;
 
         case false:
-            console.log(cellTextObj);
+            if (props.applicationFromDb && !cellTextObj.company) {
+                // https://stackoverflow.com/questions/17781472/how-to-get-a-subset-of-a-javascript-objects-properties
+                let textInputs = (({ company, position, date, notes }) => 
+                ({ company, position, date, notes }))(props.applicationFromDb)
+                let checkboxInputs = (({ sentCoverLetter, reachedOut }) => 
+                ({ sentCoverLetter, reachedOut }))(props.applicationFromDb)
+                console.log({textInputs});
+                setCellTextObj(textInputs);
+                setCellCheckboxObj(checkboxInputs)
+            }
+
             return (
                 <tr>
                     <td>{cellTextObj['company']}</td>

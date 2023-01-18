@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import './TableView.css';
@@ -11,7 +11,35 @@ interface IfcProps {
 
 function TableView(props: IfcProps) {
   const [jobRowState, setJobRowState] = useState([<Row isNew={true} identifier={0} key={0} user={props.user}/>]);
-
+  useEffect(() => {
+    console.count('useEffectRuns')
+    props.user.applications.forEach((element, index) => {
+      console.log({index});
+      console.log({element});
+      console.count('wtf?')
+      // https://stackoverflow.com/questions/17781472/how-to-get-a-subset-of-a-javascript-objects-properties
+      let applicationFromDb = (({ 
+        company,
+        date,
+        notes,
+        position,
+        reachedOut,
+        sentCoverLetter
+       }) => ({
+        company,
+        date,
+        notes,
+        position,
+        reachedOut,
+        sentCoverLetter
+      }))(element)
+      setJobRowState(oldJobRowState => {
+        
+        let newJobRowState = [...oldJobRowState];
+        return newJobRowState.concat(<Row isNew={false} identifier={0} key={oldJobRowState.length} applicationFromDb={applicationFromDb}/>)
+      })
+    })
+  }, [])
 
   return (
     <div className="TableView">

@@ -157,7 +157,7 @@ function Row(props: props) {
         let reqObj = Object.assign({}, cellTextObj);
         reqObj = Object.assign(reqObj, cellCheckboxObj);
 
-        let userId = props.user._id;
+        let userId = props.user!._id;
         reqObj = Object.assign(reqObj, { userId })
 
 

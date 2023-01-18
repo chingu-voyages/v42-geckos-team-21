@@ -32,13 +32,10 @@
   width: 1em;
   padding: 0;
 }
-.TableView table tr:last-child {
-  border: none;
-}
-.TableView table tr:last-child td {
+.TableView table tr#add-job-button-row td {
   border-bottom: 1px solid black;
 }
-.TableView table tr:last-child button:hover {
+.TableView table tr#add-job-button-row td button:hover {
   padding: 0;
   border: none;
   background-color: rgb(208, 208, 208);

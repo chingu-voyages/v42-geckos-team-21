@@ -1,12 +1,14 @@
 import { useState, useEffect, MouseEventHandler } from 'react';
 import RowCellTextInput from './RowCellTextInput';
 import axios from 'axios';
+import { IfcUser } from '../../..';
 
 let timesRendered = 0;
 
 interface props {
     identifier: number,
-    isNew: boolean
+    isNew: boolean,
+    user: IfcUser
 }
 
 function Row(props: props) {
@@ -133,6 +135,9 @@ function Row(props: props) {
 
         let reqObj = Object.assign({}, cellTextObj);
         reqObj = Object.assign(reqObj, cellCheckboxObj);
+        console.log('user in row', props.user);
+        let userId = props.user._id;
+        reqObj = Object.assign(reqObj, { userId })
         console.log('reqObj', reqObj);
 
         axios.post('http://localhost:3001/api/applications/new', reqObj, { withCredentials: true })

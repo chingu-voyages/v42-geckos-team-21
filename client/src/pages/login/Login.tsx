@@ -46,7 +46,7 @@ const Login = (props: IfcProps) => {
       })
       .then(res => {
         console.log('setting user: ', res!.data[0]);
-        props.setUser(res!.data);
+        props.setUser(res!.data[0]);
         navigate('/table-view')
       })
       .catch((err) => console.error(err.message))

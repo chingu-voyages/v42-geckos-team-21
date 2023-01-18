@@ -10,7 +10,7 @@ interface IfcProps {
 }
 
 function TableView(props: IfcProps) {
-  const [jobRowState, setJobRowState] = useState([<Row isNew={true} identifier={0} key={0} />]);
+  const [jobRowState, setJobRowState] = useState([<Row isNew={true} identifier={0} key={0} user={props.user}/>]);
 
 
   return (
@@ -33,7 +33,7 @@ function TableView(props: IfcProps) {
 
           <tr id="add-job-button-row">
             <td colSpan={6}><button onClick={() => setJobRowState(
-              oldJobRowState => oldJobRowState.concat(<Row isNew={true} identifier={oldJobRowState.length} key={oldJobRowState.length} />)
+              oldJobRowState => oldJobRowState.concat(<Row isNew={true} identifier={oldJobRowState.length} key={oldJobRowState.length} user={props.user}/>)
             )}>
               Enter new job&nbsp;
               <svg width="1200pt" height="1200pt" version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">

@@ -74,7 +74,7 @@
         box-sizing: border-box;
         border: 1px solid black;
         height: 100%;
-        input[type="text"] {
+        input[type="text"], input[type="date"] {
           padding: 0;
           border: none;
           height: 100%;

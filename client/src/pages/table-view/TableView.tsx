@@ -47,7 +47,7 @@ function TableView(props: IfcProps) {
       })
       setAreRowsFromDBParsedState(true);
     }
-  
+    
   
   
 

@@ -52,7 +52,7 @@
   border: 1px solid black;
   height: 100%;
 }
-.TableView table td div.input-container input[type=text] {
+.TableView table td div.input-container input[type=text], .TableView table td div.input-container input[type=date] {
   padding: 0;
   border: none;
   height: 100%;

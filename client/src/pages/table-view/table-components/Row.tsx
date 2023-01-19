@@ -29,11 +29,13 @@ function Row(props: props) {
         [key: string]: string
     }
 
+
     interface IfcCellCheckboxObj {
         [key: string]: boolean
     }
 
     let [cellTextObj, setCellTextObj] = useState<IfcCellTextObj>({});
+    let [cellDate, setCellDate] = useState(new Date());
     let [cellCheckboxObj, setCellCheckboxObj] = useState<IfcCellCheckboxObj>({
         sentCoverLetter: false,
         reachedOut: false
@@ -41,7 +43,7 @@ function Row(props: props) {
 
 
     console.count('Times Invoked (not necessarily rendered)');
-
+    console.log(cellDate.toISOString().slice(0, 10));
 
     switch (props.isNew && isEditing) {
         case true:
@@ -49,7 +51,17 @@ function Row(props: props) {
                 <tr>
                     <RowCellTextInput identifier='company' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj} index={props.identifier} />
                     <RowCellTextInput identifier='position' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj} index={props.identifier} />
-                    <RowCellTextInput identifier='date' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj} index={props.identifier} />
+                    <td>
+                        <div className='input-container'>
+                            <input id={`${props.identifier}-date`} type="date"
+                                name={`${props.identifier}-date`}
+                                value={cellDate.toISOString().slice(0, 10)}
+                                onChange={(e) => handleDateChange(e, `${props.identifier}-date`)}
+                            />
+                            <label htmlFor={`${props.identifier}-date`}>
+                            </label>
+                        </div>
+                    </td>
                     <td>
                         <div className='td-flex-wrapper'>
                             <input id={`${props.identifier}-cover-letter-check-row`} type="checkbox"
@@ -88,10 +100,10 @@ function Row(props: props) {
         case false:
             if (props.applicationFromDb && !cellTextObj.company) {
                 // https://stackoverflow.com/questions/17781472/how-to-get-a-subset-of-a-javascript-objects-properties
-                let textInputs = (({ company, position, date, notes }) => 
-                ({ company, position, date, notes }))(props.applicationFromDb)
-                let checkboxInputs = (({ sentCoverLetter, reachedOut }) => 
-                ({ sentCoverLetter, reachedOut }))(props.applicationFromDb)
+                let textInputs = (({ company, position, date, notes }) =>
+                    ({ company, position, date, notes }))(props.applicationFromDb)
+                let checkboxInputs = (({ sentCoverLetter, reachedOut }) =>
+                    ({ sentCoverLetter, reachedOut }))(props.applicationFromDb)
 
                 setCellTextObj(textInputs);
                 setCellCheckboxObj(checkboxInputs)
@@ -101,7 +113,7 @@ function Row(props: props) {
                 <tr>
                     <td>{cellTextObj['company']}</td>
                     <td>{cellTextObj['position']}</td>
-                    <td>{cellTextObj['date']}</td>
+                    <td>{cellDate.toISOString()}</td>
                     <td>
                         <div className='td-flex-wrapper'>
                             <input disabled id={`${props.identifier}-cover-letter-check-row`} type="checkbox"
@@ -139,6 +151,13 @@ function Row(props: props) {
 
     }
 
+    function handleDateChange(event: React.ChangeEvent<HTMLInputElement>, dateIdentifier: string) {
+        console.log('value', event.target.value);
+        let dateObj = new Date(event.target.value);
+        setCellDate(dateObj)
+
+    }
+
     function handleCheckboxChange(event: React.ChangeEvent, checkboxIdentifer: string) {
         setCellCheckboxObj((oldCellCheckboxObj => {
             let newCellCheckboxObj = Object.assign({}, oldCellCheckboxObj);
@@ -159,6 +178,7 @@ function Row(props: props) {
 
         let userId = props.user!._id;
         reqObj = Object.assign(reqObj, { userId })
+        reqObj = Object.assign(reqObj, {date: cellDate.toISOString()})
 
 
         axios.post('http://localhost:3001/api/applications/new', reqObj, { withCredentials: true })

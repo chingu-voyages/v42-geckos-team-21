@@ -20,7 +20,8 @@ interface props {
         reachedOut: boolean,
         sentCoverLetter: boolean
     },
-    setAlertText?: React.Dispatch<React.SetStateAction<string | Element>>
+    setAlertText?: React.Dispatch<React.SetStateAction<React.ReactNode>>,
+    setAlertKey?: React.Dispatch<React.SetStateAction<number>>
 }
 
 function Row(props: props) {
@@ -179,7 +180,7 @@ function Row(props: props) {
 
         let userId = props.user!._id;
         reqObj = Object.assign(reqObj, { userId })
-        reqObj = Object.assign(reqObj, {date: cellDate.toISOString()})
+        reqObj = Object.assign(reqObj, { date: cellDate.toISOString() })
 
 
         axios.post('http://localhost:3001/api/applications/new', reqObj, { withCredentials: true })
@@ -189,12 +190,18 @@ function Row(props: props) {
             .catch((err) => {
                 console.error(err.message, err.response.data.message);
                 props.setAlertText!(
-                <p>
-                <h6>{err.message}</h6>
-                <p>err.response.data.message</p>
-                </p>
+                    <>
+                        <strong>{err.message}</strong>
+                        <p>{err.response.data.message}</p>
+                    </>
                 )
-                
+                props.setAlertKey!((oldAlertKey) => {
+                    
+                    oldAlertKey++;
+                    console.log({oldAlertKey}, 'row');
+                    return oldAlertKey;
+                })
+
             })
     }
 }

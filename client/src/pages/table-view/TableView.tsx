@@ -14,8 +14,13 @@ interface IfcProps {
 
 function TableView(props: IfcProps) {
   console.log('tableview render');
-  let [alertText, setAlertText] = useState<string | Element>('');
-  const [jobRowState, setJobRowState] = useState([<Row isNew={true} identifier={0} key={0} user={props.user} setAlertText={setAlertText}/>]);
+  let [alertText, setAlertText] = useState<React.ReactNode>('');
+  let [alertKey, setAlertKey] = useState(0);
+  console.log('TableViews alert key', alertKey);
+
+  
+  const [jobRowState, setJobRowState] = useState([<Row isNew={true} identifier={0} 
+    key={0} user={props.user} setAlertText={setAlertText} setAlertKey={setAlertKey}/>]);
 
   let [areRowsFromDBParsedState, setAreRowsFromDBParsedState] = useState(false);
 
@@ -46,7 +51,8 @@ function TableView(props: IfcProps) {
       setJobRowState(oldJobRowState => {
 
         let newJobRowState = [...oldJobRowState];
-        return newJobRowState.concat(<Row isNew={false} identifier={oldJobRowState.length} key={oldJobRowState.length} applicationFromDb={applicationFromDb} setAlertText={setAlertText}/>)
+        return newJobRowState.concat(<Row isNew={false} identifier={oldJobRowState.length} 
+          key={oldJobRowState.length} applicationFromDb={applicationFromDb} />)
       })
     })
     setAreRowsFromDBParsedState(true);
@@ -71,7 +77,9 @@ function TableView(props: IfcProps) {
         <tbody>
           <tr id="add-job-button-row">
             <td colSpan={6}><button onClick={() => setJobRowState(
-              oldJobRowState => [<Row isNew={true} identifier={oldJobRowState.length} key={oldJobRowState.length} user={props.user} />].concat(oldJobRowState)
+              oldJobRowState => [<Row isNew={true} identifier={oldJobRowState.length} 
+                key={oldJobRowState.length} user={props.user} setAlertText={setAlertText} 
+                setAlertKey={setAlertKey}/>].concat(oldJobRowState)
             )}>
               Enter new job&nbsp;
               <svg width="1200pt" height="1200pt" version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
@@ -84,7 +92,8 @@ function TableView(props: IfcProps) {
 
         </tbody>
       </table>
-      <Alert text={alertText} exitAfterDuration={4000} />
+      <Alert text={alertText} exitAfterDuration={10000} alertKey={alertKey}
+      setAlertKey={setAlertKey} />
     </div>
 
   );

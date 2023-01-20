@@ -7,8 +7,10 @@ import { CSSTransition } from "react-transition-group"
 console.log(typeof CSSTransition);
 
 interface IfcProps {
-  text: string
-  exitAfterDuration: number
+  text: React.ReactNode,
+  exitAfterDuration: number,
+  setAlertKey: React.Dispatch<React.SetStateAction<number>>,
+  alertKey: number
 }
 
 const classNames = {
@@ -28,14 +30,20 @@ function Alert(props: IfcProps) {
   const nodeRef = useRef(null);
 
   let [isIn, setIsIn] = useState(false);
-  let [previousText, setPreviousText] = useState('');
-  
+  let [previousAlertKey, setPreviousAlertKey] = useState(0);
+  console.log('idek');
+  console.log(previousAlertKey, props.alertKey);
   if (props.text === '') {
     // do not render if props.text === ''
     return null;
-  } else if (props.text !== previousText) {
+  } else if (previousAlertKey !== props.alertKey) {
+
     setIsIn(true);
-    setPreviousText(props.text);
+    setPreviousAlertKey(oldPreviousAlertKey => {
+      
+      oldPreviousAlertKey++
+      return oldPreviousAlertKey;
+    });
   }
 
 

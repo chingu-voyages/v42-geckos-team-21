@@ -11,7 +11,7 @@ let timesRendered = 0;
 interface props {
     identifier: number,
     isNew: boolean,
-    user?: IfcUser
+    user?: IfcUser,
     applicationFromDb?: {
         company: string,
         date: string,
@@ -19,7 +19,8 @@ interface props {
         position: string,
         reachedOut: boolean,
         sentCoverLetter: boolean
-    }
+    },
+    setAlertText?: React.Dispatch<React.SetStateAction<string | Element>>
 }
 
 function Row(props: props) {
@@ -185,7 +186,16 @@ function Row(props: props) {
             .then(res => {
 
             })
-            .catch((err) => console.error(err.message, err.response.data.message))
+            .catch((err) => {
+                console.error(err.message, err.response.data.message);
+                props.setAlertText!(
+                <p>
+                <h6>{err.message}</h6>
+                <p>err.response.data.message</p>
+                </p>
+                )
+                
+            })
     }
 }
 

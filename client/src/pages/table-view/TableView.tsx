@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import './TableView.css';
 import Row from './table-components/Row'
+import Alert from '../../components/Alert/Alert';
 import { IfcUser } from '../..';
 
 interface IfcProps {
@@ -13,43 +14,46 @@ interface IfcProps {
 
 function TableView(props: IfcProps) {
   console.log('tableview render');
-  const [jobRowState, setJobRowState] = useState([<Row isNew={true} identifier={0} key={0} user={props.user} />]);
+  let [alertText, setAlertText] = useState<string | Element>('');
+  const [jobRowState, setJobRowState] = useState([<Row isNew={true} identifier={0} key={0} user={props.user} setAlertText={setAlertText}/>]);
 
   let [areRowsFromDBParsedState, setAreRowsFromDBParsedState] = useState(false);
+
+
   // console.log({areRowsFromDBParsedState});
-  
-    console.log('useEffect')
-    
-    if (!areRowsFromDBParsedState) {
-      props.user.applications.forEach((element, index) => {
 
-        // https://stackoverflow.com/questions/17781472/how-to-get-a-subset-of-a-javascript-objects-properties
-        let applicationFromDb = (({
-          company,
-          date,
-          notes,
-          position,
-          reachedOut,
-          sentCoverLetter
-        }) => ({
-          company,
-          date,
-          notes,
-          position,
-          reachedOut,
-          sentCoverLetter
-        }))(element)
-        setJobRowState(oldJobRowState => {
+  console.log('useEffect')
 
-          let newJobRowState = [...oldJobRowState];
-          return newJobRowState.concat(<Row isNew={false} identifier={oldJobRowState.length} key={oldJobRowState.length} applicationFromDb={applicationFromDb} />)
-        })
+  if (!areRowsFromDBParsedState) {
+    props.user.applications.forEach((element, index) => {
+
+      // https://stackoverflow.com/questions/17781472/how-to-get-a-subset-of-a-javascript-objects-properties
+      let applicationFromDb = (({
+        company,
+        date,
+        notes,
+        position,
+        reachedOut,
+        sentCoverLetter
+      }) => ({
+        company,
+        date,
+        notes,
+        position,
+        reachedOut,
+        sentCoverLetter
+      }))(element)
+      setJobRowState(oldJobRowState => {
+
+        let newJobRowState = [...oldJobRowState];
+        return newJobRowState.concat(<Row isNew={false} identifier={oldJobRowState.length} key={oldJobRowState.length} applicationFromDb={applicationFromDb} setAlertText={setAlertText}/>)
       })
-      setAreRowsFromDBParsedState(true);
-    }
-    
-  
-  
+    })
+    setAreRowsFromDBParsedState(true);
+  }
+
+
+
 
   return (
     <div className="TableView">
@@ -75,13 +79,12 @@ function TableView(props: IfcProps) {
               </svg>
             </button></td>
           </tr>
+
           {jobRowState}
-
-
 
         </tbody>
       </table>
-
+      <Alert text={alertText} exitAfterDuration={4000} />
     </div>
 
   );

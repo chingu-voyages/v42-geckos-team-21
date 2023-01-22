@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import "./Alert.css"
 import "animate.css"
 import { CSSTransition } from "react-transition-group"
+import { time } from 'console';
 
 
 console.log(typeof CSSTransition);
@@ -28,11 +29,15 @@ const classNames = {
 function Alert(props: IfcProps) {
 
   const nodeRef = useRef(null);
+  const timeoutIdRef = useRef<number | null>(null);
 
   let [isIn, setIsIn] = useState(false);
   let [previousAlertKey, setPreviousAlertKey] = useState(0);
-  console.log('idek');
-  console.log(previousAlertKey, props.alertKey);
+
+  console.log({props});
+  console.log('state', {isIn, previousAlertKey, timeoutIdRef});
+
+  console.log('prev, current:', previousAlertKey, props.alertKey);
   if (props.text === '') {
     // do not render if props.text === ''
     return null;
@@ -44,13 +49,23 @@ function Alert(props: IfcProps) {
       oldPreviousAlertKey++
       return oldPreviousAlertKey;
     });
-  }
 
 
-  if (isIn) {
-    setTimeout(() => setIsIn(false), props.exitAfterDuration);
+    if (timeoutIdRef.current) {
+      console.log(timeoutIdRef.current, 'timeout cleared');
+      clearTimeout(timeoutIdRef.current);
+    }
+
+    let localTimeoutId = window.setTimeout(() => setIsIn(false), props.exitAfterDuration);
+   
+    console.log({localTimeoutId}, previousAlertKey, props.alertKey);
+    timeoutIdRef.current = localTimeoutId;
   }
-  console.log({isIn});
+  
+      
+
+
+  
 
   return (
     <CSSTransition nodeRef={nodeRef} in={isIn} appear={true} timeout={1000} classNames={classNames}>

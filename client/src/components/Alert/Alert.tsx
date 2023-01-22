@@ -42,7 +42,7 @@ function Alert(props: IfcProps) {
     // do not render if props.text === ''
     return null;
   } else if (previousAlertKey !== props.alertKey) {
-
+    
     setIsIn(true);
     setPreviousAlertKey(oldPreviousAlertKey => {
       
@@ -69,7 +69,8 @@ function Alert(props: IfcProps) {
 
   return (
     <CSSTransition nodeRef={nodeRef} in={isIn} appear={true} timeout={1000} classNames={classNames}>
-      <div ref={nodeRef} id="alert" className="animate__animated" >
+      {/* Using key here to trigger rebounce on alertKey change */}
+      <div ref={nodeRef} id="alert" className="animate__animated animate__bounce" key={props.alertKey}>
         {props.text}
       </div>
     </CSSTransition>

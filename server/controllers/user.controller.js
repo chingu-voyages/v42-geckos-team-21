@@ -2,6 +2,7 @@ const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
+
 class UserController {
   // functions this class has available to use
   // Create
@@ -21,7 +22,11 @@ class UserController {
                 })
                 .json(user);
             })
-            .catch((err) => res.status(400).json(err));
+            .catch((err) => {
+              res.status(400).json(err.message)
+              console.error(err)
+            });
+            
         } else {
           res.status(400).json({
             errors: {
@@ -109,7 +114,7 @@ class UserController {
   /* use this method to retrieve logged in USER data from the backend via jwt cookies
     example:
       axios
-        .get(`http://localhost:8000/api/users/getloggedinuser`, {withCredentials: true})
+        .get(`http://localhost:8000/api/user/getloggedinuser`, {withCredentials: true})
         .then(res => console.log(res.data[0]))
   */
   getLoggedInUser = (req, res) => {

@@ -23,8 +23,7 @@
 }
 .TableView table tr:first-child td.button-cell button {
   display: block;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   border: none;
   border-top: 1px solid black;
   border-left: 1px solid black;
@@ -33,29 +32,30 @@
   width: 1em;
   padding: 0;
 }
-.TableView table tr#add-job-button-row td {
+.TableView table tr:last-child {
+  border: none;
+}
+.TableView table tr:last-child td {
   border-bottom: 1px solid black;
 }
-.TableView table tr#add-job-button-row td button:hover {
+.TableView table tr:last-child button:hover {
   padding: 0;
   border: none;
   background-color: rgb(208, 208, 208);
 }
 .TableView table td {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   height: 45px;
   background-color: white;
   border-bottom: 1px solid black;
 }
 .TableView table td div.input-container {
   position: relative;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   border: 1px solid black;
   height: 100%;
 }
-.TableView table td div.input-container input[type=text], .TableView table td div.input-container input[type=date] {
+.TableView table td div.input-container input[type=text] {
   padding: 0;
   border: none;
   height: 100%;
@@ -78,8 +78,7 @@
 }
 .TableView table td.button-cell button {
   display: block;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   border: none;
   border-top: 1px solid black;
   border-left: 1px solid black;
@@ -104,22 +103,22 @@
   border-top-right-radius: 10px;
   width: 5em;
 }
-.TableView table #add-job-button-row button {
+.TableView table tr:last-child button {
   border: none;
   border-radius: 5px;
   padding: 0;
   background-color: transparent;
 }
-.TableView table #add-job-button-row button svg {
+.TableView table tr:last-child button svg {
   fill: #32D89C;
   height: 1.25em;
   width: 1.25em;
   vertical-align: middle;
 }
-.TableView table #add-job-button-row button:active:active {
+.TableView table tr:last-child button:active:active {
   background-color: rgb(177, 177, 177);
 }
-.TableView table #add-job-button-row button:active:hover svg {
+.TableView table tr:last-child button:active:hover svg {
   fill: green;
 }
 
@@ -151,4 +150,4 @@ input[type=checkbox] {
 input[type=checkbox]:checked + label svg {
   background-color: #EDAE49;
   fill: rgb(0, 0, 0);
-}
+}/*# sourceMappingURL=TableView.css.map */

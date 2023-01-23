@@ -23,8 +23,7 @@
 }
 .TableView table tr:first-child td.button-cell button {
   display: block;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   border: none;
   border-top: 1px solid black;
   border-left: 1px solid black;
@@ -42,23 +41,20 @@
   background-color: rgb(208, 208, 208);
 }
 .TableView table td {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  height: 45px;
+  box-sizing: border-box;
+  min-height: 45px;
   background-color: white;
   border-bottom: 1px solid black;
 }
 .TableView table td div.input-container {
   position: relative;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  border: 1px solid black;
+  box-sizing: border-box;
   height: 100%;
 }
 .TableView table td div.input-container input[type=text], .TableView table td div.input-container input[type=date] {
   padding: 0;
-  border: none;
-  height: 100%;
+  border: 1px solid black;
+  height: 45px;
   text-align: center;
   font-size: inherit;
   font-family: inherit;
@@ -72,14 +68,16 @@
   position: absolute;
   white-space: pre;
 }
+.TableView table td div.input-container span.cell-input-error {
+  color: red;
+}
 .TableView table td.button-cell {
   background-color: transparent;
   padding: 0;
 }
 .TableView table td.button-cell button {
   display: block;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   border: none;
   border-top: 1px solid black;
   border-left: 1px solid black;
@@ -151,4 +149,4 @@ input[type=checkbox] {
 input[type=checkbox]:checked + label svg {
   background-color: #EDAE49;
   fill: rgb(0, 0, 0);
-}
+}/*# sourceMappingURL=TableView.css.map */

@@ -50,7 +50,9 @@ function RowCellTextInput(props: props) {
     return (
         <td>
             <div className="input-container">
-                <input id={`${props.identifier}-${props.index}-input`} type="text" style={{ width: inputWidth }} onChange={(e) => props.setCellTextObj((oldCellTextObj: IfcCellTextObj) => {
+                <input id={`${props.identifier}-${props.index}-input`} 
+                type="text" style={{ width: inputWidth }} value={props.cellTextObj[props.identifier]}
+                onChange={(e) => props.setCellTextObj((oldCellTextObj: IfcCellTextObj) => {
                     let newCellTextObj = Object.assign({}, oldCellTextObj);
                     newCellTextObj[props.identifier] = e.target.value;
                     return newCellTextObj;

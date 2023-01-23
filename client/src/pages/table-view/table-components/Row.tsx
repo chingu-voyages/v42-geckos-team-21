@@ -37,12 +37,18 @@ function Row(props: props) {
         [key: string]: boolean
     }
 
-    let [cellTextObj, setCellTextObj] = useState<IfcCellTextObj>({});
+    let [cellTextObj, setCellTextObj] = useState<IfcCellTextObj>({
+        company: '',
+        position: '',
+        notes: ''
+    });
     let [cellDate, setCellDate] = useState(new Date());
     let [cellCheckboxObj, setCellCheckboxObj] = useState<IfcCellCheckboxObj>({
         sentCoverLetter: false,
         reachedOut: false
     });
+
+    
 
 
     console.count('Times Invoked (not necessarily rendered)');
@@ -60,6 +66,7 @@ function Row(props: props) {
                                 name={`${props.identifier}-date`}
                                 value={cellDate.toISOString().slice(0, 10)}
                                 onChange={(e) => handleDateChange(e, `${props.identifier}-date`)}
+                                max={new Date().toISOString().slice(0, 10)}
                             />
                             <label htmlFor={`${props.identifier}-date`}>
                             </label>
@@ -154,6 +161,27 @@ function Row(props: props) {
 
     }
 
+
+    function validateFields() {
+        console.log(cellTextObj, cellDate);
+
+        if (!cellTextObj.company || cellTextObj.company.length < 1) {
+            console.log('company failed validation');
+        }
+
+        if (!cellTextObj.position || cellTextObj.position.length < 1) {
+            console.log('position failed validation')
+        }
+
+        if (!cellDate || cellDate > new Date()) {
+            console.log('date failed validation')
+        }
+
+        if (cellTextObj.notes.length < 1) {
+            console.log('company failed validation');
+        }
+    }
+
     function handleDateChange(event: React.ChangeEvent<HTMLInputElement>, dateIdentifier: string) {
         console.log('value', event.target.value);
         let dateObj = new Date(event.target.value);
@@ -170,7 +198,8 @@ function Row(props: props) {
     }
 
     function handleButtonClick(event: React.MouseEvent) {
-        setIsEditing(false)
+        validateFields();
+        setIsEditing(false);
         sendRowToDB();
     }
 

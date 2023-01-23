@@ -2,7 +2,7 @@ import React from 'react'
 
 const KanbanView = () => {
   return (
-    <div>KanbanView</div>
+    <div className='row'>KanbanView</div>
   )
 }
 

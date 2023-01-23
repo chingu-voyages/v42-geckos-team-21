@@ -9,6 +9,7 @@ import NavigationBar from './components/NavigationBar/NavigationBar'
 import Footer from './components/Footer/Footer'
 import KanbanView from './pages/kanban-view/KanbanView';
 import NotFound from './pages/404/not-found';
+import SignUp from './pages/sign-up/SignUp';
 // import reportWebVitals from './reportWebVitals';
 
 export interface IfcUser {
@@ -47,6 +48,7 @@ function App() {
             <Routes>
               <Route path='/' element={<Landing />} />
               <Route path='/login' element={<Login user={user} setUser={setUser} />} />
+              <Route path='/sign-up' element={<SignUp />} />
               <Route path='*' element={<NotFound />} />
             </Routes>
           </Router>

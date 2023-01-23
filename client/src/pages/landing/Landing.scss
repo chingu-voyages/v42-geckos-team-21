@@ -1,0 +1,50 @@
+.landing {
+  padding: 3em;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &-title-one {
+    font-size: 4em;
+    z-index: 10;
+    margin: 0;
+  }
+
+  &-title-two {
+    font-size: 2em;
+    z-index: 10;
+  }
+
+  &-image {
+    top: 60%;
+    max-width: 100%;
+  }
+
+  .login-btn {
+    text-decoration: none;
+    padding: 0.5em 2em;
+    border-radius: 8px;
+    font-weight: 600;
+    color: #00798c;
+    outline: 1px solid #00798c;
+    background-color: white;
+    transition: 150ms ease-in-out;
+    margin-top: 30px;
+
+    &:hover {
+      background-color: #00798c;
+      color: white;
+    }
+  }
+
+  p {
+    margin-top: 20px;
+  }
+
+  .sign-up-btn {
+    color: #00798c;
+  }
+
+}

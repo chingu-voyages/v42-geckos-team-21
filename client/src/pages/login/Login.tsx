@@ -15,7 +15,7 @@ const Login = (props: IfcProps) => {
   const [inputPassword, setInputPassword] = useState('');
  
   return (
-    <main className='login-container'>
+    <main className='login-container row'>
       <form className='login-content' onSubmit={handleSubmit}>
         <h3>Login</h3>
         <input type='text' name='email' onChange={(e) => {
@@ -27,7 +27,7 @@ const Login = (props: IfcProps) => {
         }}/>
         <label htmlFor='password'>Password</label>
         <button type='submit' className='login-submit'>Log In</button>
-        <p>Not a member? <Link to='/signup'>Sign up now</Link></p>
+        <p>Not a member? <Link to='/sign-up'>Sign up now</Link></p>
         </form>
     </main>
   )

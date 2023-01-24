@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-// import axios from 'axios';
+import axios from 'axios';
 import './SignUp.css'
 const SignUp = () => {
   const [newUsername, setNewUsername] = useState('');
@@ -10,7 +10,6 @@ const SignUp = () => {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(newUsername, newEmail, newPassword, newPassword2)
     const errors: any = {}
     
     if(newUsername.length < 8) {
@@ -27,19 +26,15 @@ const SignUp = () => {
     }
 
     setFormErrors(errors)
-    // axios.post('http://localhost:3001/api/login', {email: inputEmail, password: inputPassword}, {withCredentials: true})
-    //   .then(res => {
-    //     if (res.data.msg === 'success!' ) {
-    //       console.log(res.headers);
-    //       console.log(document.cookie);
-    //       // document.cookie = ;
-    //       return axios.get('http://localhost:3001/api/user/getloggedinuser', {withCredentials: true})
-    //     }
-    //   })
-    //   .then(res => {
-    //     console.log(res!.data);
-    //   })
-    //   .catch((err) => console.error(err.message))
+
+    if(Object.keys(errors).length === 0) {
+      console.log('no error')
+      axios.get('http://localhost:3001/api/users')
+      .then(res => {
+        console.log(res!.data);
+      })
+      .catch((err) => console.error(err.message))
+    }
 
   }
   return (

@@ -26,7 +26,7 @@ function RowCellTextInput(props: props) {
 
     let defaultWidth: number | undefined | null;
     useEffect(() => {
-
+        console.log({inputDefaultWidth}, props.identifier);
         if (inputDefaultWidth === null) {
             setInputDefaultWidth(document.getElementById(`${props.identifier}-${props.index}-input`)!.getBoundingClientRect().width)
         }
@@ -34,7 +34,8 @@ function RowCellTextInput(props: props) {
 
         let width: number;
         width = document.getElementById(`${props.identifier}-${props.index}-input-width-indicator`)?.clientWidth!;
-        if (width > inputDefaultWidth!) {
+        if (width > inputDefaultWidth! && inputDefaultWidth !== null) {
+            console.log('rose disapproves');
             setInputWidth(width + 3 + 'px');
         }
 

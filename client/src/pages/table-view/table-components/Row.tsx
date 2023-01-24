@@ -140,13 +140,14 @@ function Row(props: props) {
         case false:
             if (props.applicationFromDb && !cellTextObj.company) {
                 // https://stackoverflow.com/questions/17781472/how-to-get-a-subset-of-a-javascript-objects-properties
-                let textInputs = (({ company, position, date, notes }) =>
-                    ({ company, position, date, notes }))(props.applicationFromDb)
+                let textInputs = (({ company, position, notes }) =>
+                    ({ company, position, notes }))(props.applicationFromDb)
                 let checkboxInputs = (({ sentCoverLetter, reachedOut }) =>
                     ({ sentCoverLetter, reachedOut }))(props.applicationFromDb)
 
                 setCellTextObj(textInputs);
                 setCellCheckboxObj(checkboxInputs)
+                setCellDate(new Date(props.applicationFromDb.date))
             }
 
             return (

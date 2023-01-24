@@ -25,6 +25,13 @@ interface props {
     setAlertKey?: React.Dispatch<React.SetStateAction<number>>
 }
 
+export interface IfcCellInputErrors {
+    company: null | string,
+    position: null | string,
+    date: null | string,
+    [key: string]: string | null
+};
+
 function Row(props: props) {
     let [isEditing, setIsEditing] = useState(true);
 
@@ -48,23 +55,16 @@ function Row(props: props) {
         reachedOut: false
     });
 
-    interface IfcCellInputErrors {
-        company: null | string,
-        position: null | string,
-        date: null | string
-    }
+    
 
     let [cellInputErrorsState, setCellInputErrorsState] = useState<IfcCellInputErrors>({
         company: null,
         position: null,
         date: null
-    })
-
-    let [areCellInputsTrimmed, setAreCellInputsTrimmed] = useState(false);
+    });
 
 
 
-    console.log({areCellInputsTrimmed});
 
 
     console.count('Times Invoked (not necessarily rendered)');
@@ -76,18 +76,20 @@ function Row(props: props) {
                 <tr>
                     <RowCellTextInput identifier='company' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}
                         index={props.identifier}
-                        cellError={cellInputErrorsState.company}
+                        cellError={cellInputErrorsState.company} 
+                        setCellInputErrorsState={setCellInputErrorsState}
                     />
                     <RowCellTextInput identifier='position' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}
                         index={props.identifier}
                         cellError={cellInputErrorsState.position}
+                        setCellInputErrorsState={setCellInputErrorsState}
                     />
-                    <td>
+                    <td style={cellInputErrorsState.date ? {verticalAlign: 'top'} : {}}>
                         <div className='input-container'>
                             <input id={`${props.identifier}-date`} type="date"
                                 name={`${props.identifier}-date`}
                                 value={cellDate.toISOString().slice(0, 10)}
-                                onChange={(e) => handleDateChange(e, `${props.identifier}-date`)}
+                                onChange={(e) => {handleDateChange(e, `${props.identifier}-date`)}}
                                 max={new Date().toISOString().slice(0, 10)}
                             />
                             <label htmlFor={`${props.identifier}-date`}>
@@ -190,16 +192,16 @@ function Row(props: props) {
 
     function handleButtonClick(event: React.MouseEvent) {
         const [areCellInputsValid, cellInputErrors] = validateFields();
-        console.log({areCellInputsTrimmed});
-        if (areCellInputsTrimmed) {
-            if (areCellInputsValid) {
-                setIsEditing(false);
-                sendRowToDB();
-            } else {
-                console.log(cellInputErrors);
-            }
-            setCellInputErrorsState(cellInputErrors);
+
+
+        if (areCellInputsValid) {
+            setIsEditing(false);
+            sendRowToDB();
+        } else {
+            console.log(cellInputErrors);
         }
+        setCellInputErrorsState(cellInputErrors);
+
     }
 
     function validateFields(): [boolean, IfcCellInputErrors] {
@@ -247,7 +249,6 @@ function Row(props: props) {
                 console.log({ newCellTextObj });
                 return newCellTextObj;
             })
-            setAreCellInputsTrimmed(true);
         }
     }
 
@@ -255,7 +256,11 @@ function Row(props: props) {
         console.log('value', event.target.value);
         let dateObj = new Date(event.target.value);
         setCellDate(dateObj)
-
+        setCellInputErrorsState((oldCellInputErrorsState:IfcCellInputErrors) => {
+            let newCellInputErrorsState = Object.assign({}, oldCellInputErrorsState);
+            newCellInputErrorsState['date'] = null;
+            return newCellInputErrorsState;
+        })
     }
 
     function handleCheckboxChange(event: React.ChangeEvent, checkboxIdentifer: string) {

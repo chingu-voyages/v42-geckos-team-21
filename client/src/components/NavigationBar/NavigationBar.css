@@ -1,8 +1,12 @@
 .nav {
   width: 100%;
   background-color: #30638E;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   height: 10em;
   margin: 0 !important;
   -webkit-box-align: center;
@@ -15,6 +19,7 @@
   cursor: pointer;
   padding: 1em 2em;
   text-decoration: none;
+  -webkit-transition: 150ms ease-in-out;
   transition: 150ms ease-in-out;
 }
 .nav-logo-big {
@@ -24,8 +29,12 @@
 }
 .nav-logo-small {
   letter-spacing: 0.25rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .nav-logo:hover {
   color: rgb(227, 225, 225);
@@ -34,16 +43,26 @@
   list-style: none;
   padding: 1em;
   margin: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 .nav-menu a {
   border: 1px solid white;
   padding: 0.25em 0.5em;
   color: white;
   border-radius: 8px;
+  -webkit-transition: 150ms ease-in-out;
   transition: 150ms ease-in-out;
   margin: 0 0.5em;
   cursor: pointer;
@@ -54,8 +73,13 @@
   color: #30638E;
 }
 .nav-dropdown {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   position: absolute;
   top: calc(10em - 16px);
   width: 100%;
@@ -73,6 +97,7 @@
   text-decoration: none;
   padding: 0.5em;
   color: white;
+  -webkit-transition: 150ms ease-in-out;
   transition: 150ms ease-in-out;
   text-transform: uppercase;
   font-size: 15px;
@@ -89,6 +114,7 @@
   color: white;
   padding: 0.08em;
   border-radius: 8px;
+  -webkit-transition: 50ms ease-in-out;
   transition: 50ms ease-in-out;
   cursor: pointer;
 }
@@ -106,4 +132,4 @@
 .toggle-dropdown {
     display: none;
   }
-}/*# sourceMappingURL=NavigationBar.css.map */
+}

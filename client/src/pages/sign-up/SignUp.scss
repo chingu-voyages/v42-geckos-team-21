@@ -67,4 +67,22 @@
       background-color: #1f405b;
     }
   }
+
+  &-success {
+    @extend .sign-up-content;
+    text-align: center;
+
+    h2 {
+      font-size: 3em;
+      line-height: 2em;
+    }
+
+    p {
+      font-size: 1.25rem;
+
+      a {
+        color: #30638E;
+      }
+    }
+  }
 }

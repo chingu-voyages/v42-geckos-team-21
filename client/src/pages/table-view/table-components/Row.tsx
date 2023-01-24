@@ -66,7 +66,8 @@ function Row(props: props) {
 
 
 
-
+    console.log({isEditing});
+    console.log('props.isNew, isEditing', props.isNew, isEditing);
     console.count('Times Invoked (not necessarily rendered)');
     console.log(cellDate.toISOString().slice(0, 10));
 
@@ -152,7 +153,7 @@ function Row(props: props) {
                 <tr>
                     <td>{cellTextObj['company']}</td>
                     <td>{cellTextObj['position']}</td>
-                    <td>{cellDate.toISOString()}</td>
+                    <td>{cellDate.toDateString()}</td>
                     <td>
                         <div className='td-flex-wrapper'>
                             <input disabled id={`${props.identifier}-cover-letter-check-row`} type="checkbox"
@@ -283,16 +284,17 @@ function Row(props: props) {
 
         axios.post('http://localhost:3001/api/applications/new', reqObj, { withCredentials: true })
             .then(res => {
-
+                console.log('row axios res', res);
             })
             .catch((err) => {
-                console.error(err.message, err.response.data.message);
+                console.log(err);
                 props.setAlertText!(
                     <>
                         <strong>{err.message}</strong>
-                        <p>{err.response.data.message}</p>
+                        <p>{err.response ? err.response.data.message : null}</p>
                     </>
                 )
+                setIsEditing(true);
                 props.setAlertKey!((oldAlertKey) => {
 
                     oldAlertKey++;

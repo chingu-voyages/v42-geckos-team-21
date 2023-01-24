@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { IfcCellInputErrors } from './Row';
 interface IfcCellTextObj {
     [key: string]: string
 }
@@ -9,7 +10,8 @@ interface props {
     setCellTextObj: React.SetStateAction<Function>,
     cellTextObj: IfcCellTextObj,
     index: number,
-    cellError?: null | string
+    cellError?: null | string,
+    setCellInputErrorsState?: React.SetStateAction<Function>
 }
 
 
@@ -40,7 +42,7 @@ function RowCellTextInput(props: props) {
 
 
 
-       
+
 
 
 
@@ -49,15 +51,22 @@ function RowCellTextInput(props: props) {
 
 
     return (
-        <td style={props.cellError ? {verticalAlign: 'top'} : {}}>
+        <td style={props.cellError ? { verticalAlign: 'top' } : {}}>
             <div className="input-container">
-                <input id={`${props.identifier}-${props.index}-input`} 
-                type="text" style={{ width: inputWidth }} value={props.cellTextObj[props.identifier]}
-                onChange={(e) => props.setCellTextObj((oldCellTextObj: IfcCellTextObj) => {
-                    let newCellTextObj = Object.assign({}, oldCellTextObj);
-                    newCellTextObj[props.identifier] = e.target.value;
-                    return newCellTextObj;
-                })} placeholder={props.identifier} />
+                <input id={`${props.identifier}-${props.index}-input`}
+                    type="text" style={{ width: inputWidth }} value={props.cellTextObj[props.identifier]}
+                    onChange={(e) => props.setCellTextObj((oldCellTextObj: IfcCellTextObj) => {
+                        let newCellTextObj = Object.assign({}, oldCellTextObj);
+                        newCellTextObj[props.identifier] = e.target.value;
+                        if (props.setCellInputErrorsState) {
+                            props.setCellInputErrorsState((oldCellInputErrorsState:IfcCellInputErrors) => {
+                                let newCellInputErrorsState = Object.assign({}, oldCellInputErrorsState);
+                                newCellInputErrorsState[props.identifier] = null;
+                                return newCellInputErrorsState;
+                            })
+                        }
+                        return newCellTextObj;
+                    })} placeholder={props.identifier} />
                 <span id={`${props.identifier}-${props.index}-input-width-indicator`} className='input-width-indicator'>
                     {props.cellTextObj[props.identifier]}
                 </span>

@@ -63,6 +63,7 @@
   overflow: auto;
 }
 .TableView table td div.input-container span.input-width-indicator {
+  visibility: hidden;
   color: rgb(88, 146, 0);
   left: 0;
   position: absolute;

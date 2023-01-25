@@ -34,9 +34,12 @@ function RowCellTextInput(props: props) {
 
         let width: number;
         width = document.getElementById(`${props.identifier}-${props.index}-input-width-indicator`)?.clientWidth!;
+        console.log({width}, props.identifier);
         if (width > inputDefaultWidth! && inputDefaultWidth !== null) {
             console.log('rose disapproves');
             setInputWidth(width + 3 + 'px');
+        } else if (width < inputDefaultWidth!) {
+            setInputWidth(inputDefaultWidth! + 3 + 'px');
         }
 
 
@@ -57,6 +60,7 @@ function RowCellTextInput(props: props) {
                 <input id={`${props.identifier}-${props.index}-input`}
                     type="text" style={{ width: inputWidth }} value={props.cellTextObj[props.identifier]}
                     onChange={(e) => props.setCellTextObj((oldCellTextObj: IfcCellTextObj) => {
+                        console.count('change');
                         let newCellTextObj = Object.assign({}, oldCellTextObj);
                         newCellTextObj[props.identifier] = e.target.value;
                         if (props.setCellInputErrorsState) {

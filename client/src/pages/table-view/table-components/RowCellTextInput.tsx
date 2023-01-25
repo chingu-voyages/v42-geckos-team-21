@@ -26,30 +26,7 @@ function RowCellTextInput(props: props) {
 
     let defaultWidth: number | undefined | null;
     useEffect(() => {
-        console.log({inputDefaultWidth}, props.identifier);
-        if (inputDefaultWidth === null) {
-            setInputDefaultWidth(document.getElementById(`${props.identifier}-${props.index}-input`)!.getBoundingClientRect().width)
-        }
-
-
-        let width: number;
-        width = document.getElementById(`${props.identifier}-${props.index}-input-width-indicator`)?.clientWidth!;
-        console.log({width}, props.identifier);
-        if (width > inputDefaultWidth! && inputDefaultWidth !== null) {
-            console.log('rose disapproves');
-            setInputWidth(width + 3 + 'px');
-        } else if (width < inputDefaultWidth!) {
-            setInputWidth(inputDefaultWidth! + 3 + 'px');
-        }
-
-
-
-
-
-
-
-
-
+        handleInputWidthResizing();
     })
 
 
@@ -64,7 +41,7 @@ function RowCellTextInput(props: props) {
                         let newCellTextObj = Object.assign({}, oldCellTextObj);
                         newCellTextObj[props.identifier] = e.target.value;
                         if (props.setCellInputErrorsState) {
-                            props.setCellInputErrorsState((oldCellInputErrorsState:IfcCellInputErrors) => {
+                            props.setCellInputErrorsState((oldCellInputErrorsState: IfcCellInputErrors) => {
                                 let newCellInputErrorsState = Object.assign({}, oldCellInputErrorsState);
                                 newCellInputErrorsState[props.identifier] = null;
                                 return newCellInputErrorsState;
@@ -81,6 +58,22 @@ function RowCellTextInput(props: props) {
             </div>
         </td>
     )
+
+    function handleInputWidthResizing() {
+        if (inputDefaultWidth === null) {
+            setInputDefaultWidth(document.getElementById(`${props.identifier}-${props.index}-input`)!.getBoundingClientRect().width)
+        }
+
+        let width: number;
+        width = document.getElementById(`${props.identifier}-${props.index}-input-width-indicator`)?.clientWidth!;
+
+        if (width > inputDefaultWidth! && inputDefaultWidth !== null) {
+
+            setInputWidth(width + 3 + 'px');
+        } else if (width < inputDefaultWidth!) {
+            setInputWidth(inputDefaultWidth! + 3 + 'px');
+        }
+    }
 }
 
 export default RowCellTextInput;

@@ -25,6 +25,13 @@ interface props {
     setAlertKey?: React.Dispatch<React.SetStateAction<number>>
 }
 
+export interface IfcCellInputErrors {
+    company: null | string,
+    position: null | string,
+    date: null | string,
+    [key: string]: string | null
+};
+
 function Row(props: props) {
     let [isEditing, setIsEditing] = useState(true);
 
@@ -37,14 +44,30 @@ function Row(props: props) {
         [key: string]: boolean
     }
 
-    let [cellTextObj, setCellTextObj] = useState<IfcCellTextObj>({});
+    let [cellTextObj, setCellTextObj] = useState<IfcCellTextObj>({
+        company: '',
+        position: '',
+        notes: ''
+    });
     let [cellDate, setCellDate] = useState(new Date());
     let [cellCheckboxObj, setCellCheckboxObj] = useState<IfcCellCheckboxObj>({
         sentCoverLetter: false,
         reachedOut: false
     });
 
+    
 
+    let [cellInputErrorsState, setCellInputErrorsState] = useState<IfcCellInputErrors>({
+        company: null,
+        position: null,
+        date: null
+    });
+
+
+
+
+    console.log({isEditing});
+    console.log('props.isNew, isEditing', props.isNew, isEditing);
     console.count('Times Invoked (not necessarily rendered)');
     console.log(cellDate.toISOString().slice(0, 10));
 
@@ -52,17 +75,29 @@ function Row(props: props) {
         case true:
             return (
                 <tr>
-                    <RowCellTextInput identifier='company' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj} index={props.identifier} />
-                    <RowCellTextInput identifier='position' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj} index={props.identifier} />
-                    <td>
+                    <RowCellTextInput identifier='company' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}
+                        index={props.identifier}
+                        cellError={cellInputErrorsState.company} 
+                        setCellInputErrorsState={setCellInputErrorsState}
+                    />
+                    <RowCellTextInput identifier='position' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}
+                        index={props.identifier}
+                        cellError={cellInputErrorsState.position}
+                        setCellInputErrorsState={setCellInputErrorsState}
+                    />
+                    <td style={cellInputErrorsState.date ? {verticalAlign: 'top'} : {}}>
                         <div className='input-container'>
                             <input id={`${props.identifier}-date`} type="date"
                                 name={`${props.identifier}-date`}
                                 value={cellDate.toISOString().slice(0, 10)}
-                                onChange={(e) => handleDateChange(e, `${props.identifier}-date`)}
+                                onChange={(e) => {handleDateChange(e, `${props.identifier}-date`)}}
+                                max={new Date().toISOString().slice(0, 10)}
                             />
                             <label htmlFor={`${props.identifier}-date`}>
                             </label>
+                            <span className='cell-input-error'>
+                                {cellInputErrorsState.date}
+                            </span>
                         </div>
                     </td>
                     <td>
@@ -93,7 +128,9 @@ function Row(props: props) {
                             </label>
                         </div>
                     </td>
-                    <RowCellTextInput identifier='notes' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj} index={props.identifier} />
+                    <RowCellTextInput identifier='notes' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}
+                        index={props.identifier}
+                    />
                     <td className="button-cell"><button onClick={handleButtonClick}>✔</button></td>
                     <td className="button-cell"><button>✖</button></td>
                 </tr>
@@ -103,20 +140,21 @@ function Row(props: props) {
         case false:
             if (props.applicationFromDb && !cellTextObj.company) {
                 // https://stackoverflow.com/questions/17781472/how-to-get-a-subset-of-a-javascript-objects-properties
-                let textInputs = (({ company, position, date, notes }) =>
-                    ({ company, position, date, notes }))(props.applicationFromDb)
+                let textInputs = (({ company, position, notes }) =>
+                    ({ company, position, notes }))(props.applicationFromDb)
                 let checkboxInputs = (({ sentCoverLetter, reachedOut }) =>
                     ({ sentCoverLetter, reachedOut }))(props.applicationFromDb)
 
                 setCellTextObj(textInputs);
                 setCellCheckboxObj(checkboxInputs)
+                setCellDate(new Date(props.applicationFromDb.date))
             }
 
             return (
                 <tr>
                     <td>{cellTextObj['company']}</td>
                     <td>{cellTextObj['position']}</td>
-                    <td>{cellDate.toISOString()}</td>
+                    <td>{cellDate.toDateString()}</td>
                     <td>
                         <div className='td-flex-wrapper'>
                             <input disabled id={`${props.identifier}-cover-letter-check-row`} type="checkbox"
@@ -154,11 +192,77 @@ function Row(props: props) {
 
     }
 
+    function handleButtonClick(event: React.MouseEvent) {
+        const [areCellInputsValid, cellInputErrors] = validateFields();
+
+
+        if (areCellInputsValid) {
+            setIsEditing(false);
+            sendRowToDB();
+        } else {
+            console.log(cellInputErrors);
+        }
+        setCellInputErrorsState(cellInputErrors);
+
+    }
+
+    function validateFields(): [boolean, IfcCellInputErrors] {
+        trimTextInputs();
+
+
+        let areCellInputsValid = true;
+
+
+
+        let cellInputErrors: IfcCellInputErrors = {
+            company: null,
+            position: null,
+            date: null
+        }
+
+
+
+        if (!cellTextObj.company || cellTextObj.company.length < 1) {
+            areCellInputsValid = false;
+            cellInputErrors.company = "Company can't be blank."
+        }
+
+        if (!cellTextObj.position || cellTextObj.position.length < 1) {
+            areCellInputsValid = false;
+            cellInputErrors.position = "Position can't be blank."
+            console.log('pos blank');
+        }
+
+        if (cellDate > new Date()) {
+            cellInputErrors.date = "Date can't be in the future."
+            areCellInputsValid = false;
+        }
+
+
+
+        return [areCellInputsValid, cellInputErrors];
+
+        function trimTextInputs() {
+            setCellTextObj(oldCellTextObj => {
+                let newCellTextObj: IfcCellTextObj = Object.assign({}, oldCellTextObj);
+                for (const property in newCellTextObj) {
+                    newCellTextObj[property] = newCellTextObj[property].trim();
+                }
+                console.log({ newCellTextObj });
+                return newCellTextObj;
+            })
+        }
+    }
+
     function handleDateChange(event: React.ChangeEvent<HTMLInputElement>, dateIdentifier: string) {
         console.log('value', event.target.value);
         let dateObj = new Date(event.target.value);
         setCellDate(dateObj)
-
+        setCellInputErrorsState((oldCellInputErrorsState:IfcCellInputErrors) => {
+            let newCellInputErrorsState = Object.assign({}, oldCellInputErrorsState);
+            newCellInputErrorsState['date'] = null;
+            return newCellInputErrorsState;
+        })
     }
 
     function handleCheckboxChange(event: React.ChangeEvent, checkboxIdentifer: string) {
@@ -167,11 +271,6 @@ function Row(props: props) {
             newCellCheckboxObj[checkboxIdentifer] = !newCellCheckboxObj[checkboxIdentifer];
             return newCellCheckboxObj;
         }))
-    }
-
-    function handleButtonClick(event: React.MouseEvent) {
-        setIsEditing(false)
-        sendRowToDB();
     }
 
     function sendRowToDB() {
@@ -186,20 +285,21 @@ function Row(props: props) {
 
         axios.post('http://localhost:3001/api/applications/new', reqObj, { withCredentials: true })
             .then(res => {
-
+                console.log('row axios res', res);
             })
             .catch((err) => {
-                console.error(err.message, err.response.data.message);
+                console.log(err);
                 props.setAlertText!(
                     <>
                         <strong>{err.message}</strong>
-                        <p>{err.response.data.message}</p>
+                        <p>{err.response ? err.response.data.message : null}</p>
                     </>
                 )
+                setIsEditing(true);
                 props.setAlertKey!((oldAlertKey) => {
-                    
+
                     oldAlertKey++;
-                    console.log({oldAlertKey}, 'row');
+                    console.log({ oldAlertKey }, 'row');
                     return oldAlertKey;
                 })
 

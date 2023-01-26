@@ -3,27 +3,15 @@ import RowCellTextInput from './RowCellTextInput';
 import axios from 'axios';
 import { IfcUser } from '../../..';
 import { text } from 'stream/consumers';
+import { IfcCommonJobRowProps } from '../TableView';
 
+interface fullJobProps extends IfcCommonJobRowProps {
+    setJobRowState: React.Dispatch<React.SetStateAction<IfcCommonJobRowProps[]>>
+}
 
 let timesRendered = 0;
 
 
-
-interface props {
-    identifier: number,
-    isNew: boolean,
-    user?: IfcUser,
-    applicationFromDb?: {
-        company: string,
-        date: string,
-        notes: string,
-        position: string,
-        reachedOut: boolean,
-        sentCoverLetter: boolean
-    },
-    setAlertText?: React.Dispatch<React.SetStateAction<React.ReactNode>>,
-    setAlertKey?: React.Dispatch<React.SetStateAction<number>>
-}
 
 export interface IfcCellInputErrors {
     company: null | string,
@@ -32,7 +20,7 @@ export interface IfcCellInputErrors {
     [key: string]: string | null
 };
 
-function Row(props: props) {
+function Row(props: fullJobProps) {
     let [isEditing, setIsEditing] = useState(true);
 
     interface IfcCellTextObj {
@@ -55,7 +43,7 @@ function Row(props: props) {
         reachedOut: false
     });
 
-    
+
 
     let [cellInputErrorsState, setCellInputErrorsState] = useState<IfcCellInputErrors>({
         company: null,
@@ -66,10 +54,8 @@ function Row(props: props) {
 
 
 
-    console.log({isEditing});
     console.log('props.isNew, isEditing', props.isNew, isEditing);
     console.count('Times Invoked (not necessarily rendered)');
-    console.log(cellDate.toISOString().slice(0, 10));
 
     switch (props.isNew && isEditing) {
         case true:
@@ -77,7 +63,7 @@ function Row(props: props) {
                 <tr>
                     <RowCellTextInput identifier='company' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}
                         index={props.identifier}
-                        cellError={cellInputErrorsState.company} 
+                        cellError={cellInputErrorsState.company}
                         setCellInputErrorsState={setCellInputErrorsState}
                     />
                     <RowCellTextInput identifier='position' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}
@@ -85,12 +71,12 @@ function Row(props: props) {
                         cellError={cellInputErrorsState.position}
                         setCellInputErrorsState={setCellInputErrorsState}
                     />
-                    <td style={cellInputErrorsState.date ? {verticalAlign: 'top'} : {}}>
+                    <td style={cellInputErrorsState.date ? { verticalAlign: 'top' } : {}}>
                         <div className='input-container'>
                             <input id={`${props.identifier}-date`} type="date"
                                 name={`${props.identifier}-date`}
                                 value={cellDate.toISOString().slice(0, 10)}
-                                onChange={(e) => {handleDateChange(e, `${props.identifier}-date`)}}
+                                onChange={(e) => { handleDateChange(e, `${props.identifier}-date`) }}
                                 max={new Date().toISOString().slice(0, 10)}
                             />
                             <label htmlFor={`${props.identifier}-date`}>
@@ -131,8 +117,8 @@ function Row(props: props) {
                     <RowCellTextInput identifier='notes' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}
                         index={props.identifier}
                     />
-                    <td className="button-cell"><button onClick={handleButtonClick}>✔</button></td>
-                    <td className="button-cell"><button>✖</button></td>
+                    <td className="button-cell"><button onClick={handleConfirmButtonClick}>✔</button></td>
+                    <td className="button-cell"><button onClick={handleCancelButtonClick}>✖</button></td>
                 </tr>
             )
         // break;
@@ -192,7 +178,7 @@ function Row(props: props) {
 
     }
 
-    function handleButtonClick(event: React.MouseEvent) {
+    function handleConfirmButtonClick(event: React.MouseEvent) {
         const [areCellInputsValid, cellInputErrors] = validateFields();
 
 
@@ -204,6 +190,18 @@ function Row(props: props) {
         }
         setCellInputErrorsState(cellInputErrors);
 
+    }
+
+    function handleCancelButtonClick(event: React.MouseEvent) {
+        props.setJobRowState(oldJobRowState => {
+            return oldJobRowState.filter(element => {
+                if (element.identifier === props.identifier) {
+                    return false;
+                } else {
+                    return true;
+                }
+            })
+        });
     }
 
     function validateFields(): [boolean, IfcCellInputErrors] {
@@ -230,7 +228,6 @@ function Row(props: props) {
         if (!cellTextObj.position || cellTextObj.position.length < 1) {
             areCellInputsValid = false;
             cellInputErrors.position = "Position can't be blank."
-            console.log('pos blank');
         }
 
         if (cellDate > new Date()) {
@@ -248,17 +245,15 @@ function Row(props: props) {
                 for (const property in newCellTextObj) {
                     newCellTextObj[property] = newCellTextObj[property].trim();
                 }
-                console.log({ newCellTextObj });
                 return newCellTextObj;
             })
         }
     }
 
     function handleDateChange(event: React.ChangeEvent<HTMLInputElement>, dateIdentifier: string) {
-        console.log('value', event.target.value);
         let dateObj = new Date(event.target.value);
         setCellDate(dateObj)
-        setCellInputErrorsState((oldCellInputErrorsState:IfcCellInputErrors) => {
+        setCellInputErrorsState((oldCellInputErrorsState: IfcCellInputErrors) => {
             let newCellInputErrorsState = Object.assign({}, oldCellInputErrorsState);
             newCellInputErrorsState['date'] = null;
             return newCellInputErrorsState;
@@ -285,13 +280,12 @@ function Row(props: props) {
 
         axios.post('http://localhost:3001/api/applications/new', reqObj, { withCredentials: true })
             .then(res => {
-                console.log('row axios res', res);
             })
             .catch((err) => {
                 console.log(err);
                 props.setAlertText!(
                     <>
-                        <strong>{err.message}</strong>
+                        <strong>Row {props.identifier}: {err.message}</strong>
                         <p>{err.response ? err.response.data.message : null}</p>
                     </>
                 )
@@ -299,7 +293,6 @@ function Row(props: props) {
                 props.setAlertKey!((oldAlertKey) => {
 
                     oldAlertKey++;
-                    console.log({ oldAlertKey }, 'row');
                     return oldAlertKey;
                 })
 

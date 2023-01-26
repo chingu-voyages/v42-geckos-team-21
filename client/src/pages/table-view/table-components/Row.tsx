@@ -21,7 +21,7 @@ export interface IfcCellInputErrors {
 };
 
 function Row(props: fullJobProps) {
-    let [isEditing, setIsEditing] = useState(props.isNew ? true : false);
+    let [isEditing, setIsEditing] = useState(props.isInitiallyNew ? true : false);
 
     interface IfcCellTextObj {
         [key: string]: string
@@ -31,6 +31,9 @@ function Row(props: fullJobProps) {
     interface IfcCellCheckboxObj {
         [key: string]: boolean
     }
+
+    let [isNewState, setIsNewState] = useState(props.isInitiallyNew);
+    
 
     let [cellTextObj, setCellTextObj] = useState<IfcCellTextObj>({
         company: '',
@@ -54,10 +57,10 @@ function Row(props: fullJobProps) {
 
 
 
-    console.log('props.isNew, isEditing', props.isNew, isEditing);
+    console.log(', isEditing', props.isInitiallyNew, isEditing);
     console.count('Times Invoked (not necessarily rendered)');
 
-    if (props.isNew && isEditing) {
+    if (isNewState && isEditing) {
         return (
             <tr>
                 <RowCellTextInput identifier='company' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}
@@ -120,7 +123,7 @@ function Row(props: fullJobProps) {
                 <td className="button-cell"><button onClick={handleCancelButtonClick}>✖</button></td>
             </tr>
         )
-    } else if (!props.isNew && !isEditing) {
+    } else if (!isNewState && !isEditing) {
 
 
         if (props.applicationFromDb && !cellTextObj.company) {
@@ -174,7 +177,7 @@ function Row(props: fullJobProps) {
                 </td>
             </tr>
         )
-    } else if (!props.isNew && isEditing) {
+    } else if (!isNewState && isEditing) {
         return (
             <tr>
                 <RowCellTextInput identifier='company' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}
@@ -243,7 +246,7 @@ function Row(props: fullJobProps) {
     } else {
         return <tr><td colSpan={6}><code>
             ERROR: Invalid state and props combo: {
-                `props.isNew: ${props.isNew}, isEditing: ${isEditing}`}
+                `props.isInitiallyNew: ${props.isInitiallyNew}, isEditing: ${isEditing}`}
         </code></td></tr>
     }
 
@@ -255,7 +258,7 @@ function Row(props: fullJobProps) {
     }
 
     function handleMoreButtonClick(event: React.MouseEvent) {
-        console.log('editing!', props.isNew, isEditing)
+        console.log('editing!', props.isInitiallyNew, isEditing)
         setIsEditing(true);
     }
 
@@ -265,7 +268,7 @@ function Row(props: fullJobProps) {
 
         if (areCellInputsValid) {
             setIsEditing(false);
-            if (props.isNew) { sendNewRowToDb() }
+            if (props.isInitiallyNew) { sendNewRowToDb() }
             else { updateRowInDb() }
 
         } else {
@@ -352,6 +355,7 @@ function Row(props: fullJobProps) {
     }
 
     function sendNewRowToDb() {
+        setIsNewState(false);
 
         let reqObj = Object.assign({}, cellTextObj);
         reqObj = Object.assign(reqObj, cellCheckboxObj);

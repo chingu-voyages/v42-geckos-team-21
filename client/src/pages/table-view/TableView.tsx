@@ -13,7 +13,7 @@ interface IfcProps {
 
 export interface IfcCommonJobRowProps {
   identifier: number,
-  isNew: boolean,
+  isInitiallyNew: boolean,
   key?: number,
   user?: IfcUser,
   applicationFromDb?: {
@@ -74,7 +74,7 @@ function TableView(props: IfcProps) {
 
         return (([{
           identifier: oldJobRowState.length,
-          isNew: false,
+          isInitiallyNew: false,
           key: oldJobRowState.length,
           user: props.user,
           setAlertText,
@@ -86,7 +86,7 @@ function TableView(props: IfcProps) {
 
     let newEditableEntry = {
       identifier: props.user.applications.length + 1,
-      isNew: true,
+      isInitiallyNew: true,
       key: props.user.applications.length + 1,
       user: props.user,
       setAlertText,
@@ -121,7 +121,7 @@ function TableView(props: IfcProps) {
                 let newNumber = oldJobRowState.slice().sort((a,b) => b.identifier-a.identifier)[0].identifier + 1;
                 return ([{
                   identifier: newNumber,
-                  isNew: true,
+                  isInitiallyNew: true,
                   key: newNumber,
                   user: props.user,
                   setAlertText,

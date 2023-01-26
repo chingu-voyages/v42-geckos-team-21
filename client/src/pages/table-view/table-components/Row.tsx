@@ -235,8 +235,8 @@ function Row(props: fullJobProps) {
                 />
                 <td className="button-cell"><button onClick={handleConfirmButtonClick}>✔</button></td>
                 <td className="button-cell"><button onClick={handleDeleteButtonClick} title="Delete">
-                <svg data-attribution="trash-can-outline, pictogrammers.com"
-                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Delete</title><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" /></svg>    
+                    <svg data-attribution="trash-can-outline, pictogrammers.com"
+                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Delete</title><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" /></svg>
                 </button></td>
             </tr>
         )
@@ -249,9 +249,9 @@ function Row(props: fullJobProps) {
 
 
 
+
     function handleDeleteButtonClick(event: React.MouseEvent) {
-        console.log('editing!', props.isNew, isEditing)
-        setIsEditing(true);
+        deleteRowInDB();
     }
 
     function handleMoreButtonClick(event: React.MouseEvent) {
@@ -265,9 +265,9 @@ function Row(props: fullJobProps) {
 
         if (areCellInputsValid) {
             setIsEditing(false);
-            if (props.isNew) {sendNewRowToDb()} 
-            else {updateRowInDb()}
-            
+            if (props.isNew) { sendNewRowToDb() }
+            else { updateRowInDb() }
+
         } else {
             console.log(cellInputErrors);
         }
@@ -383,7 +383,6 @@ function Row(props: fullJobProps) {
     }
 
     function updateRowInDb() {
-        console.log('hwo?');
         let reqObj = Object.assign({}, cellTextObj);
         reqObj = Object.assign(reqObj, cellCheckboxObj);
 
@@ -393,7 +392,34 @@ function Row(props: fullJobProps) {
 
 
         axios.put(`http://localhost:3001/api/applications/${props.applicationFromDb!._id}`,
-        reqObj, { withCredentials: true })
+            reqObj, { withCredentials: true })
+            .then(res => {
+                console.log('booi', res);
+            })
+            .catch((err) => {
+                console.log(err);
+                props.setAlertText!(
+                    <>
+                        <strong>Row {props.identifier}: {err.message}</strong>
+                        <p>{err.response ? err.response.data.message : null}</p>
+                    </>
+                )
+                setIsEditing(true);
+                props.setAlertKey!((oldAlertKey) => {
+
+                    oldAlertKey++;
+                    return oldAlertKey;
+                })
+
+            })
+    }
+
+    function deleteRowInDB() {
+
+
+
+        axios.delete(`http://localhost:3001/api/applications/${props.applicationFromDb!._id}`,
+            { withCredentials: true })
             .then(res => {
                 console.log('booi', res);
             })

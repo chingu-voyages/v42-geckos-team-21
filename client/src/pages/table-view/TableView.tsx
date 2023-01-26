@@ -22,7 +22,8 @@ export interface IfcCommonJobRowProps {
     notes: string,
     position: string,
     reachedOut: boolean,
-    sentCoverLetter: boolean
+    sentCoverLetter: boolean,
+    _id: string
   },
   setAlertText?: React.Dispatch<React.SetStateAction<React.ReactNode>>,
   setAlertKey?: React.Dispatch<React.SetStateAction<number>>
@@ -46,6 +47,7 @@ function TableView(props: IfcProps) {
 
 
   if (!areRowsFromDBParsedState) {
+    console.log('RAW DB DATA RECEIVED:', props.user);
     props.user.applications.forEach((element, index) => {
 
       // https://stackoverflow.com/questions/17781472/how-to-get-a-subset-of-a-javascript-objects-properties
@@ -55,14 +57,16 @@ function TableView(props: IfcProps) {
         notes,
         position,
         reachedOut,
-        sentCoverLetter
+        sentCoverLetter,
+        _id
       }) => ({
         company,
         date,
         notes,
         position,
         reachedOut,
-        sentCoverLetter
+        sentCoverLetter,
+        _id
       }))(element)
       setJobRowState(oldJobRowState => {
 

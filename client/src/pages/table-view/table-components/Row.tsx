@@ -21,7 +21,7 @@ export interface IfcCellInputErrors {
 };
 
 function Row(props: fullJobProps) {
-    let [isEditing, setIsEditing] = useState(true);
+    let [isEditing, setIsEditing] = useState(props.isNew ? true : false);
 
     interface IfcCellTextObj {
         [key: string]: string
@@ -57,125 +57,206 @@ function Row(props: fullJobProps) {
     console.log('props.isNew, isEditing', props.isNew, isEditing);
     console.count('Times Invoked (not necessarily rendered)');
 
-    switch (props.isNew && isEditing) {
-        case true:
-            return (
-                <tr>
-                    <RowCellTextInput identifier='company' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}
-                        index={props.identifier}
-                        cellError={cellInputErrorsState.company}
-                        setCellInputErrorsState={setCellInputErrorsState}
-                    />
-                    <RowCellTextInput identifier='position' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}
-                        index={props.identifier}
-                        cellError={cellInputErrorsState.position}
-                        setCellInputErrorsState={setCellInputErrorsState}
-                    />
-                    <td style={cellInputErrorsState.date ? { verticalAlign: 'top' } : {}}>
-                        <div className='input-container'>
-                            <input id={`${props.identifier}-date`} type="date"
-                                name={`${props.identifier}-date`}
-                                value={cellDate.toISOString().slice(0, 10)}
-                                onChange={(e) => { handleDateChange(e, `${props.identifier}-date`) }}
-                                max={new Date().toISOString().slice(0, 10)}
-                            />
-                            <label htmlFor={`${props.identifier}-date`}>
-                            </label>
-                            <span className='cell-input-error'>
-                                {cellInputErrorsState.date}
-                            </span>
-                        </div>
-                    </td>
-                    <td>
-                        <div className='td-flex-wrapper'>
-                            <input id={`${props.identifier}-cover-letter-check-row`} type="checkbox"
-                                name={`${props.identifier}-cover-letter-check-row`}
-                                checked={cellCheckboxObj['sentCoverLetter']}
-                                onChange={(e) => handleCheckboxChange(e, 'sentCoverLetter')}
-                            />
-                            <label className='check' htmlFor={`${props.identifier}-cover-letter-check-row`}>
-                                <svg version="1.1" viewBox="0 0 3600 3600" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="m1446.5 2125.8c239.36-397.04 895.74-858.15 1232.3-1096.6l96.023 63.574c-432.11 365.55-976.25 810.56-1120.3 1303.3-96.023 31.781-304.08 143.04-336.09 174.83-112.03-238.4-332.34-575.68-493.37-672.54 304.2-357.64 529.3 40.691 621.41 227.52z" />
-                                </svg>
-                            </label>
-                        </div>
-                    </td>
-                    <td>
-                        <div className='td-flex-wrapper'>
-                            <input id={`${props.identifier}-reached-out-check-row`} type="checkbox"
-                                name={`${props.identifier}-reached-out-check-row`}
-                                checked={cellCheckboxObj['reachedOut']}
-                                onChange={(e) => handleCheckboxChange(e, 'reachedOut')}
-                            />
-                            <label className='check' htmlFor={`${props.identifier}-reached-out-check-row`}>
-                                <svg version="1.1" viewBox="0 0 3600 3600" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="m1446.5 2125.8c239.36-397.04 895.74-858.15 1232.3-1096.6l96.023 63.574c-432.11 365.55-976.25 810.56-1120.3 1303.3-96.023 31.781-304.08 143.04-336.09 174.83-112.03-238.4-332.34-575.68-493.37-672.54 304.2-357.64 529.3 40.691 621.41 227.52z" />
-                                </svg>
-                            </label>
-                        </div>
-                    </td>
-                    <RowCellTextInput identifier='notes' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}
-                        index={props.identifier}
-                    />
-                    <td className="button-cell"><button onClick={handleConfirmButtonClick}>✔</button></td>
-                    <td className="button-cell"><button onClick={handleCancelButtonClick}>✖</button></td>
-                </tr>
-            )
-        // break;
-
-        case false:
-            if (props.applicationFromDb && !cellTextObj.company) {
-                // https://stackoverflow.com/questions/17781472/how-to-get-a-subset-of-a-javascript-objects-properties
-                let textInputs = (({ company, position, notes }) =>
-                    ({ company, position, notes }))(props.applicationFromDb)
-                let checkboxInputs = (({ sentCoverLetter, reachedOut }) =>
-                    ({ sentCoverLetter, reachedOut }))(props.applicationFromDb)
-
-                setCellTextObj(textInputs);
-                setCellCheckboxObj(checkboxInputs)
-                setCellDate(new Date(props.applicationFromDb.date))
-            }
-
-            return (
-                <tr>
-                    <td>{cellTextObj['company']}</td>
-                    <td>{cellTextObj['position']}</td>
-                    <td>{cellDate.toDateString()}</td>
-                    <td>
-                        <div className='td-flex-wrapper'>
-                            <input disabled id={`${props.identifier}-cover-letter-check-row`} type="checkbox"
-                                name={`${props.identifier}-cover-letter-check-row`}
-                                checked={cellCheckboxObj['sentCoverLetter']}
-                                onChange={(e) => handleCheckboxChange(e, 'sentCoverLetter')}
-                            />
-                            <label className='check' htmlFor={`${props.identifier}-cover-letter-check-row`}>
-                                <svg version="1.1" viewBox="0 0 3600 3600" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="m1446.5 2125.8c239.36-397.04 895.74-858.15 1232.3-1096.6l96.023 63.574c-432.11 365.55-976.25 810.56-1120.3 1303.3-96.023 31.781-304.08 143.04-336.09 174.83-112.03-238.4-332.34-575.68-493.37-672.54 304.2-357.64 529.3 40.691 621.41 227.52z" />
-                                </svg>
-                            </label>
-                        </div>
-                    </td>
-                    <td>
-                        <div className='td-flex-wrapper'>
-                            <input disabled id={`${props.identifier}-reached-out-check-row`} type="checkbox"
-                                name={`${props.identifier}-reached-out-check-row`}
-                                checked={cellCheckboxObj['reachedOut']}
-                                onChange={(e) => handleCheckboxChange(e, 'reachedOut')}
-                            />
-                            <label className='check' htmlFor={`${props.identifier}-reached-out-check-row`}>
-                                <svg version="1.1" viewBox="0 0 3600 3600" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="m1446.5 2125.8c239.36-397.04 895.74-858.15 1232.3-1096.6l96.023 63.574c-432.11 365.55-976.25 810.56-1120.3 1303.3-96.023 31.781-304.08 143.04-336.09 174.83-112.03-238.4-332.34-575.68-493.37-672.54 304.2-357.64 529.3 40.691 621.41 227.52z" />
-                                </svg>
-                            </label>
-                        </div>
-                    </td>
-                    <td>{cellTextObj['notes']}</td>
-                    <td className="button-cell"><button>⋮</button></td>
-                </tr>
-            )
-        // break;
+    if (props.isNew && isEditing) {
+        return (
+            <tr>
+                <RowCellTextInput identifier='company' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}
+                    index={props.identifier}
+                    cellError={cellInputErrorsState.company}
+                    setCellInputErrorsState={setCellInputErrorsState}
+                />
+                <RowCellTextInput identifier='position' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}
+                    index={props.identifier}
+                    cellError={cellInputErrorsState.position}
+                    setCellInputErrorsState={setCellInputErrorsState}
+                />
+                <td style={cellInputErrorsState.date ? { verticalAlign: 'top' } : {}}>
+                    <div className='input-container'>
+                        <input id={`${props.identifier}-date`} type="date"
+                            name={`${props.identifier}-date`}
+                            value={cellDate.toISOString().slice(0, 10)}
+                            onChange={(e) => { handleDateChange(e, `${props.identifier}-date`) }}
+                            max={new Date().toISOString().slice(0, 10)}
+                        />
+                        <label htmlFor={`${props.identifier}-date`}>
+                        </label>
+                        <span className='cell-input-error'>
+                            {cellInputErrorsState.date}
+                        </span>
+                    </div>
+                </td>
+                <td>
+                    <div className='td-flex-wrapper'>
+                        <input id={`${props.identifier}-cover-letter-check-row`} type="checkbox"
+                            name={`${props.identifier}-cover-letter-check-row`}
+                            checked={cellCheckboxObj['sentCoverLetter']}
+                            onChange={(e) => handleCheckboxChange(e, 'sentCoverLetter')}
+                        />
+                        <label className='check' htmlFor={`${props.identifier}-cover-letter-check-row`}>
+                            <svg version="1.1" viewBox="0 0 3600 3600" xmlns="http://www.w3.org/2000/svg">
+                                <path d="m1446.5 2125.8c239.36-397.04 895.74-858.15 1232.3-1096.6l96.023 63.574c-432.11 365.55-976.25 810.56-1120.3 1303.3-96.023 31.781-304.08 143.04-336.09 174.83-112.03-238.4-332.34-575.68-493.37-672.54 304.2-357.64 529.3 40.691 621.41 227.52z" />
+                            </svg>
+                        </label>
+                    </div>
+                </td>
+                <td>
+                    <div className='td-flex-wrapper'>
+                        <input id={`${props.identifier}-reached-out-check-row`} type="checkbox"
+                            name={`${props.identifier}-reached-out-check-row`}
+                            checked={cellCheckboxObj['reachedOut']}
+                            onChange={(e) => handleCheckboxChange(e, 'reachedOut')}
+                        />
+                        <label className='check' htmlFor={`${props.identifier}-reached-out-check-row`}>
+                            <svg version="1.1" viewBox="0 0 3600 3600" xmlns="http://www.w3.org/2000/svg">
+                                <path d="m1446.5 2125.8c239.36-397.04 895.74-858.15 1232.3-1096.6l96.023 63.574c-432.11 365.55-976.25 810.56-1120.3 1303.3-96.023 31.781-304.08 143.04-336.09 174.83-112.03-238.4-332.34-575.68-493.37-672.54 304.2-357.64 529.3 40.691 621.41 227.52z" />
+                            </svg>
+                        </label>
+                    </div>
+                </td>
+                <RowCellTextInput identifier='notes' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}
+                    index={props.identifier}
+                />
+                <td className="button-cell"><button onClick={handleConfirmButtonClick}>✔</button></td>
+                <td className="button-cell"><button onClick={handleCancelButtonClick}>✖</button></td>
+            </tr>
+        )
+    } else if (!props.isNew && !isEditing) {
 
 
+        if (props.applicationFromDb && !cellTextObj.company) {
+            // https://stackoverflow.com/questions/17781472/how-to-get-a-subset-of-a-javascript-objects-properties
+            let textInputs = (({ company, position, notes }) =>
+                ({ company, position, notes }))(props.applicationFromDb)
+            let checkboxInputs = (({ sentCoverLetter, reachedOut }) =>
+                ({ sentCoverLetter, reachedOut }))(props.applicationFromDb)
+
+            setCellTextObj(textInputs);
+            setCellCheckboxObj(checkboxInputs)
+            setCellDate(new Date(props.applicationFromDb.date))
+        }
+
+        return (
+            <tr>
+                <td>{cellTextObj['company']}</td>
+                <td>{cellTextObj['position']}</td>
+                <td>{cellDate.toDateString()}</td>
+                <td>
+                    <div className='td-flex-wrapper'>
+                        <input disabled id={`${props.identifier}-cover-letter-check-row`} type="checkbox"
+                            name={`${props.identifier}-cover-letter-check-row`}
+                            checked={cellCheckboxObj['sentCoverLetter']}
+                            onChange={(e) => handleCheckboxChange(e, 'sentCoverLetter')}
+                        />
+                        <label className='check' htmlFor={`${props.identifier}-cover-letter-check-row`}>
+                            <svg version="1.1" viewBox="0 0 3600 3600" xmlns="http://www.w3.org/2000/svg">
+                                <path d="m1446.5 2125.8c239.36-397.04 895.74-858.15 1232.3-1096.6l96.023 63.574c-432.11 365.55-976.25 810.56-1120.3 1303.3-96.023 31.781-304.08 143.04-336.09 174.83-112.03-238.4-332.34-575.68-493.37-672.54 304.2-357.64 529.3 40.691 621.41 227.52z" />
+                            </svg>
+                        </label>
+                    </div>
+                </td>
+                <td>
+                    <div className='td-flex-wrapper'>
+                        <input disabled id={`${props.identifier}-reached-out-check-row`} type="checkbox"
+                            name={`${props.identifier}-reached-out-check-row`}
+                            checked={cellCheckboxObj['reachedOut']}
+                            onChange={(e) => handleCheckboxChange(e, 'reachedOut')}
+                        />
+                        <label className='check' htmlFor={`${props.identifier}-reached-out-check-row`}>
+                            <svg version="1.1" viewBox="0 0 3600 3600" xmlns="http://www.w3.org/2000/svg">
+                                <path d="m1446.5 2125.8c239.36-397.04 895.74-858.15 1232.3-1096.6l96.023 63.574c-432.11 365.55-976.25 810.56-1120.3 1303.3-96.023 31.781-304.08 143.04-336.09 174.83-112.03-238.4-332.34-575.68-493.37-672.54 304.2-357.64 529.3 40.691 621.41 227.52z" />
+                            </svg>
+                        </label>
+                    </div>
+                </td>
+                <td>{cellTextObj['notes']}</td>
+                <td className="button-cell">
+                    <button onClick={handleMoreButtonClick}>⋮</button>
+                </td>
+            </tr>
+        )
+    } else if (!props.isNew && isEditing) {
+        return (
+            <tr>
+                <RowCellTextInput identifier='company' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}
+                    index={props.identifier}
+                    cellError={cellInputErrorsState.company}
+                    setCellInputErrorsState={setCellInputErrorsState}
+                />
+                <RowCellTextInput identifier='position' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}
+                    index={props.identifier}
+                    cellError={cellInputErrorsState.position}
+                    setCellInputErrorsState={setCellInputErrorsState}
+                />
+                <td style={cellInputErrorsState.date ? { verticalAlign: 'top' } : {}}>
+                    <div className='input-container'>
+                        <input id={`${props.identifier}-date`} type="date"
+                            name={`${props.identifier}-date`}
+                            value={cellDate.toISOString().slice(0, 10)}
+                            onChange={(e) => { handleDateChange(e, `${props.identifier}-date`) }}
+                            max={new Date().toISOString().slice(0, 10)}
+                        />
+                        <label htmlFor={`${props.identifier}-date`}>
+                        </label>
+                        <span className='cell-input-error'>
+                            {cellInputErrorsState.date}
+                        </span>
+                    </div>
+                </td>
+                <td>
+                    <div className='td-flex-wrapper'>
+                        <input id={`${props.identifier}-cover-letter-check-row`} type="checkbox"
+                            name={`${props.identifier}-cover-letter-check-row`}
+                            checked={cellCheckboxObj['sentCoverLetter']}
+                            onChange={(e) => handleCheckboxChange(e, 'sentCoverLetter')}
+                        />
+                        <label className='check' htmlFor={`${props.identifier}-cover-letter-check-row`}>
+                            <svg version="1.1" viewBox="0 0 3600 3600" xmlns="http://www.w3.org/2000/svg">
+                                <path d="m1446.5 2125.8c239.36-397.04 895.74-858.15 1232.3-1096.6l96.023 63.574c-432.11 365.55-976.25 810.56-1120.3 1303.3-96.023 31.781-304.08 143.04-336.09 174.83-112.03-238.4-332.34-575.68-493.37-672.54 304.2-357.64 529.3 40.691 621.41 227.52z" />
+                            </svg>
+                        </label>
+                    </div>
+                </td>
+                <td>
+                    <div className='td-flex-wrapper'>
+                        <input id={`${props.identifier}-reached-out-check-row`} type="checkbox"
+                            name={`${props.identifier}-reached-out-check-row`}
+                            checked={cellCheckboxObj['reachedOut']}
+                            onChange={(e) => handleCheckboxChange(e, 'reachedOut')}
+                        />
+                        <label className='check' htmlFor={`${props.identifier}-reached-out-check-row`}>
+                            <svg version="1.1" viewBox="0 0 3600 3600" xmlns="http://www.w3.org/2000/svg">
+                                <path d="m1446.5 2125.8c239.36-397.04 895.74-858.15 1232.3-1096.6l96.023 63.574c-432.11 365.55-976.25 810.56-1120.3 1303.3-96.023 31.781-304.08 143.04-336.09 174.83-112.03-238.4-332.34-575.68-493.37-672.54 304.2-357.64 529.3 40.691 621.41 227.52z" />
+                            </svg>
+                        </label>
+                    </div>
+                </td>
+                <RowCellTextInput identifier='notes' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}
+                    index={props.identifier}
+                />
+                <td className="button-cell"><button onClick={handleConfirmButtonClick}>✔</button></td>
+                <td className="button-cell"><button onClick={handleDeleteButtonClick} title="Delete">
+                <svg data-attribution="trash-can-outline, pictogrammers.com"
+                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Delete</title><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" /></svg>    
+                </button></td>
+            </tr>
+        )
+    } else {
+        return <tr><td colSpan={6}><code>
+            ERROR: Invalid state and props combo: {
+                `props.isNew: ${props.isNew}, isEditing: ${isEditing}`}
+        </code></td></tr>
+    }
+
+
+
+    function handleDeleteButtonClick(event: React.MouseEvent) {
+        console.log('editing!', props.isNew, isEditing)
+        setIsEditing(true);
+    }
+
+    function handleMoreButtonClick(event: React.MouseEvent) {
+        console.log('editing!', props.isNew, isEditing)
+        setIsEditing(true);
     }
 
     function handleConfirmButtonClick(event: React.MouseEvent) {
@@ -184,7 +265,9 @@ function Row(props: fullJobProps) {
 
         if (areCellInputsValid) {
             setIsEditing(false);
-            sendRowToDB();
+            if (props.isNew) {sendNewRowToDb()} 
+            else {updateRowInDb()}
+            
         } else {
             console.log(cellInputErrors);
         }
@@ -268,7 +351,7 @@ function Row(props: fullJobProps) {
         }))
     }
 
-    function sendRowToDB() {
+    function sendNewRowToDb() {
 
         let reqObj = Object.assign({}, cellTextObj);
         reqObj = Object.assign(reqObj, cellCheckboxObj);
@@ -280,6 +363,39 @@ function Row(props: fullJobProps) {
 
         axios.post('http://localhost:3001/api/applications/new', reqObj, { withCredentials: true })
             .then(res => {
+            })
+            .catch((err) => {
+                console.log(err);
+                props.setAlertText!(
+                    <>
+                        <strong>Row {props.identifier}: {err.message}</strong>
+                        <p>{err.response ? err.response.data.message : null}</p>
+                    </>
+                )
+                setIsEditing(true);
+                props.setAlertKey!((oldAlertKey) => {
+
+                    oldAlertKey++;
+                    return oldAlertKey;
+                })
+
+            })
+    }
+
+    function updateRowInDb() {
+        console.log('hwo?');
+        let reqObj = Object.assign({}, cellTextObj);
+        reqObj = Object.assign(reqObj, cellCheckboxObj);
+
+        let userId = props.user!._id;
+        reqObj = Object.assign(reqObj, { userId })
+        reqObj = Object.assign(reqObj, { date: cellDate.toISOString() })
+
+
+        axios.put(`http://localhost:3001/api/applications/${props.applicationFromDb!._id}`,
+        reqObj, { withCredentials: true })
+            .then(res => {
+                console.log('booi', res);
             })
             .catch((err) => {
                 console.log(err);

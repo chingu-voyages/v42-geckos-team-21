@@ -11,20 +11,23 @@ interface IfcProps {
   user: IfcUser
 }
 
+export interface IfcApplicationFromDb {
+  company: string,
+  date: string,
+  notes: string,
+  position: string,
+  reachedOut: boolean,
+  sentCoverLetter: boolean,
+  _id: string
+}
+
+
 export interface IfcCommonJobRowProps {
   identifier: number,
   isInitiallyNew: boolean,
   key?: number,
   user?: IfcUser,
-  applicationFromDb?: {
-    company: string,
-    date: string,
-    notes: string,
-    position: string,
-    reachedOut: boolean,
-    sentCoverLetter: boolean,
-    _id: string
-  },
+  applicationFromDb?: IfcApplicationFromDb,
   setAlertText?: React.Dispatch<React.SetStateAction<React.ReactNode>>,
   setAlertKey?: React.Dispatch<React.SetStateAction<number>>
 }
@@ -36,9 +39,9 @@ function TableView(props: IfcProps) {
   let [alertText, setAlertText] = useState<React.ReactNode>('');
   let [alertKey, setAlertKey] = useState(0);
 
-  
 
-  const [jobRowState, setJobRowState] = useState<IfcCommonJobRowProps[] >([]);
+
+  const [jobRowState, setJobRowState] = useState<IfcCommonJobRowProps[]>([]);
 
   let [areRowsFromDBParsedState, setAreRowsFromDBParsedState] = useState(false);
 
@@ -92,15 +95,15 @@ function TableView(props: IfcProps) {
       setAlertText,
       setAlertKey
     };
-    
-    setJobRowState(oldJobRowState => [newEditableEntry, ...oldJobRowState] )
+
+    setJobRowState(oldJobRowState => [newEditableEntry, ...oldJobRowState])
 
     setAreRowsFromDBParsedState(true);
   }
 
 
 
-  console.log('####', {jobRowState})
+  console.log('####', { jobRowState })
   return (
     <div className="TableView">
       <table>
@@ -118,7 +121,7 @@ function TableView(props: IfcProps) {
           <tr id="add-job-button-row">
             <td colSpan={6}><button onClick={() => setJobRowState(
               oldJobRowState => {
-                let newNumber = oldJobRowState.slice().sort((a,b) => b.identifier-a.identifier)[0].identifier + 1;
+                let newNumber = oldJobRowState.slice().sort((a, b) => b.identifier - a.identifier)[0].identifier + 1;
                 return ([{
                   identifier: newNumber,
                   isInitiallyNew: true,

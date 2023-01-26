@@ -4,6 +4,7 @@ import axios from 'axios';
 import { IfcUser } from '../../..';
 import { text } from 'stream/consumers';
 import { IfcCommonJobRowProps } from '../TableView';
+import { IfcApplicationFromDb } from '../TableView';
 
 interface fullJobProps extends IfcCommonJobRowProps {
     setJobRowState: React.Dispatch<React.SetStateAction<IfcCommonJobRowProps[]>>
@@ -22,7 +23,8 @@ export interface IfcCellInputErrors {
 
 function Row(props: fullJobProps) {
     let [isEditing, setIsEditing] = useState(props.isInitiallyNew ? true : false);
-
+    let [applicationFromDBState, setApplicationFromDBState] = useState<IfcApplicationFromDb | undefined>(props.applicationFromDb);
+    
     interface IfcCellTextObj {
         [key: string]: string
     }
@@ -33,7 +35,6 @@ function Row(props: fullJobProps) {
     }
 
     let [isNewState, setIsNewState] = useState(props.isInitiallyNew);
-    
 
     let [cellTextObj, setCellTextObj] = useState<IfcCellTextObj>({
         company: '',
@@ -126,16 +127,16 @@ function Row(props: fullJobProps) {
     } else if (!isNewState && !isEditing) {
 
 
-        if (props.applicationFromDb && !cellTextObj.company) {
+        if (applicationFromDBState && !cellTextObj.company) {
             // https://stackoverflow.com/questions/17781472/how-to-get-a-subset-of-a-javascript-objects-properties
             let textInputs = (({ company, position, notes }) =>
-                ({ company, position, notes }))(props.applicationFromDb)
+                ({ company, position, notes }))(applicationFromDBState)
             let checkboxInputs = (({ sentCoverLetter, reachedOut }) =>
-                ({ sentCoverLetter, reachedOut }))(props.applicationFromDb)
+                ({ sentCoverLetter, reachedOut }))(applicationFromDBState)
 
             setCellTextObj(textInputs);
             setCellCheckboxObj(checkboxInputs)
-            setCellDate(new Date(props.applicationFromDb.date))
+            setCellDate(new Date(applicationFromDBState.date))
         }
 
         return (
@@ -268,7 +269,7 @@ function Row(props: fullJobProps) {
 
         if (areCellInputsValid) {
             setIsEditing(false);
-            if (props.isInitiallyNew) { sendNewRowToDb() }
+            if (isNewState) { sendNewRowToDb() }
             else { updateRowInDb() }
 
         } else {
@@ -367,6 +368,7 @@ function Row(props: fullJobProps) {
 
         axios.post('http://localhost:3001/api/applications/new', reqObj, { withCredentials: true })
             .then(res => {
+                setApplicationFromDBState(res.data);
             })
             .catch((err) => {
                 console.log(err);
@@ -395,7 +397,7 @@ function Row(props: fullJobProps) {
         reqObj = Object.assign(reqObj, { date: cellDate.toISOString() })
 
 
-        axios.put(`http://localhost:3001/api/applications/${props.applicationFromDb!._id}`,
+        axios.put(`http://localhost:3001/api/applications/${applicationFromDBState!._id}`,
             reqObj, { withCredentials: true })
             .then(res => {
                 console.log('booi', res);
@@ -422,7 +424,7 @@ function Row(props: fullJobProps) {
 
 
 
-        axios.delete(`http://localhost:3001/api/applications/${props.applicationFromDb!._id}`,
+        axios.delete(`http://localhost:3001/api/applications/${applicationFromDBState!._id}`,
             { withCredentials: true })
             .then(res => {
                 console.log('booi', res);

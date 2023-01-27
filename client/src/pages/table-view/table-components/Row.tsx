@@ -255,7 +255,7 @@ function Row(props: fullJobProps) {
 
 
     function handleDeleteButtonClick(event: React.MouseEvent) {
-        deleteRowInDB();
+        deleteRow();
     }
 
     function handleMoreButtonClick(event: React.MouseEvent) {
@@ -280,6 +280,10 @@ function Row(props: fullJobProps) {
     }
 
     function handleCancelButtonClick(event: React.MouseEvent) {
+        removeRowFromUI();
+    }
+
+    function removeRowFromUI() {
         props.setJobRowState(oldJobRowState => {
             return oldJobRowState.filter(element => {
                 if (element.identifier === props.identifier) {
@@ -420,7 +424,7 @@ function Row(props: fullJobProps) {
             })
     }
 
-    function deleteRowInDB() {
+    function deleteRow() {
 
 
 
@@ -430,7 +434,7 @@ function Row(props: fullJobProps) {
                 if (res.statusText !== "OK") {
                     throw new Error(res.statusText);
                 } else {
-                    
+                    removeRowFromUI();
                 }
                 
                 

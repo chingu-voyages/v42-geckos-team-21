@@ -360,7 +360,7 @@ function Row(props: fullJobProps) {
     }
 
     function sendNewRowToDb() {
-        setIsNewState(false);
+        
 
         let reqObj = Object.assign({}, cellTextObj);
         reqObj = Object.assign(reqObj, cellCheckboxObj);
@@ -372,7 +372,14 @@ function Row(props: fullJobProps) {
 
         axios.post('http://localhost:3001/api/applications/new', reqObj, { withCredentials: true })
             .then(res => {
-                setApplicationFromDBState(res.data);
+                if (res.statusText !== "OK") {
+                    throw new Error(res.statusText);
+                } else {
+                    setIsNewState(false);
+                    setApplicationFromDBState(res.data);
+                }
+
+                
             })
             .catch((err) => {
                 console.log(err);

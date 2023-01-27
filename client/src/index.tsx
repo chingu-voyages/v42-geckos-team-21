@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
@@ -45,18 +45,21 @@ function App() {
   console.log(cookieObj);
 
   let [user, setUser] = useState<IfcUser | null>(null);
-  if (cookieObj.is_logged_in === 'true' && user === null) {
-    axios.get(
-      'http://localhost:3001/api/user/getloggedinuser',
-      { withCredentials: true }
-    ).then(res => {
-      setUser(res.data[0]);
-    })
-  }
+  
+  useEffect(() => {
+    if (cookieObj.is_logged_in === 'true' && user === null) {
+      axios.get(
+        'http://localhost:3001/api/user/getloggedinuser',
+        { withCredentials: true }
+      ).then(res => {
+        setUser(res.data[0]);
+      })
+    }
+  }, [])
 
 
 
-  if (!user) {
+  if (!user && !cookieObj.is_logged_in) {
     return (
       <>
         <React.StrictMode>
@@ -73,7 +76,7 @@ function App() {
         </React.StrictMode>
       </>
     )
-  } else {
+  }  else {
     return (
       <>
         <React.StrictMode>

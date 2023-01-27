@@ -427,10 +427,16 @@ function Row(props: fullJobProps) {
         axios.delete(`http://localhost:3001/api/applications/${applicationFromDBState!._id}`,
             { withCredentials: true })
             .then(res => {
-                console.log('booi', res);
+                if (res.statusText !== "OK") {
+                    throw new Error(res.statusText);
+                } else {
+                    
+                }
+                
+                
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
                 props.setAlertText!(
                     <>
                         <strong>Row {props.identifier}: {err.message}</strong>

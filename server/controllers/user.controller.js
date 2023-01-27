@@ -17,8 +17,13 @@ class UserController {
                 process.env.SECRET_KEY
               );
               res
-                .cookie("usertoken", userToken, process.env.SECRET_KEY, {
+                .cookie("usertoken", userToken, {
                   httpOnly: true,
+                  maxAge: 31536000
+                })
+                .cookie("is_logged_in", "true", {
+                  httpOnly: false,
+                  maxAge: 31536000
                 })
                 .json(user);
             })
@@ -26,7 +31,7 @@ class UserController {
               res.status(400).json(err.message)
               console.error(err)
             });
-            
+
         } else {
           res.status(400).json({
             errors: {
@@ -100,14 +105,21 @@ class UserController {
     );
 
     res
-      .cookie("usertoken", userToken, process.env.SECRET_KEY, {
+    res
+      .cookie("usertoken", userToken, {
         httpOnly: true,
+        maxAge: 31536000
+      })
+      .cookie("is_logged_in", "true", {
+        httpOnly: false,
+        maxAge: 31536000
       })
       .json({ msg: "success!" });
   };
 
   logout = (req, res) => {
     res.clearCookie("usertoken");
+    res.clearCookie("is_logged_in");
     res.sendStatus(200);
   };
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import axios from 'axios';
 import './index.css';
 import Landing from './pages/landing/Landing';
 import Login from './pages/login/Login';
@@ -21,7 +22,9 @@ export interface IfcUser {
   _id: string
 }
 
-
+interface IfcCookieObj {
+  [key: string]: string
+}
 
 
 const root = ReactDOM.createRoot(
@@ -34,10 +37,24 @@ root.render(
 
 function App() {
 
-
+  let cookieObj: IfcCookieObj = {};
+  document.cookie.split(/;\s*/).forEach((element) => {
+    let keyValueArr = element.split('=');
+    cookieObj[keyValueArr[0]] = keyValueArr[1];
+  });
+  console.log(cookieObj);
 
   let [user, setUser] = useState<IfcUser | null>(null);
-  console.log({user});
+  if (cookieObj.is_logged_in === 'true' && user === null) {
+    axios.get(
+      'http://localhost:3001/api/user/getloggedinuser',
+      { withCredentials: true }
+    ).then(res => {
+      setUser(res.data[0]);
+    })
+  }
+
+
 
   if (!user) {
     return (

@@ -17,8 +17,9 @@ class UserController {
                 process.env.SECRET_KEY
               );
               res
-                .cookie("usertoken", userToken, process.env.SECRET_KEY, {
+                .cookie("usertoken", userToken, {
                   httpOnly: true,
+                  maxAge: 31536000
                 })
                 .json(user);
             })
@@ -100,8 +101,9 @@ class UserController {
     );
 
     res
-      .cookie("usertoken", userToken, process.env.SECRET_KEY, {
+      .cookie("usertoken", userToken, {
         httpOnly: true,
+        maxAge: 31536000
       })
       .json({ msg: "success!" });
   };

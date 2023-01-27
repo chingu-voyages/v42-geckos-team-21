@@ -71,9 +71,14 @@ class ApplicationController {
 
   // Delete Applications
   deleteApplication = (req, res) => {
-    ApplicationModel.deleteOne(req.params)
+    User.findOneAndUpdate({ "applications._id": req.params },
+    {$pull: {"applications": req.params}})
+    .then((update) => {
+      ApplicationModel.deleteOne(req.params)
       .then((deleteConfirm) => res.json(deleteConfirm))
       .catch((err) => res.json(err));
+    })
+    
   };
 }
 

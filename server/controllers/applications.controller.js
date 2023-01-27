@@ -33,13 +33,40 @@ class ApplicationController {
   };
 
   // Update Applications
+  // updateApplication = (req, res) => {
+  //   ApplicationModel.findOneAndUpdate(req.params, req.body, {
+  //     new: true,
+  //     runValidators: true,
+  //   })
+  //     .then((update) => res.json(update))
+  //     .catch((err) => res.status(400).json(err));
+
+  // };
+
+  // Update Applications
   updateApplication = (req, res) => {
-    ApplicationModel.findOneAndUpdate(req.params, req.body, {
-      new: true,
-      runValidators: true,
-    })
-      .then((update) => res.json(update))
-      .catch((err) => res.status(400).json(err));
+    User.findOneAndUpdate(
+      { "applications._id": req.params },
+      {
+        $set: {
+          "applications.$.company": req.body.company,
+          "applications.$.position": req.body.position,
+          "applications.$.date": req.body.date,
+          "applications.$.sentCoverLetter": req.body.sentCoverLetter,
+          "applications.$.reachedOut": req.body.reachedOut,
+          "applications.$.notes": req.body.notes,
+        },
+      }
+    )
+      .then((update) => {
+        ApplicationModel.findOneAndUpdate(req.params, req.body, {
+          new: true,
+          runValidators: true,
+        })
+          .then((update) => res.json(update))
+          .catch((err) => res.status(400).json(err));
+      })
+      .catch((err) => res.json(err));
   };
 
   // Delete Applications

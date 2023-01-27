@@ -5,31 +5,52 @@ import './TableView.css';
 import Row from './table-components/Row'
 import Alert from '../../components/Alert/Alert';
 import { IfcUser } from '../..';
+import { NullLiteral } from 'typescript';
 
 interface IfcProps {
   user: IfcUser
 }
 
+export interface IfcApplicationFromDb {
+  company: string,
+  date: string,
+  notes: string,
+  position: string,
+  reachedOut: boolean,
+  sentCoverLetter: boolean,
+  _id: string
+}
+
+
+export interface IfcCommonJobRowProps {
+  identifier: number,
+  isInitiallyNew: boolean,
+  key?: number,
+  user?: IfcUser,
+  applicationFromDb?: IfcApplicationFromDb,
+  setAlertText?: React.Dispatch<React.SetStateAction<React.ReactNode>>,
+  setAlertKey?: React.Dispatch<React.SetStateAction<number>>
+}
+
 
 
 function TableView(props: IfcProps) {
-  console.log('tableview render');
+
   let [alertText, setAlertText] = useState<React.ReactNode>('');
   let [alertKey, setAlertKey] = useState(0);
-  console.log('TableViews alert key', alertKey);
 
-  
-  const [jobRowState, setJobRowState] = useState([<Row isNew={true} identifier={0} 
-    key={0} user={props.user} setAlertText={setAlertText} setAlertKey={setAlertKey}/>]);
+
+
+  const [jobRowState, setJobRowState] = useState<IfcCommonJobRowProps[]>([]);
 
   let [areRowsFromDBParsedState, setAreRowsFromDBParsedState] = useState(false);
 
 
-  // console.log({areRowsFromDBParsedState});
 
-  console.log('useEffect')
+
 
   if (!areRowsFromDBParsedState) {
+    console.log('RAW DB DATA RECEIVED:', props.user);
     props.user.applications.forEach((element, index) => {
 
       // https://stackoverflow.com/questions/17781472/how-to-get-a-subset-of-a-javascript-objects-properties
@@ -39,28 +60,50 @@ function TableView(props: IfcProps) {
         notes,
         position,
         reachedOut,
-        sentCoverLetter
+        sentCoverLetter,
+        _id
       }) => ({
         company,
         date,
         notes,
         position,
         reachedOut,
-        sentCoverLetter
+        sentCoverLetter,
+        _id
       }))(element)
       setJobRowState(oldJobRowState => {
 
         let newJobRowState = [...oldJobRowState];
-        return newJobRowState.concat(<Row isNew={false} identifier={oldJobRowState.length} 
-          key={oldJobRowState.length} applicationFromDb={applicationFromDb} />)
+
+        return (([{
+          identifier: oldJobRowState.length,
+          isInitiallyNew: false,
+          key: oldJobRowState.length,
+          user: props.user,
+          setAlertText,
+          setAlertKey,
+          applicationFromDb
+        }] as IfcCommonJobRowProps[]).concat(newJobRowState));
       })
     })
+
+    let newEditableEntry = {
+      identifier: props.user.applications.length + 1,
+      isInitiallyNew: true,
+      key: props.user.applications.length + 1,
+      user: props.user,
+      setAlertText,
+      setAlertKey
+    };
+
+    setJobRowState(oldJobRowState => [newEditableEntry, ...oldJobRowState])
+
     setAreRowsFromDBParsedState(true);
   }
 
 
 
-
+  console.log('####', { jobRowState })
   return (
     <div className="TableView">
       <table>
@@ -77,9 +120,17 @@ function TableView(props: IfcProps) {
         <tbody>
           <tr id="add-job-button-row">
             <td colSpan={6}><button onClick={() => setJobRowState(
-              oldJobRowState => [<Row isNew={true} identifier={oldJobRowState.length} 
-                key={oldJobRowState.length} user={props.user} setAlertText={setAlertText} 
-                setAlertKey={setAlertKey}/>].concat(oldJobRowState)
+              oldJobRowState => {
+                let newNumber = oldJobRowState.slice().sort((a, b) => b.identifier - a.identifier)[0].identifier + 1;
+                return ([{
+                  identifier: newNumber,
+                  isInitiallyNew: true,
+                  key: newNumber,
+                  user: props.user,
+                  setAlertText,
+                  setAlertKey
+                }] as IfcCommonJobRowProps[]).concat(oldJobRowState)
+              }
             )}>
               Enter new job&nbsp;
               <svg width="1200pt" height="1200pt" version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
@@ -88,12 +139,14 @@ function TableView(props: IfcProps) {
             </button></td>
           </tr>
 
-          {jobRowState}
+          {jobRowState.map(element => {
+            return <Row {...element} setJobRowState={setJobRowState} />
+          })}
 
         </tbody>
       </table>
       <Alert text={alertText} exitAfterDuration={10000} alertKey={alertKey}
-      setAlertKey={setAlertKey} />
+        setAlertKey={setAlertKey} />
     </div>
 
   );

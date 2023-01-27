@@ -22,6 +22,7 @@ function RowCellTextInput(props: props) {
 
     let [inputWidth, setInputWidth] = useState('100%');
     let [inputDefaultWidth, setInputDefaultWidth] = useState<null | number>(null);
+    
 
 
     let defaultWidth: number | undefined | null;
@@ -61,7 +62,9 @@ function RowCellTextInput(props: props) {
 
     function handleInputWidthResizing() {
         if (inputDefaultWidth === null) {
-            setInputDefaultWidth(document.getElementById(`${props.identifier}-${props.index}-input`)!.getBoundingClientRect().width)
+            let deflt = document.getElementById(`${props.identifier}-${props.index}-input`)!.clientWidth!;
+            console.log({deflt}, props.identifier, props.index);
+            setInputDefaultWidth(deflt)
         }
 
         let width: number;
@@ -69,9 +72,9 @@ function RowCellTextInput(props: props) {
 
         if (width > inputDefaultWidth! && inputDefaultWidth !== null) {
 
-            setInputWidth(width + 3 + 'px');
-        } else if (width < inputDefaultWidth!) {
-            setInputWidth(inputDefaultWidth! + 3 + 'px');
+            setInputWidth(width + 'px');
+        } else if (width < inputDefaultWidth! ) {
+            setInputWidth(inputDefaultWidth! + 'px');
         }
     }
 }

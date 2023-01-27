@@ -121,11 +121,17 @@ function TableView(props: IfcProps) {
           <tr id="add-job-button-row">
             <td colSpan={6}><button onClick={() => setJobRowState(
               oldJobRowState => {
-                let newNumber = oldJobRowState.slice().sort((a, b) => b.identifier - a.identifier)[0].identifier + 1;
+                let arrayDescendingByIdentifer = 
+                oldJobRowState.slice().sort((a, b) => b.identifier - a.identifier);
+                if (arrayDescendingByIdentifer[0]) {
+                  var newIdentifier = arrayDescendingByIdentifer[0].identifier + 1;
+                } else {
+                  var newIdentifier = 0;
+                }
                 return ([{
-                  identifier: newNumber,
+                  identifier: newIdentifier,
                   isInitiallyNew: true,
-                  key: newNumber,
+                  key: newIdentifier,
                   user: props.user,
                   setAlertText,
                   setAlertKey

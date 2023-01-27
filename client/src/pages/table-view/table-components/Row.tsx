@@ -48,7 +48,23 @@ function Row(props: props) {
         reachedOut: false
     });
 
-    
+    interface IfcCellInputErrors {
+        company: null | string,
+        position: null | string,
+        date: null | string
+    }
+
+    let [cellInputErrorsState, setCellInputErrorsState] = useState<IfcCellInputErrors>({
+        company: null,
+        position: null,
+        date: null
+    })
+
+    let [areCellInputsTrimmed, setAreCellInputsTrimmed] = useState(false);
+
+
+
+    console.log({areCellInputsTrimmed});
 
 
     console.count('Times Invoked (not necessarily rendered)');
@@ -58,8 +74,14 @@ function Row(props: props) {
         case true:
             return (
                 <tr>
-                    <RowCellTextInput identifier='company' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj} index={props.identifier} />
-                    <RowCellTextInput identifier='position' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj} index={props.identifier} />
+                    <RowCellTextInput identifier='company' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}
+                        index={props.identifier}
+                        cellError={cellInputErrorsState.company}
+                    />
+                    <RowCellTextInput identifier='position' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}
+                        index={props.identifier}
+                        cellError={cellInputErrorsState.position}
+                    />
                     <td>
                         <div className='input-container'>
                             <input id={`${props.identifier}-date`} type="date"
@@ -70,6 +92,9 @@ function Row(props: props) {
                             />
                             <label htmlFor={`${props.identifier}-date`}>
                             </label>
+                            <span className='cell-input-error'>
+                                {cellInputErrorsState.date}
+                            </span>
                         </div>
                     </td>
                     <td>
@@ -100,7 +125,9 @@ function Row(props: props) {
                             </label>
                         </div>
                     </td>
-                    <RowCellTextInput identifier='notes' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj} index={props.identifier} />
+                    <RowCellTextInput identifier='notes' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}
+                        index={props.identifier}
+                    />
                     <td className="button-cell"><button onClick={handleButtonClick}>✔</button></td>
                     <td className="button-cell"><button>✖</button></td>
                 </tr>
@@ -161,24 +188,66 @@ function Row(props: props) {
 
     }
 
+    function handleButtonClick(event: React.MouseEvent) {
+        const [areCellInputsValid, cellInputErrors] = validateFields();
+        console.log({areCellInputsTrimmed});
+        if (areCellInputsTrimmed) {
+            if (areCellInputsValid) {
+                setIsEditing(false);
+                sendRowToDB();
+            } else {
+                console.log(cellInputErrors);
+            }
+            setCellInputErrorsState(cellInputErrors);
+        }
+    }
 
-    function validateFields() {
-        console.log(cellTextObj, cellDate);
+    function validateFields(): [boolean, IfcCellInputErrors] {
+        trimTextInputs();
+
+
+        let areCellInputsValid = true;
+
+
+
+        let cellInputErrors: IfcCellInputErrors = {
+            company: null,
+            position: null,
+            date: null
+        }
+
+
 
         if (!cellTextObj.company || cellTextObj.company.length < 1) {
-            console.log('company failed validation');
+            areCellInputsValid = false;
+            cellInputErrors.company = "Company can't be blank."
         }
 
         if (!cellTextObj.position || cellTextObj.position.length < 1) {
-            console.log('position failed validation')
+            areCellInputsValid = false;
+            cellInputErrors.position = "Position can't be blank."
+            console.log('pos blank');
         }
 
-        if (!cellDate || cellDate > new Date()) {
-            console.log('date failed validation')
+        if (cellDate > new Date()) {
+            cellInputErrors.date = "Date can't be in the future."
+            areCellInputsValid = false;
         }
 
-        if (cellTextObj.notes.length < 1) {
-            console.log('company failed validation');
+
+
+        return [areCellInputsValid, cellInputErrors];
+
+        function trimTextInputs() {
+            setCellTextObj(oldCellTextObj => {
+                let newCellTextObj: IfcCellTextObj = Object.assign({}, oldCellTextObj);
+                for (const property in newCellTextObj) {
+                    newCellTextObj[property] = newCellTextObj[property].trim();
+                }
+                console.log({ newCellTextObj });
+                return newCellTextObj;
+            })
+            setAreCellInputsTrimmed(true);
         }
     }
 
@@ -195,12 +264,6 @@ function Row(props: props) {
             newCellCheckboxObj[checkboxIdentifer] = !newCellCheckboxObj[checkboxIdentifer];
             return newCellCheckboxObj;
         }))
-    }
-
-    function handleButtonClick(event: React.MouseEvent) {
-        validateFields();
-        setIsEditing(false);
-        sendRowToDB();
     }
 
     function sendRowToDB() {
@@ -226,9 +289,9 @@ function Row(props: props) {
                     </>
                 )
                 props.setAlertKey!((oldAlertKey) => {
-                    
+
                     oldAlertKey++;
-                    console.log({oldAlertKey}, 'row');
+                    console.log({ oldAlertKey }, 'row');
                     return oldAlertKey;
                 })
 

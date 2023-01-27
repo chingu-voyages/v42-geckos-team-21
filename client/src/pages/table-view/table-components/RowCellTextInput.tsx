@@ -8,7 +8,8 @@ interface props {
     identifier: string,
     setCellTextObj: React.SetStateAction<Function>,
     cellTextObj: IfcCellTextObj,
-    index: number
+    index: number,
+    cellError?: null | string
 }
 
 
@@ -48,7 +49,7 @@ function RowCellTextInput(props: props) {
 
 
     return (
-        <td>
+        <td style={props.cellError ? {verticalAlign: 'top'} : {}}>
             <div className="input-container">
                 <input id={`${props.identifier}-${props.index}-input`} 
                 type="text" style={{ width: inputWidth }} value={props.cellTextObj[props.identifier]}
@@ -59,6 +60,9 @@ function RowCellTextInput(props: props) {
                 })} placeholder={props.identifier} />
                 <span id={`${props.identifier}-${props.index}-input-width-indicator`} className='input-width-indicator'>
                     {props.cellTextObj[props.identifier]}
+                </span>
+                <span className='cell-input-error'>
+                    {props.cellError!}
                 </span>
             </div>
         </td>

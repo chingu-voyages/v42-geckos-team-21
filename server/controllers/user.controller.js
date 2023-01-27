@@ -21,13 +21,17 @@ class UserController {
                   httpOnly: true,
                   maxAge: 31536000
                 })
+                .cookie("is_logged_in", "true", {
+                  httpOnly: false,
+                  maxAge: 31536000
+                })
                 .json(user);
             })
             .catch((err) => {
               res.status(400).json(err.message)
               console.error(err)
             });
-            
+
         } else {
           res.status(400).json({
             errors: {
@@ -101,8 +105,13 @@ class UserController {
     );
 
     res
+    res
       .cookie("usertoken", userToken, {
         httpOnly: true,
+        maxAge: 31536000
+      })
+      .cookie("is_logged_in", "true", {
+        httpOnly: false,
         maxAge: 31536000
       })
       .json({ msg: "success!" });
@@ -110,6 +119,7 @@ class UserController {
 
   logout = (req, res) => {
     res.clearCookie("usertoken");
+    res.clearCookie("is_logged_in");
     res.sendStatus(200);
   };
 

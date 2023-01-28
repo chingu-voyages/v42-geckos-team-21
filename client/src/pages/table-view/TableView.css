@@ -59,15 +59,28 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   height: 45px;
+=======
+  min-height: 45px;
+>>>>>>> c8029211 (merging)
   background-color: white;
   border-bottom: 1px solid black;
 }
 .TableView table td div.input-container {
+<<<<<<< HEAD
   position: relative;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   border: 1px solid black;
   height: 100%;
+=======
+<<<<<<< HEAD
+  box-sizing: border-box;
+=======
+  position: relative;
+  box-sizing: border-box;
+  height: 100%;
+>>>>>>> c8029211 (merging)
+>>>>>>> 342b759b (merging)
 }
 .TableView table td div.input-container input[type=text], .TableView table td div.input-container input[type=date] {
   padding: 0;
@@ -89,6 +102,9 @@
   position: absolute;
   white-space: pre;
   padding: 3px;
+}
+.TableView table td div.input-container span.cell-input-error {
+  color: red;
 }
 .TableView table td div.input-container span.cell-input-error {
   color: red;

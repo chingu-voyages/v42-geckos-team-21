@@ -10,8 +10,12 @@ interface props {
     setCellTextObj: React.SetStateAction<Function>,
     cellTextObj: IfcCellTextObj,
     index: number,
+<<<<<<< HEAD
     cellError?: null | string,
     setCellInputErrorsState?: React.SetStateAction<Function>
+=======
+    cellError?: null | string
+>>>>>>> c8029211 (merging)
 }
 
 
@@ -33,7 +37,11 @@ function RowCellTextInput(props: props) {
 
 
     return (
+<<<<<<< HEAD
         <td style={props.cellError ? { verticalAlign: 'top' } : {}}>
+=======
+        <td style={props.cellError ? {verticalAlign: 'top'} : {}}>
+>>>>>>> c8029211 (merging)
             <div className="input-container">
                 <input id={`${props.identifier}-${props.index}-input`}
                     type="text" style={{ width: inputWidth }} value={props.cellTextObj[props.identifier]}

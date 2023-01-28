@@ -43,6 +43,26 @@ function Row(props: fullJobProps) {
         reachedOut: false
     });
 
+<<<<<<< HEAD
+=======
+    interface IfcCellInputErrors {
+        company: null | string,
+        position: null | string,
+        date: null | string
+    }
+
+    let [cellInputErrorsState, setCellInputErrorsState] = useState<IfcCellInputErrors>({
+        company: null,
+        position: null,
+        date: null
+    })
+
+    let [areCellInputsTrimmed, setAreCellInputsTrimmed] = useState(false);
+
+
+
+    console.log({areCellInputsTrimmed});
+>>>>>>> c8029211 (merging)
 
 
     let [cellInputErrorsState, setCellInputErrorsState] = useState<IfcCellInputErrors>({
@@ -64,14 +84,22 @@ function Row(props: fullJobProps) {
                     <RowCellTextInput identifier='company' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}
                         index={props.identifier}
                         cellError={cellInputErrorsState.company}
+<<<<<<< HEAD
                         setCellInputErrorsState={setCellInputErrorsState}
+=======
+>>>>>>> c8029211 (merging)
                     />
                     <RowCellTextInput identifier='position' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}
                         index={props.identifier}
                         cellError={cellInputErrorsState.position}
+<<<<<<< HEAD
                         setCellInputErrorsState={setCellInputErrorsState}
                     />
                     <td style={cellInputErrorsState.date ? { verticalAlign: 'top' } : {}}>
+=======
+                    />
+                    <td>
+>>>>>>> c8029211 (merging)
                         <div className='input-container'>
                             <input id={`${props.identifier}-date`} type="date"
                                 name={`${props.identifier}-date`}
@@ -117,8 +145,13 @@ function Row(props: fullJobProps) {
                     <RowCellTextInput identifier='notes' setCellTextObj={setCellTextObj} cellTextObj={cellTextObj}
                         index={props.identifier}
                     />
+<<<<<<< HEAD
                     <td className="button-cell"><button onClick={handleConfirmButtonClick}>✔</button></td>
                     <td className="button-cell"><button onClick={handleCancelButtonClick}>✖</button></td>
+=======
+                    <td className="button-cell"><button onClick={handleButtonClick}>✔</button></td>
+                    <td className="button-cell"><button>✖</button></td>
+>>>>>>> c8029211 (merging)
                 </tr>
             )
         // break;
@@ -178,6 +211,7 @@ function Row(props: fullJobProps) {
 
     }
 
+<<<<<<< HEAD
     function handleConfirmButtonClick(event: React.MouseEvent) {
         const [areCellInputsValid, cellInputErrors] = validateFields();
 
@@ -202,6 +236,20 @@ function Row(props: fullJobProps) {
                 }
             })
         });
+=======
+    function handleButtonClick(event: React.MouseEvent) {
+        const [areCellInputsValid, cellInputErrors] = validateFields();
+        console.log({areCellInputsTrimmed});
+        if (areCellInputsTrimmed) {
+            if (areCellInputsValid) {
+                setIsEditing(false);
+                sendRowToDB();
+            } else {
+                console.log(cellInputErrors);
+            }
+            setCellInputErrorsState(cellInputErrors);
+        }
+>>>>>>> c8029211 (merging)
     }
 
     function validateFields(): [boolean, IfcCellInputErrors] {
@@ -228,6 +276,10 @@ function Row(props: fullJobProps) {
         if (!cellTextObj.position || cellTextObj.position.length < 1) {
             areCellInputsValid = false;
             cellInputErrors.position = "Position can't be blank."
+<<<<<<< HEAD
+=======
+            console.log('pos blank');
+>>>>>>> c8029211 (merging)
         }
 
         if (cellDate > new Date()) {
@@ -245,8 +297,15 @@ function Row(props: fullJobProps) {
                 for (const property in newCellTextObj) {
                     newCellTextObj[property] = newCellTextObj[property].trim();
                 }
+<<<<<<< HEAD
                 return newCellTextObj;
             })
+=======
+                console.log({ newCellTextObj });
+                return newCellTextObj;
+            })
+            setAreCellInputsTrimmed(true);
+>>>>>>> c8029211 (merging)
         }
     }
 
@@ -293,6 +352,10 @@ function Row(props: fullJobProps) {
                 props.setAlertKey!((oldAlertKey) => {
 
                     oldAlertKey++;
+<<<<<<< HEAD
+=======
+                    console.log({ oldAlertKey }, 'row');
+>>>>>>> c8029211 (merging)
                     return oldAlertKey;
                 })
 

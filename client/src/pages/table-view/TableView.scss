@@ -87,18 +87,21 @@
           overflow: auto;
         }
 
-        input {
+        <<<<<<< HEAD input {
           padding: 0 2px;
         }
 
-
-        span.input-width-indicator {
+        =======>>>>>>>c8029211 (merging) span.input-width-indicator {
           visibility: hidden;
           color: rgb(88, 146, 0);
           left: 0;
           position: absolute;
           white-space: pre;
           padding: 3px;
+        }
+
+        span.cell-input-error {
+          color: red;
         }
 
         span.cell-input-error {

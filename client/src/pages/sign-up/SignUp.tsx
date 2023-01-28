@@ -10,6 +10,11 @@ const SignUp = () => {
   const [newPassword, setNewPassword] = useState('');
   const [newPassword2, setNewPassword2] = useState('');
   const [formErrors, setFormErrors]: any = useState({})
+  axios.get('http://localhost:3001/api/users')
+          .then(res => {
+            console.log(res!.data);
+          })
+          .catch((err) => console.error(err.message))
 
 
   useEffect(() => {

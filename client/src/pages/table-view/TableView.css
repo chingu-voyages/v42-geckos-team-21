@@ -1,5 +1,7 @@
 .TableView {
   background-color: #E0E1DD;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -148,6 +150,8 @@ input[type=checkbox] {
 }
 
 .td-flex-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;

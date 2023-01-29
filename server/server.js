@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 module.exports = DATABASE = "jobTracker_db";
+const path = require('path');
 
 const app = express();
 
@@ -26,3 +27,6 @@ require("./routes/applications.routes")(app);
 app.listen(app.get("port"), () => {
   console.log(`Listening at port: ${app.get("port")}`);
 });
+
+// Serve production build of React app (i.e. the client app)
+app.use(express.static(path.join(__dirname, '../client/build')));

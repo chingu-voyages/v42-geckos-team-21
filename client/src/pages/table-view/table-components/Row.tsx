@@ -5,6 +5,7 @@ import { IfcUser } from '../../..';
 import { text } from 'stream/consumers';
 import { IfcCommonJobRowProps } from '../TableView';
 import { IfcApplicationFromDb } from '../TableView';
+import { MONGOOSE_API_HOST } from '../../..';
 
 interface fullJobProps extends IfcCommonJobRowProps {
     setJobRowState: React.Dispatch<React.SetStateAction<IfcCommonJobRowProps[]>>
@@ -255,7 +256,7 @@ function Row(props: fullJobProps) {
 
 
     function handleDeleteButtonClick(event: React.MouseEvent) {
-        deleteRowInDB();
+        deleteRow();
     }
 
     function handleMoreButtonClick(event: React.MouseEvent) {
@@ -280,6 +281,10 @@ function Row(props: fullJobProps) {
     }
 
     function handleCancelButtonClick(event: React.MouseEvent) {
+        removeRowFromUI();
+    }
+
+    function removeRowFromUI() {
         props.setJobRowState(oldJobRowState => {
             return oldJobRowState.filter(element => {
                 if (element.identifier === props.identifier) {
@@ -356,7 +361,7 @@ function Row(props: fullJobProps) {
     }
 
     function sendNewRowToDb() {
-        setIsNewState(false);
+        
 
         let reqObj = Object.assign({}, cellTextObj);
         reqObj = Object.assign(reqObj, cellCheckboxObj);
@@ -366,9 +371,16 @@ function Row(props: fullJobProps) {
         reqObj = Object.assign(reqObj, { date: cellDate.toISOString() })
 
 
-        axios.post('http://localhost:3001/api/applications/new', reqObj, { withCredentials: true })
+        axios.post(MONGOOSE_API_HOST + '/api/applications/new', reqObj, { withCredentials: true })
             .then(res => {
-                setApplicationFromDBState(res.data);
+                if (res.statusText !== "OK") {
+                    throw new Error(res.statusText);
+                } else {
+                    setIsNewState(false);
+                    setApplicationFromDBState(res.data);
+                }
+
+                
             })
             .catch((err) => {
                 console.log(err);
@@ -397,7 +409,7 @@ function Row(props: fullJobProps) {
         reqObj = Object.assign(reqObj, { date: cellDate.toISOString() })
 
 
-        axios.put(`http://localhost:3001/api/applications/${applicationFromDBState!._id}`,
+        axios.put(MONGOOSE_API_HOST + `/api/applications/${applicationFromDBState!._id}`,
             reqObj, { withCredentials: true })
             .then(res => {
                 console.log('booi', res);
@@ -420,17 +432,23 @@ function Row(props: fullJobProps) {
             })
     }
 
-    function deleteRowInDB() {
+    function deleteRow() {
 
 
 
-        axios.delete(`http://localhost:3001/api/applications/${applicationFromDBState!._id}`,
+        axios.delete(MONGOOSE_API_HOST + `/api/applications/${applicationFromDBState!._id}`,
             { withCredentials: true })
             .then(res => {
-                console.log('booi', res);
+                if (res.statusText !== "OK") {
+                    throw new Error(res.statusText);
+                } else {
+                    removeRowFromUI();
+                }
+                
+                
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
                 props.setAlertText!(
                     <>
                         <strong>Row {props.identifier}: {err.message}</strong>

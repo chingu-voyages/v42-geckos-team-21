@@ -68,7 +68,7 @@ function App() {
   useEffect(() => {
     if (cookieObj.is_logged_in === 'true' && user === null) {
       axios.get(
-        'http://localhost:3001/api/user/getloggedinuser',
+        MONGOOSE_API_HOST + '/api/user/getloggedinuser',
         { withCredentials: true }
       ).then(res => {
         setUser(res.data[0]);

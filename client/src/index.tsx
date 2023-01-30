@@ -26,6 +26,19 @@ interface IfcCookieObj {
   [key: string]: string
 }
 
+var MONGOOSE_API_HOST: string;
+if (process.env.REACT_APP_MONGOOSE_API_HOST) {
+  // Define this env variable in shell arguments during build
+  // e.g. if api is relative to host of react app
+  // use [ set REACT_APP_MONGOOSE_API_HOST="" npm run build && npm run start ] 
+  MONGOOSE_API_HOST = process.env.REACT_APP_MONGOOSE_API_HOST;
+} else {
+  // For local development (when you're likely using create-react-app's webpack
+  // server for the frontend)
+  MONGOOSE_API_HOST = 'http://localhost:3001';
+}
+
+export { MONGOOSE_API_HOST };
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -49,7 +62,7 @@ function App() {
   useEffect(() => {
     if (cookieObj.is_logged_in === 'true' && user === null) {
       axios.get(
-        'http://localhost:3001/api/user/getloggedinuser',
+        MONGOOSE_API_HOST + '/api/user/getloggedinuser',
         { withCredentials: true }
       ).then(res => {
         setUser(res.data[0]);

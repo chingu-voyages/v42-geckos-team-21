@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios';
 import './Login.css'
 import { IfcUser } from '../..';
+import { MONGOOSE_API_HOST } from '../../index'
 
 interface IfcProps {
   user: IfcUser | null,
@@ -36,12 +37,12 @@ const Login = (props: IfcProps) => {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     
-    axios.post('http://localhost:3001/api/login', {email: inputEmail, password: inputPassword}, {withCredentials: true})
+    axios.post(MONGOOSE_API_HOST + '/api/login', {email: inputEmail, password: inputPassword}, {withCredentials: true})
       .then(res => {
         if (res.data.msg === 'success!' ) {
           console.log(res.headers);
           console.log(document.cookie);
-          return axios.get('http://localhost:3001/api/user/getloggedinuser', {withCredentials: true})
+          return axios.get(MONGOOSE_API_HOST + '/api/user/getloggedinuser', {withCredentials: true})
         }
       })
       .then(res => {

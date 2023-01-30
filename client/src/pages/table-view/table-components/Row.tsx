@@ -5,6 +5,7 @@ import { IfcUser } from '../../..';
 import { text } from 'stream/consumers';
 import { IfcCommonJobRowProps } from '../TableView';
 import { IfcApplicationFromDb } from '../TableView';
+import { MONGOOSE_API_HOST } from '../../..';
 
 interface fullJobProps extends IfcCommonJobRowProps {
     setJobRowState: React.Dispatch<React.SetStateAction<IfcCommonJobRowProps[]>>
@@ -370,7 +371,7 @@ function Row(props: fullJobProps) {
         reqObj = Object.assign(reqObj, { date: cellDate.toISOString() })
 
 
-        axios.post('http://localhost:3001/api/applications/new', reqObj, { withCredentials: true })
+        axios.post(MONGOOSE_API_HOST + '/api/applications/new', reqObj, { withCredentials: true })
             .then(res => {
                 if (res.statusText !== "OK") {
                     throw new Error(res.statusText);
@@ -408,7 +409,7 @@ function Row(props: fullJobProps) {
         reqObj = Object.assign(reqObj, { date: cellDate.toISOString() })
 
 
-        axios.put(`http://localhost:3001/api/applications/${applicationFromDBState!._id}`,
+        axios.put(MONGOOSE_API_HOST + `/api/applications/${applicationFromDBState!._id}`,
             reqObj, { withCredentials: true })
             .then(res => {
                 console.log('booi', res);
@@ -435,7 +436,7 @@ function Row(props: fullJobProps) {
 
 
 
-        axios.delete(`http://localhost:3001/api/applications/${applicationFromDBState!._id}`,
+        axios.delete(MONGOOSE_API_HOST + `/api/applications/${applicationFromDBState!._id}`,
             { withCredentials: true })
             .then(res => {
                 if (res.statusText !== "OK") {

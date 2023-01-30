@@ -30,7 +30,7 @@ var MONGOOSE_API_HOST: string;
 if (process.env.REACT_APP_MONGOOSE_API_HOST) {
   // Define this env variable in shell arguments during build
   // e.g. if api is relative to host of react app
-  // use [ set REACT_APP_MONGOOSE_API_HOST="" npm run build && npm run start ] 
+  // use [ set REACT_APP_MONGOOSE_API_HOST="" npm run build ] 
   MONGOOSE_API_HOST = process.env.REACT_APP_MONGOOSE_API_HOST;
 } else {
   // For local development (when you're likely using create-react-app's webpack

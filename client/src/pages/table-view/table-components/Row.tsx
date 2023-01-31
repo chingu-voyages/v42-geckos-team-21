@@ -125,7 +125,7 @@ function Row(props: fullJobProps) {
                 <td className="button-cell"><button onClick={handleCancelButtonClick}>✖</button></td>
             </tr>
         )
-    } else if (!isNewState && !isEditing) {
+    } else if (!isEditing) {
 
 
         if (applicationFromDBState && !cellTextObj.company) {
@@ -246,12 +246,12 @@ function Row(props: fullJobProps) {
             </tr>
         )
     } else {
-        console.error('Invalid state and props combo:',
-            `props.isInitiallyNew: ${props.isInitiallyNew}, isEditing: ${isEditing}`);
+        console.error('Invalid state:',
+            `isNewState: ${isNewState}, isEditing: ${isEditing}`);
 
         return <tr><td colSpan={6}><code>
-            ERROR: Invalid state and props combo: {
-                `props.isInitiallyNew: ${props.isInitiallyNew}, isEditing: ${isEditing}`}
+            ERROR: Invalid state: {
+                `isNewState: ${isNewState}, isEditing: ${isEditing}`}
         </code></td></tr>
     }
 

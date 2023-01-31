@@ -25,7 +25,7 @@ export interface IfcCellInputErrors {
 function Row(props: fullJobProps) {
     let [isEditing, setIsEditing] = useState(props.isInitiallyNew ? true : false);
     let [applicationFromDBState, setApplicationFromDBState] = useState<IfcApplicationFromDb | undefined>(props.applicationFromDb);
-    
+
     interface IfcCellTextObj {
         [key: string]: string
     }
@@ -246,6 +246,9 @@ function Row(props: fullJobProps) {
             </tr>
         )
     } else {
+        console.error('Invalid state and props combo:',
+            `props.isInitiallyNew: ${props.isInitiallyNew}, isEditing: ${isEditing}`);
+
         return <tr><td colSpan={6}><code>
             ERROR: Invalid state and props combo: {
                 `props.isInitiallyNew: ${props.isInitiallyNew}, isEditing: ${isEditing}`}
@@ -361,7 +364,7 @@ function Row(props: fullJobProps) {
     }
 
     function sendNewRowToDb() {
-        
+
 
         let reqObj = Object.assign({}, cellTextObj);
         reqObj = Object.assign(reqObj, cellCheckboxObj);
@@ -380,7 +383,7 @@ function Row(props: fullJobProps) {
                     setApplicationFromDBState(res.data);
                 }
 
-                
+
             })
             .catch((err) => {
                 console.log(err);
@@ -444,8 +447,8 @@ function Row(props: fullJobProps) {
                 } else {
                     removeRowFromUI();
                 }
-                
-                
+
+
             })
             .catch((err) => {
                 console.error(err);

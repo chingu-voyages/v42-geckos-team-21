@@ -3,10 +3,16 @@
   text-align: center;
 }
 .not-found-container img {
+  width: 860px;
   box-sizing: border-box;
   padding: 5px;
 }
 .not-found-container h3 {
   margin: 0;
   padding-top: 1em;
+}
+@media (max-width: 860px) {
+  .not-found-container img {
+    width: 100%;
+  }
 }/*# sourceMappingURL=not-found.css.map */

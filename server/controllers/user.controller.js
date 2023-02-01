@@ -105,7 +105,6 @@ class UserController {
     );
 
     res
-    res
       .cookie("usertoken", userToken, {
         httpOnly: true,
         maxAge: 31536000000

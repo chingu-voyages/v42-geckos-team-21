@@ -1,8 +1,13 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import './SignUp.css'
-import { Link } from 'react-router-dom';
-const SignUp = () => {
+import { useNavigate, Link } from 'react-router-dom';
+
+interface IfcProps {
+  setUser: React.SetStateAction<Function>
+}
+
+const SignUp = (props: IfcProps) => {
   const [newFirstName, setNewFirstName] = useState('');
   const [registered, setRegistered] = useState(false);
   const [newLastName, setNewLastName] = useState('');
@@ -10,7 +15,7 @@ const SignUp = () => {
   const [newPassword, setNewPassword] = useState('');
   const [newPassword2, setNewPassword2] = useState('');
   const [formErrors, setFormErrors]: any = useState({})
-
+  const navigate = useNavigate();
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -42,9 +47,16 @@ const SignUp = () => {
         email: newEmail,
         password: newPassword,
         confirmPassword: newPassword2
-      },)
+      }, {withCredentials: true})
         .then(res => {
-          setRegistered(true)
+          if (res!.status === 200) {
+            console.log('setting user: ', res!.data[0]);
+            setRegistered(true);
+            props.setUser(res!.data);
+            navigate('/table-view')
+          } else {
+            throw new Error(res!.statusText);
+          }
         })
         .catch((err) => console.error(err.message))
     }

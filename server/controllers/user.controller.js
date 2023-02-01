@@ -19,11 +19,11 @@ class UserController {
               res
                 .cookie("usertoken", userToken, {
                   httpOnly: true,
-                  maxAge: 31536000
+                  maxAge: 31536000000
                 })
                 .cookie("is_logged_in", "true", {
                   httpOnly: false,
-                  maxAge: 31536000
+                  maxAge: 31536000000
                 })
                 .json(user);
             })

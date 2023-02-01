@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import './SignUp.css'
 import { useNavigate, Link } from 'react-router-dom';
+import { MONGOOSE_API_HOST } from '../..'; 
 
 interface IfcProps {
   setUser: React.SetStateAction<Function>
@@ -41,7 +42,7 @@ const SignUp = (props: IfcProps) => {
 
     if (Object.keys(errors).length === 0) {
       console.log('no error')
-      axios.post('http://localhost:3001/api/register', {
+      axios.post(MONGOOSE_API_HOST + '/api/register', {
         firstName: newFirstName,
         lastName: newLastName,
         email: newEmail,

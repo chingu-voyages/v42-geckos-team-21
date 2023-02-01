@@ -87,7 +87,7 @@ function App() {
             <Routes>
               <Route path='/' element={<Landing />} />
               <Route path='/login' element={<Login user={user} setUser={setUser} />} />
-              <Route path='/sign-up' element={<SignUp />} />
+              <Route path='/sign-up' element={<SignUp setUser={setUser}/>} />
               <Route path='*' element={<NotFound />} />
             </Routes>
           </Router>

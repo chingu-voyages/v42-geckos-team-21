@@ -1,19 +1,10 @@
 .landing {
   padding: 3em;
   text-align: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .landing-title-one {
   font-size: 4em;
@@ -36,7 +27,6 @@
   color: #00798c;
   outline: 1px solid #00798c;
   background-color: white;
-  -webkit-transition: 150ms ease-in-out;
   transition: 150ms ease-in-out;
   margin-top: 30px;
 }
@@ -49,4 +39,4 @@
 }
 .landing .sign-up-btn {
   color: #00798c;
-}
+}/*# sourceMappingURL=Landing.css.map */

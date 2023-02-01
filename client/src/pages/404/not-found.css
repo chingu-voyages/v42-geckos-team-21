@@ -1,0 +1,12 @@
+.not-found-container {
+  flex-grow: 1;
+  text-align: center;
+}
+.not-found-container img {
+  box-sizing: border-box;
+  padding: 5px;
+}
+.not-found-container h3 {
+  margin: 0;
+  padding-top: 1em;
+}/*# sourceMappingURL=not-found.css.map */

@@ -1,21 +1,10 @@
 .TableView {
   background-color: #E0E1DD;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
   padding: 5px;
   overflow: auto;
 }
@@ -27,15 +16,17 @@
   */
   border-collapse: collapse;
   margin: auto;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 .TableView table tr {
-  height: 45px;
+  height: 100%;
   text-align: center;
 }
 .TableView table tr:first-child td.button-cell button {
   display: block;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   border: none;
   border-top: 1px solid black;
   border-left: 1px solid black;
@@ -44,40 +35,36 @@
   width: 1em;
   padding: 0;
 }
-.TableView table tr:last-child {
-  border: none;
-}
-.TableView table tr:last-child td {
+.TableView table tr#add-job-button-row td {
   border-bottom: 1px solid black;
 }
-.TableView table tr:last-child button:hover {
+.TableView table tr#add-job-button-row td button:hover {
   padding: 0;
   border: none;
   background-color: rgb(208, 208, 208);
 }
 .TableView table td {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   height: 45px;
   background-color: white;
   border-bottom: 1px solid black;
+  padding: 0 5px;
 }
 .TableView table td div.input-container {
-  position: relative;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  border: 1px solid black;
-  height: 100%;
+  box-sizing: border-box;
 }
-.TableView table td div.input-container input[type=text] {
+.TableView table td div.input-container input[type=text], .TableView table td div.input-container input[type=date] {
   padding: 0;
-  border: none;
-  height: 100%;
+  border: 1px solid black;
+  height: 45px;
   text-align: center;
   font-size: inherit;
   font-family: inherit;
   width: 100%;
   overflow: auto;
+}
+.TableView table td div.input-container input {
+  padding: 0 2px;
 }
 .TableView table td div.input-container span.input-width-indicator {
   visibility: hidden;
@@ -85,6 +72,10 @@
   left: 0;
   position: absolute;
   white-space: pre;
+  padding: 3px;
+}
+.TableView table td div.input-container span.cell-input-error {
+  color: red;
 }
 .TableView table td.button-cell {
   background-color: transparent;
@@ -92,15 +83,18 @@
 }
 .TableView table td.button-cell button {
   display: block;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   border: none;
   border-top: 1px solid black;
   border-left: 1px solid black;
   border-right: 1px solid black;
-  height: 45px;
+  height: 100%;
   width: 100%;
   padding: 0;
+}
+.TableView table td.button-cell button svg {
+  vertical-align: sub;
+  width: 1em;
 }
 .TableView table thead tr:first-child {
   background-color: transparent;
@@ -118,22 +112,22 @@
   border-top-right-radius: 10px;
   width: 5em;
 }
-.TableView table tr:last-child button {
+.TableView table #add-job-button-row button {
   border: none;
   border-radius: 5px;
   padding: 0;
   background-color: transparent;
 }
-.TableView table tr:last-child button svg {
+.TableView table #add-job-button-row button svg {
   fill: #32D89C;
   height: 1.25em;
   width: 1.25em;
   vertical-align: middle;
 }
-.TableView table tr:last-child button:active:active {
+.TableView table #add-job-button-row button:active:active {
   background-color: rgb(177, 177, 177);
 }
-.TableView table tr:last-child button:active:hover svg {
+.TableView table #add-job-button-row button:active:hover svg {
   fill: green;
 }
 
@@ -143,15 +137,9 @@ input[type=checkbox] {
 }
 
 .td-flex-wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .check {
@@ -161,8 +149,7 @@ input[type=checkbox] {
 }
 .check svg {
   display: block;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   height: 1em;
   width: 1em;
   fill: none;
@@ -172,4 +159,4 @@ input[type=checkbox] {
 input[type=checkbox]:checked + label svg {
   background-color: #EDAE49;
   fill: rgb(0, 0, 0);
-}
+}/*# sourceMappingURL=TableView.css.map */

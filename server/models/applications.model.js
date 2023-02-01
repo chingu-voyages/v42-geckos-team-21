@@ -12,7 +12,10 @@ const fieldNameObj = {
 
 const ApplicationSchema = new mongoose.Schema(
   {
-    userId: String,
+    userId: {
+      type: String,
+      required: [true]
+    },
     company: {
       type: String,
       required: [true, fieldNameObj.company + " is required"],

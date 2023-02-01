@@ -1,0 +1,12 @@
+#alert {
+  position: fixed;
+  background-color: rgb(209, 73, 91);
+  bottom: 0;
+  right: 0;
+  padding: 5px;
+  max-width: 40em;
+  min-width: 20em;
+  min-height: 3em;
+  margin: 5px;
+  border-radius: 5px;
+}/*# sourceMappingURL=Alert.css.map */

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import axios from 'axios';
 import './index.css';
 import Landing from './pages/landing/Landing';
 import Login from './pages/login/Login';
@@ -21,8 +22,29 @@ export interface IfcUser {
   _id: string
 }
 
+interface IfcCookieObj {
+  [key: string]: string
+}
 
+var MONGOOSE_API_HOST: string;
+// You can define this env variable in shell arguments during build
+// e.g. if api is relative to host of react app
+// use [ set REACT_APP_MONGOOSE_API_HOST="<<relative>>" npm run build ] 
+if (process.env.REACT_APP_MONGOOSE_API_HOST === "<<relative>>") {
+  MONGOOSE_API_HOST = '';
+  console.log('Using current host (of React client) as api host.');
+} else if (process.env.REACT_APP_MONGOOSE_API_HOST) {
+  MONGOOSE_API_HOST = process.env.REACT_APP_MONGOOSE_API_HOST;
+  console.log('Using '+ '"' + MONGOOSE_API_HOST + '"' + ' as api host.');
+}
+else {
+  // For local development (when you're likely using create-react-app's webpack
+  // server for the frontend)
+  MONGOOSE_API_HOST = 'http://localhost:3001';
+  console.log('Using default api host:', MONGOOSE_API_HOST);
+}
 
+export { MONGOOSE_API_HOST };
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -34,12 +56,29 @@ root.render(
 
 function App() {
 
-
+  let cookieObj: IfcCookieObj = {};
+  document.cookie.split(/;\s*/).forEach((element) => {
+    let keyValueArr = element.split('=');
+    cookieObj[keyValueArr[0]] = keyValueArr[1];
+  });
+  console.log(cookieObj);
 
   let [user, setUser] = useState<IfcUser | null>(null);
-  console.log({user});
 
-  if (!user) {
+  useEffect(() => {
+    if (cookieObj.is_logged_in === 'true' && user === null) {
+      axios.get(
+        MONGOOSE_API_HOST + '/api/user/getloggedinuser',
+        { withCredentials: true }
+      ).then(res => {
+        setUser(res.data[0]);
+      })
+    }
+  }, [])
+
+
+
+  if (!user && !cookieObj.is_logged_in) {
     return (
       <>
         <React.StrictMode>

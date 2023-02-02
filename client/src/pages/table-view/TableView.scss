@@ -134,23 +134,29 @@
       tr:first-child {
         background-color: transparent;
       }
+
+      th {
+        background-color: #D1495B;
+        color: white;
+
+        div {
+          margin: auto;
+          width: 5em;
+        }
+      }
+  
+      th:first-child {
+        border-top-left-radius: 10px;
+        
+      }
+  
+      th:last-child {
+        border-top-right-radius: 10px;
+        
+      }
     }
 
-    th {
-      background-color: #D1495B;
-      width: 5em;
-      color: white;
-    }
-
-    th:first-child {
-      border-top-left-radius: 10px;
-      width: 5em;
-    }
-
-    th:last-child {
-      border-top-right-radius: 10px;
-      width: 5em;
-    }
+    
 
 
     #add-job-button-row button {

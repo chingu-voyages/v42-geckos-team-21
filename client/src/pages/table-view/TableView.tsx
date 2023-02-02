@@ -156,12 +156,12 @@ function TableView(props: IfcProps) {
       <table>
         <thead>
           <tr>
-            <th scope="col">Company</th>
-            <th scope="col">Position</th>
-            <th scope="col">Date Applied</th>
-            <th scope="col">Cover Letter</th>
-            <th scope="col">Reached Out</th>
-            <th scope="col">Notes</th>
+            <th scope="col"><div>Company</div></th>
+            <th scope="col"><div>Position</div></th>
+            <th scope="col"><div>Date Applied</div></th>
+            <th scope="col"><div>Cover Letter</div></th>
+            <th scope="col"><div>Reached Out</div></th>
+            <th scope="col"><div>Notes</div></th>
           </tr>
         </thead>
         <tbody>

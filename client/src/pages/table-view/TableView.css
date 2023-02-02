@@ -99,18 +99,19 @@
 .TableView table thead tr:first-child {
   background-color: transparent;
 }
-.TableView table th {
+.TableView table thead th {
   background-color: #D1495B;
-  width: 5em;
   color: white;
 }
-.TableView table th:first-child {
-  border-top-left-radius: 10px;
+.TableView table thead th div {
+  margin: auto;
   width: 5em;
 }
-.TableView table th:last-child {
+.TableView table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+.TableView table thead th:last-child {
   border-top-right-radius: 10px;
-  width: 5em;
 }
 .TableView table #add-job-button-row button {
   border: none;

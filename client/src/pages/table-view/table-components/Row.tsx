@@ -173,7 +173,7 @@ function Row(props: fullJobProps) {
                         </label>
                     </div>
                 </td>
-                <td>{cellTextObj['notes']}</td>
+                <td><div className="text-max-width-div">{cellTextObj['notes']}</div></td>
                 <td className="button-cell">
                     <button onClick={handleMoreButtonClick}>⋮</button>
                 </td>

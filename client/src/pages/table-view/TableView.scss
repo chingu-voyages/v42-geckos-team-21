@@ -103,6 +103,11 @@
         }
       }
 
+      div.text-max-width-div {
+        word-wrap: break-word;
+        max-width: 30em;
+      }
+
       &.button-cell {
         background-color: transparent;
         padding: 0;

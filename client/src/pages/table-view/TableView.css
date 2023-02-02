@@ -77,6 +77,10 @@
 .TableView table td div.input-container span.cell-input-error {
   color: red;
 }
+.TableView table td div.text-max-width-div {
+  word-wrap: break-word;
+  max-width: 30em;
+}
 .TableView table td.button-cell {
   background-color: transparent;
   padding: 0;

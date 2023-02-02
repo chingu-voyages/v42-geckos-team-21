@@ -25,7 +25,10 @@ function RowCellTextInput(props: props) {
     
 
 
-   
+    let defaultWidth: number | undefined | null;
+    useEffect(() => {
+        handleInputWidthResizing();
+    })
 
 
 

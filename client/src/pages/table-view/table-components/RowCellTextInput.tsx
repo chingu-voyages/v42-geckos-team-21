@@ -25,10 +25,7 @@ function RowCellTextInput(props: props) {
     
 
 
-    let defaultWidth: number | undefined | null;
-    useEffect(() => {
-        handleInputWidthResizing();
-    })
+   
 
 
 
@@ -36,7 +33,7 @@ function RowCellTextInput(props: props) {
         <td style={props.cellError ? { verticalAlign: 'top' } : {}}>
             <div className="input-container">
                 <input id={`${props.identifier}-${props.index}-input`}
-                    type="text" style={{ width: inputWidth }} value={props.cellTextObj[props.identifier]}
+                    type="text" size={10} style={{ width: inputWidth }} value={props.cellTextObj[props.identifier]}
                     onChange={(e) => props.setCellTextObj((oldCellTextObj: IfcCellTextObj) => {
                         console.count('change');
                         let newCellTextObj = Object.assign({}, oldCellTextObj);

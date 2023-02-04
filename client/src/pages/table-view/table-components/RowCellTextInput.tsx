@@ -35,8 +35,8 @@ function RowCellTextInput(props: props) {
     return (
         <td style={props.cellError ? { verticalAlign: 'top' } : {}}>
             <div className="input-container">
-                <input id={`${props.identifier}-${props.index}-input`}
-                    type="text" size={10} style={{ width: inputWidth }} value={props.cellTextObj[props.identifier]}
+                <textarea id={`${props.identifier}-${props.index}-input`}
+                    style={{ width: inputWidth }} value={props.cellTextObj[props.identifier]}
                     onChange={(e) => props.setCellTextObj((oldCellTextObj: IfcCellTextObj) => {
                         console.count('change');
                         let newCellTextObj = Object.assign({}, oldCellTextObj);

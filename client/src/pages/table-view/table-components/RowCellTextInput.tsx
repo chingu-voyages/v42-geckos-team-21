@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { IfcCellInputErrors } from './Row';
-interface IfcCellTextObj {
-    [key: string]: string
-}
+import { IfcCellTextObj } from './Row';
 
 
 interface props {
@@ -35,12 +33,28 @@ function RowCellTextInput(props: props) {
     return (
         <td style={props.cellError ? { verticalAlign: 'top' } : {}}>
             <div className="input-container">
-                <textarea id={`${props.identifier}-${props.index}-input`}
-                    style={{ width: inputWidth }} value={props.cellTextObj[props.identifier]}
+                <div contentEditable id={`${props.identifier}-${props.index}-input`}
+                    style={{ width: inputWidth }} onInput={e => props.setCellTextObj((oldCellTextObj: IfcCellTextObj) => 
+                    {
+                        let newCellTextObj = Object.assign({}, oldCellTextObj);
+                        if (e.currentTarget) {
+                        newCellTextObj[props.identifier] = e.currentTarget.textContent;
+                        console.log(newCellTextObj[props.identifier]);
+                        } 
+                        
+                        if (props.setCellInputErrorsState) {
+                            props.setCellInputErrorsState((oldCellInputErrorsState: IfcCellInputErrors) => {
+                                let newCellInputErrorsState = Object.assign({}, oldCellInputErrorsState);
+                                newCellInputErrorsState[props.identifier] = null;
+                                return newCellInputErrorsState;
+                            })
+                        }
+                        return newCellTextObj;
+                    })}
                     onChange={(e) => props.setCellTextObj((oldCellTextObj: IfcCellTextObj) => {
                         console.count('change');
                         let newCellTextObj = Object.assign({}, oldCellTextObj);
-                        newCellTextObj[props.identifier] = e.target.value;
+                        // newCellTextObj[props.identifier] = e.target.value;
                         if (props.setCellInputErrorsState) {
                             props.setCellInputErrorsState((oldCellInputErrorsState: IfcCellInputErrors) => {
                                 let newCellInputErrorsState = Object.assign({}, oldCellInputErrorsState);

@@ -22,13 +22,15 @@ export interface IfcCellInputErrors {
     [key: string]: string | null
 };
 
+export interface IfcCellTextObj {
+    [key: string]: string | null
+}
+
+
 function Row(props: fullJobProps) {
     let [isEditing, setIsEditing] = useState(props.isInitiallyNew ? true : false);
     let [applicationFromDBState, setApplicationFromDBState] = useState<IfcApplicationFromDb | undefined>(props.applicationFromDb);
 
-    interface IfcCellTextObj {
-        [key: string]: string
-    }
 
 
     interface IfcCellCheckboxObj {
@@ -338,7 +340,9 @@ function Row(props: fullJobProps) {
             setCellTextObj(oldCellTextObj => {
                 let newCellTextObj: IfcCellTextObj = Object.assign({}, oldCellTextObj);
                 for (const property in newCellTextObj) {
-                    newCellTextObj[property] = newCellTextObj[property].trim();
+                    if (newCellTextObj[property]) {
+                        newCellTextObj[property] = newCellTextObj[property]!.trim();
+                    }
                 }
                 return newCellTextObj;
             })

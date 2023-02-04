@@ -49,7 +49,8 @@ function RowCellTextInput(props: props) {
                             })
                         }
                         return newCellTextObj;
-                    })} placeholder={props.identifier} />
+                    })} placeholder={props.identifier}
+                        className={(props.identifier === 'notes' ? 'left-align' : '')} />
                 <span id={`${props.identifier}-${props.index}-input-width-indicator`} className='input-width-indicator'>
                     {props.cellTextObj[props.identifier]}
                 </span>

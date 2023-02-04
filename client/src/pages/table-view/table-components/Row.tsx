@@ -142,8 +142,8 @@ function Row(props: fullJobProps) {
 
         return (
             <tr>
-                <td>{cellTextObj['company']}</td>
-                <td>{cellTextObj['position']}</td>
+                <td><div className="text-max-width-div">{cellTextObj['company']}</div></td>
+                <td><div className="text-max-width-div">{cellTextObj['position']}</div></td>
                 <td>{cellDate.toDateString()}</td>
                 <td>
                     <div className='td-flex-wrapper'>
@@ -173,7 +173,7 @@ function Row(props: fullJobProps) {
                         </label>
                     </div>
                 </td>
-                <td><div className="text-max-width-div">{cellTextObj['notes']}</div></td>
+                <td><div className="text-max-width-div left-align">{cellTextObj['notes']}</div></td>
                 <td className="button-cell">
                     <button onClick={handleMoreButtonClick}>⋮</button>
                 </td>

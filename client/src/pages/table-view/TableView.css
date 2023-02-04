@@ -51,6 +51,7 @@
   padding: 0 5px;
 }
 .TableView table td div.input-container {
+  position: relative;
   box-sizing: border-box;
 }
 .TableView table td div.input-container input[type=text], .TableView table td div.input-container input[type=date] {
@@ -67,7 +68,6 @@
   padding: 0 2px;
 }
 .TableView table td div.input-container span.input-width-indicator {
-  visibility: hidden;
   color: rgb(88, 146, 0);
   left: 0;
   position: absolute;
@@ -164,4 +164,8 @@ input[type=checkbox] {
 input[type=checkbox]:checked + label svg {
   background-color: #EDAE49;
   fill: rgb(0, 0, 0);
+}
+
+.left-align {
+  text-align: left !important;
 }/*# sourceMappingURL=TableView.css.map */

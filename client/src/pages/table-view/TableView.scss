@@ -72,6 +72,7 @@
 
 
       div.input-container {
+        position: relative;
         box-sizing: border-box;
         input[type="text"], input[type="date"] {
           padding: 0;
@@ -226,4 +227,8 @@ input[type="checkbox"] {
 input[type="checkbox"]:checked+label svg {
   background-color: #EDAE49;
   fill: rgb(0, 0, 0);
+}
+
+.left-align {
+  text-align: left !important;
 }

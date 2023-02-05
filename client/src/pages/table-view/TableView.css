@@ -57,27 +57,32 @@
 }
 .TableView table td div.input-container textarea, .TableView table td div.input-container input[type=date] {
   display: block;
-  padding: 0;
+  box-sizing: content-box;
+  overflow: hidden;
+  padding: 0 2px;
   border: 1px solid black;
   height: 45px;
   text-align: center;
   font-size: inherit;
   font-family: inherit;
   width: 100%;
-  overflow: auto;
   resize: none;
-  max-width: 60ch;
+  max-width: 30ch;
+  white-space: wrap;
 }
 .TableView table td div.input-container input {
   padding: 0 2px;
 }
 .TableView table td div.input-container div.input-dimension-indicator {
+  visibility: hidden;
+  box-sizing: content-box;
   color: rgb(88, 146, 0);
   left: 0;
+  top: 0;
   position: absolute;
-  white-space: pre-wrap;
-  padding: 3px;
-  max-width: 60ch;
+  white-space: wrap;
+  padding: 0 2px;
+  max-width: 30ch;
   word-wrap: break-word;
 }
 .TableView table td div.input-container span.cell-input-error {
@@ -85,7 +90,8 @@
 }
 .TableView table td div.text-max-width-div {
   word-wrap: break-word;
-  max-width: 30em;
+  max-width: 30ch;
+  padding: 0 2px;
 }
 .TableView table td.button-cell {
   background-color: transparent;

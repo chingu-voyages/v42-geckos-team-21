@@ -74,7 +74,9 @@
       div.input-container {
         position: relative;
         box-sizing: border-box;
-        input[type="text"], input[type="date"] {
+        min-height: 45px;
+        textarea, input[type="date"] {
+          display: block;
           padding: 0;
           border: 1px solid black;
           height: 45px;
@@ -83,6 +85,8 @@
           font-family: inherit;
           width: 100%;
           overflow: auto;
+          resize: none;
+          max-width: 60ch;
         }
 
         input {
@@ -90,13 +94,16 @@
         }
 
 
-        span.input-width-indicator {
-          visibility: hidden;
+        div.input-dimension-indicator {
+          // visibility: hidden;
+          // height: 100%;
           color: rgb(88, 146, 0);
           left: 0;
           position: absolute;
-          white-space: pre;
+          white-space: pre-wrap;
           padding: 3px;
+          max-width: 60ch;
+          word-wrap: break-word;
         }
 
         span.cell-input-error {

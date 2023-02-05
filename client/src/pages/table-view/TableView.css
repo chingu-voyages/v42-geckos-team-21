@@ -53,8 +53,10 @@
 .TableView table td div.input-container {
   position: relative;
   box-sizing: border-box;
+  min-height: 45px;
 }
-.TableView table td div.input-container input[type=text], .TableView table td div.input-container input[type=date] {
+.TableView table td div.input-container textarea, .TableView table td div.input-container input[type=date] {
+  display: block;
   padding: 0;
   border: 1px solid black;
   height: 45px;
@@ -63,16 +65,20 @@
   font-family: inherit;
   width: 100%;
   overflow: auto;
+  resize: none;
+  max-width: 60ch;
 }
 .TableView table td div.input-container input {
   padding: 0 2px;
 }
-.TableView table td div.input-container span.input-width-indicator {
+.TableView table td div.input-container div.input-dimension-indicator {
   color: rgb(88, 146, 0);
   left: 0;
   position: absolute;
-  white-space: pre;
+  white-space: pre-wrap;
   padding: 3px;
+  max-width: 60ch;
+  word-wrap: break-word;
 }
 .TableView table td div.input-container span.cell-input-error {
   color: red;

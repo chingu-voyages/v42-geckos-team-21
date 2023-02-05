@@ -22,7 +22,8 @@ function RowCellTextInput(props: props) {
 
     let [inputWidth, setInputWidth] = useState('100%');
     let [inputDefaultWidth, setInputDefaultWidth] = useState<null | number>(null);
-    
+    let [inputHeight, setInputHeight] = useState('45px');
+    let [inputDefaultHeight, setInputDefaultHeight] = useState<null | number>(null);
 
 
     let defaultWidth: number | undefined | null;
@@ -36,11 +37,11 @@ function RowCellTextInput(props: props) {
         <td style={props.cellError ? { verticalAlign: 'top' } : {}}>
             <div className="input-container">
                 <textarea id={`${props.identifier}-${props.index}-input`}
-                    style={{ width: inputWidth }} value={props.cellTextObj[props.identifier]}
+                    style={{ width: inputWidth, height: inputHeight }} value={props.cellTextObj[props.identifier]}
                     onChange={(e) => props.setCellTextObj((oldCellTextObj: IfcCellTextObj) => {
                         console.count('change');
                         let newCellTextObj = Object.assign({}, oldCellTextObj);
-                        newCellTextObj[props.identifier] = e.target.value;
+                        newCellTextObj[props.identifier] = e.target.value.replace(/\n/g, '');
                         if (props.setCellInputErrorsState) {
                             props.setCellInputErrorsState((oldCellInputErrorsState: IfcCellInputErrors) => {
                                 let newCellInputErrorsState = Object.assign({}, oldCellInputErrorsState);
@@ -50,10 +51,10 @@ function RowCellTextInput(props: props) {
                         }
                         return newCellTextObj;
                     })} placeholder={props.identifier}
-                        className={(props.identifier === 'notes' ? 'left-align' : '')} />
-                <span id={`${props.identifier}-${props.index}-input-width-indicator`} className='input-width-indicator'>
+                    className={(props.identifier === 'notes' ? 'left-align' : '')} />
+                <div id={`${props.identifier}-${props.index}-input-dimension-indicator`} className='input-dimension-indicator'>
                     {props.cellTextObj[props.identifier]}
-                </span>
+                </div>
                 <span className='cell-input-error'>
                     {props.cellError!}
                 </span>
@@ -63,20 +64,34 @@ function RowCellTextInput(props: props) {
 
     function handleInputWidthResizing() {
         if (inputDefaultWidth === null) {
-            let deflt = document.getElementById(`${props.identifier}-${props.index}-input`)!.clientWidth!;
-            console.log({deflt}, props.identifier, props.index);
-            setInputDefaultWidth(deflt)
+            let defltWidth = document.getElementById(`${props.identifier}-${props.index}-input`)!.clientWidth!;
+            // getBoundingClientRect() includes border but clientHeight does not!
+            let defltHeight = document.getElementById(`${props.identifier}-${props.index}-input`)?.getBoundingClientRect().height!
+            console.warn(defltHeight);
+            setInputDefaultWidth(defltWidth);
+            setInputDefaultHeight(defltHeight);
         }
 
         let width: number;
-        width = document.getElementById(`${props.identifier}-${props.index}-input-width-indicator`)?.clientWidth!;
+        width = document.getElementById(`${props.identifier}-${props.index}-input-dimension-indicator`)?.clientWidth!;
+        let height: number;
+        height = document.getElementById(`${props.identifier}-${props.index}-input-dimension-indicator`)?.clientHeight!;
+        console.log({ height }, props.identifier);
 
         if (width > inputDefaultWidth! && inputDefaultWidth !== null) {
 
             setInputWidth(width + 'px');
-        } else if (width < inputDefaultWidth! ) {
+        } else if (width < inputDefaultWidth!) {
             setInputWidth(inputDefaultWidth! + 'px');
         }
+
+        if (height > inputDefaultHeight! && inputDefaultHeight !== null) {
+
+            setInputHeight(height + 'px');
+        } else if (height < inputDefaultHeight!) {
+            setInputHeight(inputDefaultHeight! + 'px');
+        }
+
     }
 }
 

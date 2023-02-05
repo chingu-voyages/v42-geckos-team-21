@@ -1,7 +1,5 @@
 ## About
 
-http://localhost:3000/ routes to landing page.
+Make your job search easy.
 
-http://localhost:3000/table-view routes to table-view
-
-``npm run start``
+Keep all your applications in one place

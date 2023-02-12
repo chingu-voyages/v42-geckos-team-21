@@ -55,13 +55,13 @@ root.render(
 
 
 function App() {
-
+  console.log('god comp rerender');
   let cookieObj: IfcCookieObj = {};
   document.cookie.split(/;\s*/).forEach((element) => {
     let keyValueArr = element.split('=');
     cookieObj[keyValueArr[0]] = keyValueArr[1];
   });
-  console.log(cookieObj);
+  console.log(document.cookie);
   const isLoggedIn = (cookieObj.is_logged_in === 'true') ? true : false;
 
   let [user, setUser] = useState<IfcUser | null>(null);
@@ -84,7 +84,7 @@ function App() {
       <>
         <React.StrictMode>
           <Router>
-            <NavigationBar />
+            <NavigationBar user={user} setUser={setUser}/>
             <Routes>
               <Route path='/' element={<Landing />} />
               <Route path='/login' element={<Login user={user} setUser={setUser} />} />
@@ -101,7 +101,7 @@ function App() {
       <>
         <React.StrictMode>
           <Router>
-            <NavigationBar />
+            <NavigationBar user={user} setUser={setUser}/>
             <Routes>
               <Route path='/' element={<Landing />} />
               <Route path='/table-view' element={<TableView user={user} />} />

@@ -15,6 +15,7 @@ This app is an all in one server and client for keeping track of job application
 - TypeScript
 
 404 and under construction page SVGs from: 
+
 https://undraw.co
 
 ## About Us

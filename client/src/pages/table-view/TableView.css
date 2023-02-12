@@ -16,7 +16,6 @@
   */
   border-collapse: collapse;
   margin: auto;
-  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
 }

@@ -80,7 +80,7 @@ function App() {
 
   if (!user && !isLoggedIn) {
     return (
-      <>
+      <div className="app">
         <React.StrictMode>
           <Router>
             <NavigationBar user={user} setUser={setUser}/>
@@ -94,11 +94,11 @@ function App() {
           </Router>
           <Footer />
         </React.StrictMode>
-      </>
+      </div>
     )
   } else {
     return (
-      <>
+      <div className="app">
         <React.StrictMode>
           <Router>
             <NavigationBar user={user} setUser={setUser}/>
@@ -112,7 +112,7 @@ function App() {
           </Router>
           <Footer />
         </React.StrictMode>
-      </>
+      </div>
     )
   }
 }

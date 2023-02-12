@@ -61,7 +61,6 @@
   margin: none !important;
   padding: 1em;
   z-index: 1000;
-  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
 }
@@ -101,7 +100,7 @@
 }
 @media screen and (min-width: 769px) {
   .nav-dropdown,
-.toggle-dropdown {
+  .toggle-dropdown {
     display: none;
   }
 }/*# sourceMappingURL=NavigationBar.css.map */

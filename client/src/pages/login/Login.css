@@ -13,7 +13,6 @@
   background-color: white;
   border-radius: 20px;
   padding: 2em 0;
-  height: -webkit-min-content;
   height: -moz-min-content;
   height: min-content;
 }

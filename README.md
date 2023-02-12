@@ -32,4 +32,5 @@ Stan — https://www.seldoncortex.com/
 This project brought to you by:
 
 https://www.chingu.io
+
 Seeking more experience developing with a team in a fun environment? Join Chingu!

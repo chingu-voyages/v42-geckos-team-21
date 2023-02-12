@@ -62,11 +62,12 @@ function App() {
     cookieObj[keyValueArr[0]] = keyValueArr[1];
   });
   console.log(cookieObj);
+  const isLoggedIn = (cookieObj.is_logged_in === 'true') ? true : false;
 
   let [user, setUser] = useState<IfcUser | null>(null);
 
   useEffect(() => {
-    if (cookieObj.is_logged_in === 'true' && user === null) {
+    if (isLoggedIn && user === null) {
       axios.get(
         MONGOOSE_API_HOST + '/api/user/getloggedinuser',
         { withCredentials: true }
@@ -78,7 +79,7 @@ function App() {
 
 
 
-  if (!user && !cookieObj.is_logged_in) {
+  if (!user && !isLoggedIn) {
     return (
       <>
         <React.StrictMode>

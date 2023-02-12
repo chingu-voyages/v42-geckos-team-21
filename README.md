@@ -26,7 +26,7 @@ Sherline — https://github.com/sherlineau
 
 Stan — https://www.seldoncortex.com/
 
-## Special Thanks To Chingu
+## Special Thanks to Chingu
 
 This project brought to you by https://www.chingu.io
 

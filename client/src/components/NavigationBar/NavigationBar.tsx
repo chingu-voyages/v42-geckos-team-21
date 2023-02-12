@@ -47,7 +47,7 @@ const NavigationBar = (props: props) => {
                 <Link onClick={() => setDropdownOpen(false)} to="/kanban-view">Kanban</Link>
               </>)
             }
-            {props.user ? <Link to='/' onClick={() => setDropdownOpen(false)}>Logout</Link> : <Link onClick={() => setDropdownOpen(false)} to="/login">Login</Link>}
+            {props.user ? <Link to='/' onClick={() => logout()}>Logout</Link> : <Link onClick={() => setDropdownOpen(false)} to="/login">Login</Link>}
           </ul>}
       </nav></header>
   )

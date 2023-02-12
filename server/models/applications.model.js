@@ -19,12 +19,12 @@ const ApplicationSchema = new mongoose.Schema(
     company: {
       type: String,
       required: [true, fieldNameObj.company + " is required"],
-      minLength: [5, fieldNameObj.company + " must be at least 5 characters"],
+      minLength: [1, fieldNameObj.company + " must be at least 1 character"],
     },
     position: {
       type: String,
       required: [true, fieldNameObj.position + " is required"],
-      minLength: [5, fieldNameObj.position + " must be at least 5 characters"],
+      minLength: [1, fieldNameObj.position + " must be at least 1 character"],
     },
     date: {
       type: Date,
@@ -40,8 +40,7 @@ const ApplicationSchema = new mongoose.Schema(
     },
     notes: {
       type: String,
-      required: [true],
-      minLength: [5, fieldNameObj.notes + " must be at least 5 characters"],
+      required: [false],
     }
   },
   { timestamps: true }

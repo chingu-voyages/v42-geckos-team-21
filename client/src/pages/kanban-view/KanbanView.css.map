@@ -1,1 +1,1 @@
-{"version":3,"sources":["KanbanView.scss","KanbanView.css"],"names":[],"mappings":"AAAA;EACI,aAAA;ACCJ","file":"KanbanView.css"}
+{"version":3,"sources":["KanbanView.scss","KanbanView.css"],"names":[],"mappings":"AAAA;EACI,aAAA;EACA,kBAAA;ACCJ;ADCI;EACI,YAAA;EACA,sBAAA;EACA,YAAA;ACCR;ADEI;EACI,SAAA;EACA,cAAA;ACAR;ADGI;EACI;IACI,WAAA;ECDV;AACF","file":"KanbanView.css"}

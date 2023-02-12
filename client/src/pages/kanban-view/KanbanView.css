@@ -1,3 +1,18 @@
 .KanbanView {
   flex: 1 0 40%;
+  text-align: center;
+}
+.KanbanView img {
+  width: 860px;
+  box-sizing: border-box;
+  padding: 5px;
+}
+.KanbanView h2 {
+  margin: 0;
+  padding: 1em 0;
+}
+@media (max-width: 860px) {
+  .KanbanView img {
+    width: 100%;
+  }
 }/*# sourceMappingURL=KanbanView.css.map */

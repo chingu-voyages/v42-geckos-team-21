@@ -17,6 +17,7 @@ This app is an all in one server and client for keeping track of job application
 404 and under construction page SVGs from https://undraw.co
 
 ## About Us
+
 We are a trio of developers:
 
 Will — https://genuine-sunflower-520c38.netlify.app/
@@ -25,3 +26,8 @@ Sherline — https://github.com/sherlineau
 
 Stan — https://www.seldoncortex.com/
 
+## Special Thanks To
+
+Chingu! This project brought to you by https://www.chingu.io
+
+Seeking more experience developing with a team in a fun environment? Join Chingu!

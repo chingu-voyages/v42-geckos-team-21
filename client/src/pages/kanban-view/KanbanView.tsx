@@ -1,8 +1,9 @@
 import React from 'react'
+import "./KanbanView.css"
 
 const KanbanView = () => {
   return (
-    <div className='row'>KanbanView</div>
+    <div className='KanbanView'>KanbanView</div>
   )
 }
 

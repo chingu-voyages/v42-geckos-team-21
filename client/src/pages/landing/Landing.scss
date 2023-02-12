@@ -1,5 +1,5 @@
 .landing {
-  height: 40%;
+  flex: 1 0 40%;
   padding: 3em;
   text-align: center;
   display: flex;
@@ -10,14 +10,12 @@
   &-title-one {
     flex: 0;
     font-size: 4em;
-    z-index: 10;
     margin: 0;
   }
 
   &-title-two {
     flex: 0;
     font-size: 2em;
-    z-index: 10;
   }
 
   &-image {
@@ -48,6 +46,19 @@
 
   .sign-up-btn {
     color: #00798c;
+  }
+
+  @media screen and (max-width: 768px) {
+    &-title-one {
+      flex: 0;
+      font-size: 2em;
+      margin: 0;
+    }
+  
+    &-title-two {
+      flex: 0;
+      font-size: 1em;
+    }
   }
 
 }

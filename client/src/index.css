@@ -19,9 +19,6 @@ html, body {
 
 }
 
-.row {
-  min-height: 100vh;
-}
 
 
 code {
@@ -30,5 +27,8 @@ code {
 }
 
 .app {
+  display: flex;
+  flex-direction: column;
   height: 100vh;
+  overflow-x: hidden;
 }

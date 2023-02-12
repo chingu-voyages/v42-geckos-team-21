@@ -14,7 +14,8 @@ This app is an all in one server and client for keeping track of job application
 - Node
 - TypeScript
 
-404 and under construction page SVGs from https://undraw.co
+404 and under construction page SVGs from: 
+https://undraw.co
 
 ## About Us
 
@@ -28,6 +29,7 @@ Stan — https://www.seldoncortex.com/
 
 ## Special Thanks to Chingu
 
-This project brought to you by https://www.chingu.io
+This project brought to you by:
 
+https://www.chingu.io
 Seeking more experience developing with a team in a fun environment? Join Chingu!

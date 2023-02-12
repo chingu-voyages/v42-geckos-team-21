@@ -17,9 +17,9 @@ This app is an all in one server and client for keeping track of job application
 ## About Us
 We are a trio of developers:
 
-Frontend: Will -- https://genuine-sunflower-520c38.netlify.app/
+Will — https://genuine-sunflower-520c38.netlify.app/
 
-Backend: Sherline -- https://github.com/sherlineau
+Sherline — https://github.com/sherlineau
 
-Frontend & Backend: Stan -- https://www.seldoncortex.com/
+Stan — https://www.seldoncortex.com/
 

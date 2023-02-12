@@ -43,6 +43,7 @@ function Row(props: fullJobProps) {
         notes: ''
     });
     let [cellDate, setCellDate] = useState(new Date());
+    console.log({cellDate});
     let [cellCheckboxObj, setCellCheckboxObj] = useState<IfcCellCheckboxObj>({
         sentCoverLetter: false,
         reachedOut: false
@@ -346,7 +347,16 @@ function Row(props: fullJobProps) {
     }
 
     function handleDateChange(event: React.ChangeEvent<HTMLInputElement>, dateIdentifier: string) {
+
         let dateObj = new Date(event.target.value);
+        console.log('DABE', dateObj, cellDate);
+        if (dateObj.toISOString() === "Invalid Date") {
+            dateObj = new Date();
+        }
+        
+        // TODO: Debug spamming 0 into year causing year to eventually change
+        // to 0001
+
         setCellDate(dateObj)
         setCellInputErrorsState((oldCellInputErrorsState: IfcCellInputErrors) => {
             let newCellInputErrorsState = Object.assign({}, oldCellInputErrorsState);

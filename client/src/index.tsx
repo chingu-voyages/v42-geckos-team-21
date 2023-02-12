@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
 import axios from 'axios';
 import './index.css';
 import Landing from './pages/landing/Landing';
@@ -55,7 +55,6 @@ root.render(
 
 
 function App() {
-  console.log('god comp rerender');
   let cookieObj: IfcCookieObj = {};
   document.cookie.split(/;\s*/).forEach((element) => {
     let keyValueArr = element.split('=');
@@ -89,6 +88,7 @@ function App() {
               <Route path='/' element={<Landing />} />
               <Route path='/login' element={<Login user={user} setUser={setUser} />} />
               <Route path='/sign-up' element={<SignUp setUser={setUser}/>} />
+              <Route path='/table-view' element={<Navigate replace to="/" />} />
               <Route path='*' element={<NotFound />} />
             </Routes>
           </Router>
@@ -103,7 +103,7 @@ function App() {
           <Router>
             <NavigationBar user={user} setUser={setUser}/>
             <Routes>
-              <Route path='/' element={<Landing />} />
+              <Route path='/' element={<Navigate replace to="/table-view" />} />
               <Route path='/table-view' element={<TableView user={user} />} />
               <Route path='/kanban-view' element={<KanbanView />} />
               <Route path='/login' element={<Login user={user} setUser={setUser} />} />

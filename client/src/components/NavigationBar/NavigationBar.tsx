@@ -26,8 +26,13 @@ const NavigationBar = (props: props) => {
           </h1></Link>
 
         <ul className='nav-menu'>
-          <Link onClick={() => setDropdownOpen(false)} to="/table-view">Table</Link>
-          <Link onClick={() => setDropdownOpen(false)} to="/kanban-view">Kanban</Link> 
+          {!props.user
+            ? null
+            : (<>
+              <Link onClick={() => setDropdownOpen(false)} to="/table-view">Table</Link>
+              <Link onClick={() => setDropdownOpen(false)} to="/kanban-view">Kanban</Link>
+            </>)
+          }
           {props.user ? <Link onClick={(e) => logout()} to='/'>Logout</Link> : <Link to="/login">Login</Link>}
         </ul>
         <AiOutlineMenu aria-hidden className='toggle-dropdown' onClick={() => setDropdownOpen(prevState => !prevState)} />
@@ -35,8 +40,13 @@ const NavigationBar = (props: props) => {
 
         {dropdownOpen &&
           <ul className="nav-dropdown">
-            <Link onClick={() => setDropdownOpen(false)} to="/table-view">Table</Link>
-            <Link onClick={() => setDropdownOpen(false)} to="/kanban-view">Kanban</Link>
+            {!props.user
+              ? null
+              : (<>
+                <Link onClick={() => setDropdownOpen(false)} to="/table-view">Table</Link>
+                <Link onClick={() => setDropdownOpen(false)} to="/kanban-view">Kanban</Link>
+              </>)
+            }
             {props.user ? <Link to='/' onClick={() => setDropdownOpen(false)}>Logout</Link> : <Link onClick={() => setDropdownOpen(false)} to="/login">Login</Link>}
           </ul>}
       </nav></header>

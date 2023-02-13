@@ -24,7 +24,7 @@ We are a trio of developers:
 
 Will — https://genuine-sunflower-520c38.netlify.app/
 
-Sherline — https://github.com/sherlineau
+Sherline — https://www.sherlineau.com/
 
 Stan — https://www.seldoncortex.com/
 

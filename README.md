@@ -4,7 +4,7 @@ Job hunting and tired of wrangling with a spreadsheet to manage your submitted a
 
 This app is an all in one server and client for keeping track of job applications users have submitted. Simply create an account and begin tracking your applications.
 
-Check out the live demo [here](https://job.seldoncortex.com/). 
+Check out the live demo at https://job.seldoncortex.com/. 
 
 
 ## Technologies & Attributions
